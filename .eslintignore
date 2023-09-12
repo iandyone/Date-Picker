@@ -9,3 +9,4 @@ webpack.config.ts
 cypress.config.ts
 .prettierignore
 rollup.config.mjs
+global.d.tsx

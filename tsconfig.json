@@ -33,5 +33,5 @@
       "module": "CommonJS"
     }
   },
-  "include": ["./src/**/*.ts", "./src/**/*.tsx", "./rollup.config.mjs"]
+  "include": ["./src/**/*.ts", "./src/**/*.tsx", "./rollup.config.mjs", "./global.d.tsx"]
 }

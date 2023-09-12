@@ -1,20 +1,43 @@
 {
   "name": "calendarr",
   "version": "1.0.0",
-  "main": "./dist/index.js",
   "repository": "https://github.com/iandyone/Date-Picker.git",
   "author": "Andrei Bernatski <bernatski.a@gmail.com>",
   "license": "MIT",
+  "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
+  "module": "./dist/index.esm.js",
   "scripts": {
-    "build": "rollup --config ./rollup.config.mjs"
+    "build": "rollup --config ./rollup.config.mjs",
+    "sb": "storybook dev -p 6006",
+    "build-storybook": "storybook build",
+    "prepare": "husky install",
+    "prettier": "npx prettier --write **/*.{ts,tsx,json}",
+    "lint:fix": "eslint \"**/*.{ts,tsx}\" --fix"
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": "yarn lint:fix",
+    "*.{js,jsx,ts,tsx,,html,scss}": "yarn prettier"
   },
   "devDependencies": {
+    "@babel/preset-env": "^7.22.15",
+    "@babel/preset-react": "^7.22.15",
+    "@babel/preset-typescript": "^7.22.15",
     "@rollup/plugin-alias": "^5.0.0",
+    "@rollup/plugin-commonjs": "^25.0.4",
     "@rollup/plugin-json": "^6.0.0",
+    "@rollup/plugin-node-resolve": "^15.2.1",
     "@rollup/plugin-typescript": "^11.1.3",
     "@rollup/plugin-url": "^8.0.1",
+    "@storybook/addon-essentials": "7.4.1",
+    "@storybook/addon-interactions": "7.4.1",
+    "@storybook/addon-links": "7.4.1",
+    "@storybook/blocks": "7.4.1",
+    "@storybook/react": "7.4.1",
+    "@storybook/react-webpack5": "7.4.1",
+    "@storybook/testing-library": "0.2.0",
     "@svgr/rollup": "^8.1.0",
+    "@svgr/webpack": "^8.1.0",
     "@types/node": "^20.6.0",
     "@types/react": "^18.2.21",
     "@typescript-eslint/eslint-plugin": "^6.7.0",
@@ -22,19 +45,33 @@
     "eslint": "^8.49.0",
     "eslint-config-prettier": "^9.0.0",
     "eslint-plugin-react": "^7.33.2",
+    "eslint-plugin-storybook": "^0.6.13",
+    "husky": "^8.0.3",
+    "lint-staged": "^14.0.1",
     "prettier": "^3.0.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "rollup": "^3.29.1",
     "rollup-plugin-copy": "^3.5.0",
     "rollup-plugin-dts": "^6.0.2",
+    "rollup-plugin-peer-deps-external": "^2.2.4",
+    "storybook": "7.4.1",
+    "tsconfig-paths-webpack-plugin": "^4.1.0",
     "typescript": "^5.2.2"
   },
   "peerDependencies": {
     "react": "*",
-    "react-dom": "*"
+    "react-dom": "*",
+    "styled-components": "*"
   },
   "files": [
     "dist"
-  ]
+  ],
+  "dependencies": {
+    "styled-components": "^6.0.7"
+  },
+  "resolutions": {
+    "styled-components": "^5",
+    "jackspeak": "2.1.1"
+  }
 }
