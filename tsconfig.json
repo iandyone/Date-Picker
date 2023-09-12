@@ -1,0 +1,37 @@
+{
+  "compilerOptions": {
+    "outDir": "./dist/",
+    "noImplicitAny": true,
+    "module": "ESNext",
+    "target": "es6",
+    "jsx": "react-jsx",
+    "allowJs": true,
+    "sourceMap": false,
+    "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "baseUrl": ".",
+    "types": ["node"],
+    "declaration": true,
+    "paths": {
+      "@components/*": ["./src/components/*"],
+      "@assets/*": ["./src/assets/*"],
+      "@constants/*": ["./src/constants/*"],
+      "@styles/*": ["./src/styles/*"],
+      "@utils/*": ["./src/utils/*"],
+      "@hooks/*": ["src/hooks/*"],
+      "@store/*": ["./src/store/*"],
+      "@reducers/*": ["./src/store/reducers/*"],
+      "@pages/*": ["./src/pages/*"],
+      "@appTypes/*": ["./src/types/*"],
+      "@observers/*": ["./src/observers/*"],
+      "@config/*": ["./config/*"]
+    }
+  },
+  "ts-node": {
+    "compilerOptions": {
+      "module": "CommonJS"
+    }
+  },
+  "include": ["./src/**/*.ts", "./src/**/*.tsx", "./rollup.config.mjs"]
+}
