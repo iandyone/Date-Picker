@@ -1,55 +1,9 @@
-import styled, { createGlobalStyle } from 'styled-components';
-import openSansRegular from '@assets/fonts/OpenSans-Regular.ttf';
-import openSansBold from '@assets/fonts/OpenSans-Bold.ttf';
-import openSansSemiBold from '@assets/fonts/OpenSans-SemiBold.ttf';
-import openSansMedium from '@assets/fonts/OpenSans-Medium.ttf';
+import styled from 'styled-components';
 
-export const GlobalStyles = createGlobalStyle`
-* {
-  padding: 0;
-  margin: 0;
-  border: 0;
-  font-family: 'Open Sans';
-
-  @font-face {
-    font-family: 'Open Sans';
-    src: url(${openSansRegular}) format('truetype');
-    font-weight: 400;
-    font-style: normal;
-    font-display: auto;
-  }
-  @font-face {
-    font-family: 'Open Sans';
-    src: url(${openSansMedium}) format('truetype');
-    font-weight: 500;
-    font-style: normal;
-    font-display: auto;
-  }
-  @font-face {
-    font-family: 'Open Sans';
-    src: url(${openSansSemiBold}) format('truetype');
-    font-weight: 600;
-    font-style: normal;
-    font-display: auto;
-  }
-  @font-face {
-    font-family: 'Open Sans';
-    src: url(${openSansBold}) format('truetype');
-    font-weight: 700;
-    font-style: normal;
-    font-display: auto;
-  }
-
-  ul {
-    list-style: none;
-  }
-}
-`;
-
-export const Wrapper = styled.section`
+export const Calendar = styled.section`
   width: 250px;
   height: 240px;
-  border-radius: 8px;
+  border-radius: ${(props) => props.theme.borderRadius};
   border: 1px solid ${(props) => props.theme.borderColor};
   background: #fff;
   padding: 10px;
@@ -117,7 +71,7 @@ export const Day = styled.span`
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 8px;
+  border-radius: ${(props) => props.theme.borderRadius};
   transition: ${(props) => props.theme.transition};
 
   &:hover {
@@ -134,4 +88,9 @@ export const CurrentMonthDay = styled(Day)`
 export const CurrentDay = styled(Day)`
   background: ${(props) => props.theme.activeCollor};
   color: #fff;
+
+  &:hover {
+    cursor: pointer;
+    transition: ${(props) => props.theme.transition};
+    background-color: ${(props) => props.theme.activeCollor};
 `;

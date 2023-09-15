@@ -1,10 +1,10 @@
 import { WeekDays } from '@appTypes/index';
-import { Calendar } from './index';
 import { Meta, StoryObj } from '@storybook/react';
+import { DatePicker } from '.';
 
-const meta: Meta<typeof Calendar> = {
-  title: 'Calendar',
-  component: Calendar,
+const meta: Meta<typeof DatePicker> = {
+  title: 'Date Picker',
+  component: DatePicker,
   tags: ['autodocs'],
 };
 
@@ -14,10 +14,18 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   args: {
     weekStart: WeekDays.MONDAY,
+    withDecorator: true,
+    datePicker: false,
   },
   argTypes: {
     weekStart: {
       defaultValue: WeekDays.MONDAY,
+    },
+    withDecorator: {
+      defaultValue: true,
+    },
+    datePicker: {
+      defaultValue: false,
     },
   },
 };

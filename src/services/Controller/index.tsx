@@ -1,63 +1,48 @@
-import { Component } from 'react';
-import arrowLeftIcon from '@assets/arrow-left.png';
-import arrowRightIcon from '@assets/arrow-right.png';
-
-import { ThemeProvider } from 'styled-components';
-import { theme } from '@constants/theme';
-import {
-  Wrapper,
-  Navigation,
-  Month,
-  DateButton,
-  Week,
-  WeekDay,
-  Days,
-  Day,
-  Body,
-  CurrentMonthDay,
-  CurrentDay,
-  GlobalStyles,
-} from '@components/Calendar/styled';
-import { ICalendarProps, ICalendarState } from './types';
-import { DateCellItem, Months, WeekDays } from '@appTypes/index';
+import { DateCellItem, Months, WeekDays, WeekStart } from '@appTypes/index';
 import { getWeekDays } from '@utils/helpers/getWeekDays';
 import { getDaysAmountInAMonth } from '@utils/helpers/getDaysAmountInAMonth';
 import { getDateData } from '@utils/helpers/getDateData';
+import { renderDataObserver } from '@observers/renderData';
+import { IController, IRenderData } from './types';
+import { FormEvent } from 'react';
 
-export class Calendar extends Component<ICalendarProps, ICalendarState> {
-  private visibleCellsAmount = 42;
+export interface IControllerState {
+  date: Date;
+}
 
-  constructor(props: ICalendarProps) {
-    super(props);
-    this.state = {
-      date: new Date(),
-    };
+export class Controller implements IController {
+  visibleCellsAmount = 42;
+  weekStart = WeekDays.MONDAY;
+  date: Date;
+
+  constructor() {
+    this.date = new Date();
+    this.switchMonthNext = this.switchMonthNext.bind(this);
+    this.handlerOnSubmitDateInput = this.handlerOnSubmitDateInput.bind(this);
   }
 
-  componentDidMount(): void {}
-
   getCurrentDate = () => {
-    const { date } = this.state;
+    const date = this.date;
     const month = Months[date.getMonth()].toLowerCase();
     const year = date.getFullYear();
 
     return `${month[0].toUpperCase() + month.slice(1)} ${year}`;
   };
 
-  switchMonthNext = () => {
-    const date = this.state.date;
+  switchMonthNext() {
+    const date = this.date;
     date.setMonth(date.getMonth() + 1);
-    this.setState((prevState) => ({ ...prevState, date }));
-  };
+    renderDataObserver.notify();
+  }
 
   switchMonthPrev = () => {
-    const date = this.state.date;
+    const date = this.date;
     date.setMonth(date.getMonth() - 1);
-    this.setState((prevState) => ({ ...prevState, date }));
+    renderDataObserver.notify();
   };
 
   getCurrentMonthDays = (numberOfDays: number) => {
-    const { date } = this.state;
+    const date = this.date;
     const year = date.getFullYear();
     const month = date.getMonth();
     const days: DateCellItem[] = [];
@@ -74,8 +59,8 @@ export class Calendar extends Component<ICalendarProps, ICalendarState> {
   };
 
   getFirstMonthDateWeekDay = () => {
-    const { month, year } = getDateData(this.state.date);
-    const startWeekCoefficient = this.props.weekStart === WeekDays.MONDAY ? 0 : 1;
+    const { month, year } = getDateData(this.date);
+    const startWeekCoefficient = this.weekStart === WeekDays.MONDAY ? 0 : 1;
     const currentMonthFirstDay = new Date(year, month, 1);
     const dayOfTheWeek = currentMonthFirstDay.getDay(); // день недели первого числа месяца
 
@@ -106,11 +91,11 @@ export class Calendar extends Component<ICalendarProps, ICalendarState> {
     const { month, year, dayOfTheWeek, startWeekCoefficient } = this.getFirstMonthDateWeekDay();
     const previousMonthCeilsAmount = dayOfTheWeek === 0 ? 6 : dayOfTheWeek - 1; // сколько ячеек нужно заполнить данными из предыдущего месяца
 
-    const daysAmount = getDaysAmountInAMonth(this.state.date); // сколько дней текущем месяце
+    const daysAmount = getDaysAmountInAMonth(this.date); // сколько дней текущем месяце
     const nextMonthCeilsAmount =
       this.visibleCellsAmount - daysAmount - previousMonthCeilsAmount - startWeekCoefficient; // сколько ячеек нужно заполнить данными из нового месяца
 
-    const [cellYear, cellMonth] = month === 11 ? [year + 1, 11] : [year, month + 1];
+    const [cellYear, cellMonth] = month === 11 ? [year + 1, 0] : [year, month + 1];
     const dateCeils: DateCellItem[] = [];
 
     for (let day = 1; day <= nextMonthCeilsAmount; ++day) {
@@ -124,7 +109,7 @@ export class Calendar extends Component<ICalendarProps, ICalendarState> {
   };
 
   getCalendarDays = () => {
-    const currentMonthDaysAmount = getDaysAmountInAMonth(this.state.date);
+    const currentMonthDaysAmount = getDaysAmountInAMonth(this.date);
 
     const prevMonthDays = this.getPreviousMonthDays();
     const currentMonthDays = this.getCurrentMonthDays(currentMonthDaysAmount);
@@ -133,49 +118,32 @@ export class Calendar extends Component<ICalendarProps, ICalendarState> {
     return [...prevMonthDays, ...currentMonthDays, ...nextMonthDays];
   };
 
-  render() {
-    const { weekStart } = this.props;
-    const { date } = this.state;
-    const { month: currentMonth } = getDateData(date);
+  handlerOnSubmitDateInput(e: FormEvent<HTMLFormElement>, date: Date) {
+    e.preventDefault();
+    this.date = date;
+    renderDataObserver.notify();
+  }
 
-    const current = this.getCurrentDate();
+  getRenderData = (weekStart: WeekStart): IRenderData => {
+    this.weekStart = weekStart;
+    const { month: currentMonth } = getDateData(this.date);
+
+    const currentDate = this.getCurrentDate();
     const weekDays = getWeekDays({ start: weekStart });
     const calendarDays = this.getCalendarDays();
 
-    const { date: todayDate, month: todayMonth, year: todayYear } = getDateData(new Date());
+    const getPrevMonth = this.switchMonthPrev;
+    const getNextMonth = this.switchMonthNext;
+    const setUserDate = this.handlerOnSubmitDateInput;
 
-    // console.log(calendarDays);
-    // console.log(WeekDays.MONDAY);
-
-    return (
-      <ThemeProvider theme={theme}>
-        <GlobalStyles />
-        <Wrapper>
-          <Navigation>
-            <DateButton src={arrowLeftIcon} onClick={this.switchMonthPrev} />
-            <Month>{current}</Month>
-            <DateButton src={arrowRightIcon} onClick={this.switchMonthNext} />
-          </Navigation>
-          <Body>
-            <Week>
-              {weekDays.map((day) => (
-                <WeekDay key={day}>{day}</WeekDay>
-              ))}
-            </Week>
-            <Days>
-              {calendarDays.map(({ day, month, year }, index) => {
-                let Component;
-
-                if (day === todayDate && month === todayMonth && year === todayYear) Component = CurrentDay;
-                else if (month === currentMonth) Component = Day;
-                else Component = CurrentMonthDay;
-
-                return <Component key={String(index)}>{day}</Component>;
-              })}
-            </Days>
-          </Body>
-        </Wrapper>
-      </ThemeProvider>
-    );
-  }
+    return {
+      currentDate,
+      currentMonth,
+      weekDays,
+      calendarDays,
+      getPrevMonth,
+      getNextMonth,
+      setUserDate,
+    };
+  };
 }

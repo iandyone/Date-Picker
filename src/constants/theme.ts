@@ -7,6 +7,7 @@ export const theme: ITheme = {
   otherDateColor: '#aaaaaa',
   borderColor: '#e1e1e1',
   activeCollor: '#2f80ed',
+  borderRadius: '8px',
 };
 
 export interface ITheme {
@@ -18,4 +19,5 @@ export interface ITheme {
   otherDateColor: string;
   borderColor: string;
   activeCollor: string;
+  borderRadius: string;
 }

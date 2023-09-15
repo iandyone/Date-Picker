@@ -10,3 +10,4 @@ cypress.config.ts
 .prettierignore
 rollup.config.mjs
 global.d.tsx
+**/types.ts
