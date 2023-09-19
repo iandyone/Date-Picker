@@ -3,9 +3,9 @@ import { Controller } from 'src/services/Controller';
 import { View } from 'src/services/View';
 
 import { renderDataObserver } from '@observers/renderData';
-import { IRenderData } from 'src/services/Controller/types';
 import { IDatePickerProps, IDatePickerState } from './types';
-import { TestDecorator } from 'src/decorstors/testDecorator';
+import { calendarTypeDecorator } from 'src/decorators/calendarType';
+import { IRenderData } from '@appTypes/index';
 
 export class DatePicker extends Component<IDatePickerProps, IDatePickerState> {
   private controller;
@@ -21,13 +21,14 @@ export class DatePicker extends Component<IDatePickerProps, IDatePickerState> {
   }
 
   getController = (props: IDatePickerProps) => {
-    let controller = new Controller();
+    let DataPicker = Controller;
+    const { view } = props;
 
-    if (props.withDecorator) {
-      const DecoratedController = TestDecorator(Controller);
-      controller = new DecoratedController();
+    if (view) {
+      DataPicker = calendarTypeDecorator(DataPicker, view);
     }
-    return controller;
+
+    return new DataPicker(view);
   };
 
   updateRenderData = () => {
@@ -57,10 +58,12 @@ export class DatePicker extends Component<IDatePickerProps, IDatePickerState> {
 
   render() {
     const data = this.state.data;
-    const { datePicker, withDecorator } = this.props;
-    const decorators = { datePicker, withDecorator };
-    const view = this.view.getView(data, decorators);
+    const { datePicker } = this.props;
+    const view = data.viewType;
 
-    return <h1>{view}</h1>;
+    const decorators = { datePicker, view };
+    const datePickerView = this.view.getView(data, decorators);
+
+    return <h1>{datePickerView}</h1>;
   }
 }

@@ -1,9 +1,9 @@
-import { DateCellItem, Months, WeekDays, WeekStart } from '@appTypes/index';
+import { DateCellItem, IRenderData, Months, ViewType, WeekDays, WeekStart } from '@appTypes/index';
 import { getWeekDays } from '@utils/helpers/getWeekDays';
 import { getDaysAmountInAMonth } from '@utils/helpers/getDaysAmountInAMonth';
 import { getDateData } from '@utils/helpers/getDateData';
 import { renderDataObserver } from '@observers/renderData';
-import { IController, IRenderData } from './types';
+import { IController } from './types';
 import { FormEvent } from 'react';
 
 export interface IControllerState {
@@ -14,11 +14,17 @@ export class Controller implements IController {
   visibleCellsAmount = 42;
   weekStart = WeekDays.MONDAY;
   date: Date;
+  viewType: ViewType;
 
-  constructor() {
+  constructor(viewType: ViewType) {
     this.date = new Date();
-    this.switchMonthNext = this.switchMonthNext.bind(this);
+    this.viewType = viewType;
+    this.switchDateNext = this.switchDateNext.bind(this);
+    this.switchDatePrev = this.switchDatePrev.bind(this);
+    this.getCalendarDays = this.getCalendarDays.bind(this);
+    this.handlerOnClickTitle = this.handlerOnClickTitle.bind(this);
     this.handlerOnSubmitDateInput = this.handlerOnSubmitDateInput.bind(this);
+    this.handlerOnClickCalendarItem = this.handlerOnClickCalendarItem.bind(this);
   }
 
   getCurrentDate = () => {
@@ -29,17 +35,17 @@ export class Controller implements IController {
     return `${month[0].toUpperCase() + month.slice(1)} ${year}`;
   };
 
-  switchMonthNext() {
+  switchDateNext() {
     const date = this.date;
     date.setMonth(date.getMonth() + 1);
     renderDataObserver.notify();
   }
 
-  switchMonthPrev = () => {
+  switchDatePrev() {
     const date = this.date;
     date.setMonth(date.getMonth() - 1);
     renderDataObserver.notify();
-  };
+  }
 
   getCurrentMonthDays = (numberOfDays: number) => {
     const date = this.date;
@@ -108,7 +114,7 @@ export class Controller implements IController {
     return dateCeils;
   };
 
-  getCalendarDays = () => {
+  getCalendarDays() {
     const currentMonthDaysAmount = getDaysAmountInAMonth(this.date);
 
     const prevMonthDays = this.getPreviousMonthDays();
@@ -116,12 +122,40 @@ export class Controller implements IController {
     const nextMonthDays = this.getNextMonthDays();
 
     return [...prevMonthDays, ...currentMonthDays, ...nextMonthDays];
-  };
+  }
 
   handlerOnSubmitDateInput(e: FormEvent<HTMLFormElement>, date: Date) {
     e.preventDefault();
     this.date = date;
+    this.viewType = 'month';
     renderDataObserver.notify();
+  }
+
+  handlerOnClickCalendarItem(date: Date) {
+    this.date = date;
+    const view = this.viewType;
+
+    if (view === 'decade') {
+      this.viewType = 'year';
+    } else if (view === 'year') {
+      this.viewType = 'month';
+    }
+
+    renderDataObserver.notify();
+  }
+
+  handlerOnClickTitle() {
+    if (this.viewType) {
+      const view = this.viewType;
+
+      if (view === 'month') {
+        this.viewType = 'year';
+      } else if (view === 'year') {
+        this.viewType = 'decade';
+      }
+
+      renderDataObserver.notify();
+    }
   }
 
   getRenderData = (weekStart: WeekStart): IRenderData => {
@@ -130,20 +164,28 @@ export class Controller implements IController {
 
     const currentDate = this.getCurrentDate();
     const weekDays = getWeekDays({ start: weekStart });
-    const calendarDays = this.getCalendarDays();
+    const calendarItems = this.getCalendarDays();
 
-    const getPrevMonth = this.switchMonthPrev;
-    const getNextMonth = this.switchMonthNext;
+    const getPrevDate = this.switchDatePrev;
+    const getNextDate = this.switchDateNext;
     const setUserDate = this.handlerOnSubmitDateInput;
+
+    const clendarItemHandler = this.handlerOnClickCalendarItem;
+    const titleHandler = this.handlerOnClickTitle;
+
+    const viewType = this.viewType;
 
     return {
       currentDate,
       currentMonth,
       weekDays,
-      calendarDays,
-      getPrevMonth,
-      getNextMonth,
+      calendarItems,
+      getPrevDate,
+      getNextDate,
       setUserDate,
+      clendarItemHandler,
+      titleHandler,
+      viewType,
     };
   };
 }

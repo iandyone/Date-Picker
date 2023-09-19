@@ -1,5 +1,4 @@
-import { IDecorator } from '@appTypes/index';
-import { IRenderData } from 'src/services/Controller/types';
+import { IDecorator, IRenderData } from '@appTypes/index';
 import { ReactElement } from 'react';
 
 export interface IView {

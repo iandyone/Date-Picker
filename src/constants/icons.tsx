@@ -1,17 +1,4 @@
-import React, { HTMLProps, FC } from 'react';
-
-// import Calendar from '@assets/calendar.svg';
-
-// export type IconProps = Partial<HTMLProps<>>;
-
-// const DEFAULT_SIZE = 25;
-
-// const createIcon =
-//   (Icon: FC<IconProps>): FC<IconProps> =>
-//   (props: IconProps) => <Icon width={DEFAULT_SIZE} height={DEFAULT_SIZE} {...props} />;
-
-// export const CalendarIcon = createIcon(Calendar);
-
+import { FC } from 'react';
 import arrowLeft from '@assets/arrow-left.png';
 import arrowRight from '@assets/arrow-right.png';
 import xMark from '@assets/x-mark.png';

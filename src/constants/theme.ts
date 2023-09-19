@@ -8,6 +8,7 @@ export const theme: ITheme = {
   borderColor: '#e1e1e1',
   activeCollor: '#2f80ed',
   borderRadius: '8px',
+  transformActive: 'scale(0.95)',
 };
 
 export interface ITheme {
@@ -20,4 +21,5 @@ export interface ITheme {
   borderColor: string;
   activeCollor: string;
   borderRadius: string;
+  transformActive: string;
 }

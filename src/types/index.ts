@@ -1,8 +1,16 @@
-import { Controller } from 'src/services/Controller';
+import { FormEvent } from 'react';
 
-export type subscriber = () => void;
+export type handler = () => void;
+
+export type subscriber = handler;
 
 export type WeekStart = WeekDays.MONDAY | WeekDays.SUNDAY;
+
+export type DateCellItem = IDateCellItemDays | IDateCellItemMonths | IDateCellItemYears;
+
+export type DateHandler = (date: Date, viewType?: ViewType) => void;
+
+export type ViewType = 'month' | 'year' | 'decade';
 
 export enum Months {
   JANUARY,
@@ -29,16 +37,27 @@ export enum WeekDays {
   SUNDAY = 'Sunday',
 }
 
-export interface DateCellItem {
+export interface IDateCellItemDays {
   day: number;
   month: number;
   year: number;
 }
 
+export interface IDateCellItemMonths {
+  day?: number;
+  month?: number;
+  year: number;
+}
+export interface IDateCellItemYears {
+  day?: number;
+  month?: number;
+  year: number;
+}
+
 export interface ICalendar {
   getCurrentDate: () => string;
-  switchMonthNext: () => void;
-  switchMonthPrev: () => void;
+  switchDateNext: handler;
+  switchDatePrev: handler;
   getCurrentMonthDays: (numberOfDays: number) => DateCellItem[];
   getFirstMonthDateWeekDay: () => {
     year: number;
@@ -59,6 +78,19 @@ export interface IRenderDataObserver {
 }
 
 export interface IDecorator {
-  datePicker: boolean;
-  withDecorator?: boolean;
+  datePicker?: boolean;
+  view?: ViewType;
+}
+
+export interface IRenderData {
+  currentDate: string;
+  currentMonth: number;
+  weekDays: string[];
+  calendarItems: DateCellItem[];
+  getPrevDate: handler;
+  getNextDate: handler;
+  setUserDate: (e: FormEvent<HTMLFormElement>, date: Date) => void;
+  clendarItemHandler: DateHandler;
+  titleHandler: handler;
+  viewType: ViewType;
 }
