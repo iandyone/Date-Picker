@@ -16,6 +16,31 @@ export const GlobalStyles = createGlobalStyle`
     list-style: none;
   }
 
+  ::-webkit-scrollbar {
+    width: 2px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background-color: white;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: ${(props) => props.theme.textColor};
+    border-radius: 8px;
+  }
+
+
+
+  input:hover {
+    transition: ${(props) => props.theme.transition};
+    border-color: ${(props) => props.theme.hoverColor};
+  }
+  input:focus, input:focus-visible {
+    outline: none;
+    transition: ${(props) => props.theme.transition};
+    border-color: ${(props) => props.theme.textColor};
+  }
+
   @font-face {
     font-family: 'Open Sans';
     src: url(${openSansRegular}) format('truetype');

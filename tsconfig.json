@@ -25,6 +25,8 @@
       "@pages/*": ["./src/pages/*"],
       "@appTypes/*": ["./src/types/*"],
       "@observers/*": ["./src/observers/*"],
+      "@decorators/*": ["./src/decorators/*"],
+      "@services/*": ["./src/services/*"],
       "@config/*": ["./config/*"]
     }
   },

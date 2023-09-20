@@ -1,11 +1,9 @@
+import { IRenderData, IDateCellItemDays } from '@appTypes/index';
 import { FC, memo } from 'react';
-import { CurrentDay, Day, OthertMonthDay, Days, Week, WeekDay } from './styled';
-import { getDateData } from '@utils/helpers/getDateData';
-import { IRenderData } from '@appTypes/index';
+import { DayCeil } from './DayCeil';
+import { Week, WeekDay, Days } from './styled';
 
-const DaysComponent: FC<IRenderData> = ({ calendarItems, currentMonth, weekDays }) => {
-  const { date: todayDate, month: todayMonth, year: todayYear } = getDateData(new Date());
-
+const DaysComponent: FC<IRenderData> = ({ calendarItems, currentMonth, weekDays, clendarItemHandler }) => {
   return (
     <>
       <Week>
@@ -14,15 +12,14 @@ const DaysComponent: FC<IRenderData> = ({ calendarItems, currentMonth, weekDays 
         ))}
       </Week>
       <Days>
-        {calendarItems.map(({ day, month, year }, index) => {
-          let Component;
-
-          if (day === todayDate && month === todayMonth && year === todayYear) Component = CurrentDay;
-          else if (month === currentMonth) Component = Day;
-          else Component = OthertMonthDay;
-
-          return <Component key={String(index)}>{day}</Component>;
-        })}
+        {calendarItems.map((date, index) => (
+          <DayCeil
+            date={date as IDateCellItemDays}
+            handler={clendarItemHandler}
+            currentMonth={currentMonth}
+            key={index}
+          />
+        ))}
       </Days>
     </>
   );

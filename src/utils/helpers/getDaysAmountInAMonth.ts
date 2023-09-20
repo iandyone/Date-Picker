@@ -1,4 +1,4 @@
-import { getDateData } from './getDateData';
+import { getDateData } from '@utils/helpers/getDateData';
 
 export function getDaysAmountInAMonth(date: Date) {
   const { month, year } = getDateData(date);

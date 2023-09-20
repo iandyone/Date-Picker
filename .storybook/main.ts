@@ -16,6 +16,8 @@ const alias = {
   '@appTypes': path.resolve(__dirname, 'src', 'types'),
   '@observers': path.resolve(__dirname, 'src', 'observers'),
   '@config': path.resolve(__dirname, 'config'),
+  '@decorators': path.resolve(__dirname, 'decorators'),
+  '@services': path.resolve(__dirname, 'services'),
   '@src': path.resolve(__dirname, 'src'),
 };
 

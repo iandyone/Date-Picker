@@ -1,8 +1,7 @@
-import { DateCellItem, IDateCellItemYears, ViewType } from '@appTypes/index';
+import { DateCellItem, DecoratorBaseClass, IDateCellItemYears, ViewType } from '@appTypes/index';
 import { renderDataObserver } from '@observers/renderData';
-import { Controller } from 'src/services/Controller';
 
-export function calendarTypeDecorator(BaseClass: typeof Controller, view: ViewType) {
+export function calendarTypeDecorator(BaseClass: DecoratorBaseClass, view: ViewType) {
   return class extends BaseClass {
     constructor() {
       super(view);

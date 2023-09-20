@@ -38,6 +38,8 @@ export default [
           { find: '@components', replacement: path.resolve(__dirname, 'src', 'components') },
           { find: '@assets', replacement: path.resolve(__dirname, 'src', 'assets') },
           { find: '@constants', replacement: path.resolve(__dirname, 'src', 'constants') },
+          { find: '@decorators', replacement: path.resolve(__dirname, 'src', 'decorators') },
+          { find: '@services', replacement: path.resolve(__dirname, 'src', 'services') },
           { find: '@src', replacement: './src' },
         ],
       }),

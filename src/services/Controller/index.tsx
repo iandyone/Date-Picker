@@ -16,7 +16,7 @@ export class Controller implements IController {
   date: Date;
   viewType: ViewType;
 
-  constructor(viewType: ViewType) {
+  constructor(viewType?: ViewType) {
     this.date = new Date();
     this.viewType = viewType;
     this.switchDateNext = this.switchDateNext.bind(this);
@@ -148,7 +148,9 @@ export class Controller implements IController {
     if (this.viewType) {
       const view = this.viewType;
 
-      if (view === 'month') {
+      if (view === 'day') {
+        this.viewType = 'month';
+      } else if (view === 'month') {
         this.viewType = 'year';
       } else if (view === 'year') {
         this.viewType = 'decade';
@@ -162,7 +164,8 @@ export class Controller implements IController {
     this.weekStart = weekStart;
     const { month: currentMonth } = getDateData(this.date);
 
-    const currentDate = this.getCurrentDate();
+    const currentDateString = this.getCurrentDate();
+    const currentDate = this.date;
     const weekDays = getWeekDays({ start: weekStart });
     const calendarItems = this.getCalendarDays();
 
@@ -177,6 +180,7 @@ export class Controller implements IController {
 
     return {
       currentDate,
+      currentDateString,
       currentMonth,
       weekDays,
       calendarItems,

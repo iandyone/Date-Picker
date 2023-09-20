@@ -10,6 +10,7 @@ export const Calendar = styled.section`
   display: flex;
   flex-direction: column;
   position: relative;
+  overflow: hidden;
 `;
 
 export const Navigation = styled.nav`
@@ -19,7 +20,7 @@ export const Navigation = styled.nav`
   padding: 5px 0;
 `;
 
-export const Month = styled.div`
+export const Title = styled.h1`
   font-size: ${(props) => props.theme.fontSize};
   color: ${(props) => props.theme.textColor};
   font-weight: 700;

@@ -1,11 +1,12 @@
 import { Component } from 'react';
-import { Controller } from 'src/services/Controller';
-import { View } from 'src/services/View';
+import { Controller } from '@services/Controller';
+import { View } from '@services/View';
 
 import { renderDataObserver } from '@observers/renderData';
 import { IDatePickerProps, IDatePickerState } from './types';
-import { calendarTypeDecorator } from 'src/decorators/calendarType';
+import { calendarTypeDecorator } from '@decorators/view';
 import { IRenderData } from '@appTypes/index';
+import { todoDecorator } from '@decorators/todos';
 
 export class DatePicker extends Component<IDatePickerProps, IDatePickerState> {
   private controller;
@@ -20,12 +21,16 @@ export class DatePicker extends Component<IDatePickerProps, IDatePickerState> {
     };
   }
 
-  getController = (props: IDatePickerProps) => {
+  getController = (decorators: IDatePickerProps) => {
     let DataPicker = Controller;
-    const { view } = props;
+    const { view, todos } = decorators;
 
     if (view) {
       DataPicker = calendarTypeDecorator(DataPicker, view);
+    }
+
+    if (todos) {
+      DataPicker = todoDecorator(DataPicker);
     }
 
     return new DataPicker(view);

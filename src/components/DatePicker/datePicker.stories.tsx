@@ -14,8 +14,9 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   args: {
     // weekStart: WeekDays.MONDAY,
-    // datePicker: false,
-    // view: 'month',
+    datePicker: false,
+    view: 'month',
+    todos: true,
   },
   argTypes: {
     weekStart: {
@@ -26,6 +27,9 @@ export const Default: Story = {
     },
     view: {
       defaultValue: null,
+    },
+    todos: {
+      defaultValue: true,
     },
   },
 };

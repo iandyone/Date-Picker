@@ -1,9 +1,9 @@
 import { IRenderData } from '@appTypes/index';
-import { FC } from 'react';
+import { FC, memo } from 'react';
 import { YearCeil } from './YearCeil';
 import { YearsContainer } from './styled';
 
-export const YearsView: FC<IRenderData> = ({ calendarItems, clendarItemHandler }) => {
+const YearsViewComponent: FC<IRenderData> = ({ calendarItems, clendarItemHandler }) => {
   return (
     <YearsContainer>
       {calendarItems.map((date, index) => {
@@ -21,3 +21,5 @@ export const YearsView: FC<IRenderData> = ({ calendarItems, clendarItemHandler }
     </YearsContainer>
   );
 };
+
+export const YearsView = memo(YearsViewComponent);

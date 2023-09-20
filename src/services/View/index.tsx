@@ -3,34 +3,42 @@ import { ThemeProvider } from 'styled-components';
 import arrowLeftIcon from '@assets/arrow-left.png';
 import arrowRightIcon from '@assets/arrow-right.png';
 import { IView } from './types';
-import { Body, DateButton, Month, Navigation, Calendar } from './styled';
+import { Body, DateButton, Title, Navigation, Calendar } from './styled';
 import { IDecorator, IRenderData } from '@appTypes/index';
 import { GlobalStyles, Wrapper } from '@styles/index';
 import { DateInput } from '@components/DateInput';
 import { DaysView } from '@components/DaysView';
 import { MonthsView } from '@components/MonthView';
 import { YearsView } from '@components/YearsView';
+import { Todos } from '@components/Todos';
 
 export class View implements IView {
   getView(renderData: IRenderData, decorators: IDecorator) {
-    const { currentDate, getNextDate, getPrevDate, setUserDate, titleHandler } = renderData;
+    const { currentDateString, getNextDate, getPrevDate, setUserDate, titleHandler, currentDate } =
+      renderData;
     const { datePicker, view } = decorators;
     const title = getCalendarTitle();
 
     function getCalendarTitle() {
-      if (view === 'year') {
-        return currentDate.slice(-4);
-      }
-
       if (view === 'decade') {
-        const currentYear = currentDate.slice(-4);
+        const currentYear = currentDateString.slice(-4);
         const startDecade = Math.trunc(+currentYear / 10) * 10;
         const endDecade = startDecade + 10;
 
         return `${startDecade} — ${endDecade}`;
       }
 
-      return currentDate;
+      if (view === 'year') {
+        return currentDateString.slice(-4);
+      }
+
+      if (view === 'day') {
+        const day = currentDate.getDate();
+
+        return `${day} ${currentDateString}`;
+      }
+
+      return currentDateString;
     }
 
     return (
@@ -41,13 +49,14 @@ export class View implements IView {
           <Calendar>
             <Navigation>
               <DateButton src={arrowLeftIcon} onClick={getPrevDate} />
-              <Month onClick={titleHandler}>{title}</Month>
+              <Title onClick={titleHandler}>{title}</Title>
               <DateButton src={arrowRightIcon} onClick={getNextDate} />
             </Navigation>
             <Body>
               {view === 'decade' && <YearsView {...renderData} />}
               {view === 'year' && <MonthsView {...renderData} />}
               {(!view || view === 'month') && <DaysView {...renderData} />}
+              {view === 'day' && <Todos {...renderData} />}
             </Body>
           </Calendar>
         </Wrapper>

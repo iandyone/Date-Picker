@@ -1,4 +1,7 @@
+import { Controller } from '@services/Controller';
 import { FormEvent } from 'react';
+
+export type ID = number | string;
 
 export type handler = () => void;
 
@@ -10,7 +13,15 @@ export type DateCellItem = IDateCellItemDays | IDateCellItemMonths | IDateCellIt
 
 export type DateHandler = (date: Date, viewType?: ViewType) => void;
 
-export type ViewType = 'month' | 'year' | 'decade';
+export type ViewType = 'day' | 'month' | 'year' | 'decade';
+
+export type DecoratorBaseClass = typeof Controller;
+
+export type SubmitHandler = (e: FormEvent<HTMLFormElement>, date: Date) => void;
+
+export interface ITodoList {
+  [key: string]: string[];
+}
 
 export enum Months {
   JANUARY,
@@ -80,16 +91,18 @@ export interface IRenderDataObserver {
 export interface IDecorator {
   datePicker?: boolean;
   view?: ViewType;
+  todos?: boolean;
 }
 
 export interface IRenderData {
-  currentDate: string;
+  currentDate: Date;
+  currentDateString: string;
   currentMonth: number;
   weekDays: string[];
   calendarItems: DateCellItem[];
   getPrevDate: handler;
   getNextDate: handler;
-  setUserDate: (e: FormEvent<HTMLFormElement>, date: Date) => void;
+  setUserDate: SubmitHandler;
   clendarItemHandler: DateHandler;
   titleHandler: handler;
   viewType: ViewType;
