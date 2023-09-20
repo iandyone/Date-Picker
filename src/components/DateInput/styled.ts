@@ -19,10 +19,10 @@ export const DatePicker = styled.form<{
     `}
 `;
 
-export const Input = styled.input.attrs({
-  placeholder: 'DD/MM/YYYY',
+export const Input = styled.input.attrs((props) => ({
+  placeholder: props.placeholder,
   type: 'text',
-})`
+}))`
   width: 100%;
 
   &:focus-visible {

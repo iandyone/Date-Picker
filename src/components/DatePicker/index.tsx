@@ -7,6 +7,7 @@ import { IDatePickerProps, IDatePickerState } from './types';
 import { calendarTypeDecorator } from '@decorators/view';
 import { IRenderData } from '@appTypes/index';
 import { todoDecorator } from '@decorators/todos';
+import { weekStartDecorator } from '@decorators/weekStart';
 
 export class DatePicker extends Component<IDatePickerProps, IDatePickerState> {
   private controller;
@@ -17,13 +18,16 @@ export class DatePicker extends Component<IDatePickerProps, IDatePickerState> {
     this.controller = this.getController(this.props);
     this.view = new View();
     this.state = {
-      data: this.controller.getRenderData(this.props.weekStart),
+      data: this.controller.getRenderData(),
     };
   }
 
-  getController = (decorators: IDatePickerProps) => {
+  getController = ({ todos, view, weekStart }: IDatePickerProps) => {
     let DataPicker = Controller;
-    const { view, todos } = decorators;
+
+    if (weekStart) {
+      DataPicker = weekStartDecorator(DataPicker, weekStart);
+    }
 
     if (view) {
       DataPicker = calendarTypeDecorator(DataPicker, view);
@@ -33,11 +37,11 @@ export class DatePicker extends Component<IDatePickerProps, IDatePickerState> {
       DataPicker = todoDecorator(DataPicker);
     }
 
-    return new DataPicker(view);
+    return new DataPicker();
   };
 
   updateRenderData = () => {
-    const data: IRenderData = this.controller.getRenderData(this.props.weekStart);
+    const data: IRenderData = this.controller.getRenderData();
     this.setState((prevState) => ({ ...prevState, data }));
   };
 
@@ -55,7 +59,7 @@ export class DatePicker extends Component<IDatePickerProps, IDatePickerState> {
 
       this.setState((prevState) => ({
         ...prevState,
-        data: this.controller.getRenderData(this.props.weekStart),
+        data: this.controller.getRenderData(),
       }));
     }
     return true;

@@ -5,6 +5,7 @@ export function calendarTypeDecorator(BaseClass: DecoratorBaseClass, view: ViewT
   return class extends BaseClass {
     constructor() {
       super(view);
+      this.withViewDecorator = true;
     }
 
     switchDateNext(): void {

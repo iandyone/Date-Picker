@@ -14,7 +14,7 @@ import { Todos } from '@components/Todos';
 
 export class View implements IView {
   getView(renderData: IRenderData, decorators: IDecorator) {
-    const { currentDateString, getNextDate, getPrevDate, setUserDate, titleHandler, currentDate } =
+    const { currentDateString, getNextDate, getPrevDate, setUserDate, titleHandler, currentDate, withTodos } =
       renderData;
     const { datePicker, view } = decorators;
     const title = getCalendarTitle();
@@ -45,7 +45,7 @@ export class View implements IView {
       <ThemeProvider theme={theme}>
         <GlobalStyles />
         <Wrapper>
-          {datePicker && <DateInput handlerOnSubmit={setUserDate} />}
+          {datePicker && <DateInput handlerOnSubmit={setUserDate} withTodos={withTodos} />}
           <Calendar>
             <Navigation>
               <DateButton src={arrowLeftIcon} onClick={getPrevDate} />

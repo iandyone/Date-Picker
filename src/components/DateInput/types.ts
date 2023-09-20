@@ -1,5 +1,7 @@
+import { SubmitHandler } from '@appTypes/index';
 import { FormEvent } from 'react';
 
 export interface IDateInputProps {
-  handlerOnSubmit: (e: FormEvent<HTMLFormElement>, date: Date) => void;
+  handlerOnSubmit: SubmitHandler;
+  withTodos?: boolean;
 }

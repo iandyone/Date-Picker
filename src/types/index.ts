@@ -17,7 +17,7 @@ export type ViewType = 'day' | 'month' | 'year' | 'decade';
 
 export type DecoratorBaseClass = typeof Controller;
 
-export type SubmitHandler = (e: FormEvent<HTMLFormElement>, date: Date) => void;
+export type SubmitHandler = (date: Date) => void;
 
 export interface ITodoList {
   [key: string]: string[];
@@ -106,4 +106,5 @@ export interface IRenderData {
   clendarItemHandler: DateHandler;
   titleHandler: handler;
   viewType: ViewType;
+  withTodos: boolean;
 }

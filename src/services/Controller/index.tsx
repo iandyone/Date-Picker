@@ -4,7 +4,6 @@ import { getDaysAmountInAMonth } from '@utils/helpers/getDaysAmountInAMonth';
 import { getDateData } from '@utils/helpers/getDateData';
 import { renderDataObserver } from '@observers/renderData';
 import { IController } from './types';
-import { FormEvent } from 'react';
 
 export interface IControllerState {
   date: Date;
@@ -12,13 +11,17 @@ export interface IControllerState {
 
 export class Controller implements IController {
   visibleCellsAmount = 42;
-  weekStart = WeekDays.MONDAY;
+  weekStart: WeekStart;
   date: Date;
   viewType: ViewType;
+  withTodosDecorator: boolean;
+  withViewDecorator: boolean;
+  withWeekStartDecorator: boolean;
 
-  constructor(viewType?: ViewType) {
+  constructor(viewType?: ViewType, weekStart: WeekStart = WeekDays.MONDAY) {
     this.date = new Date();
     this.viewType = viewType;
+    this.weekStart = weekStart;
     this.switchDateNext = this.switchDateNext.bind(this);
     this.switchDatePrev = this.switchDatePrev.bind(this);
     this.getCalendarDays = this.getCalendarDays.bind(this);
@@ -124,10 +127,9 @@ export class Controller implements IController {
     return [...prevMonthDays, ...currentMonthDays, ...nextMonthDays];
   }
 
-  handlerOnSubmitDateInput(e: FormEvent<HTMLFormElement>, date: Date) {
-    e.preventDefault();
+  handlerOnSubmitDateInput(date: Date) {
     this.date = date;
-    this.viewType = 'month';
+    this.viewType = this.withTodosDecorator ? 'day' : 'month';
     renderDataObserver.notify();
   }
 
@@ -150,7 +152,7 @@ export class Controller implements IController {
 
       if (view === 'day') {
         this.viewType = 'month';
-      } else if (view === 'month') {
+      } else if (view === 'month' && this.withViewDecorator) {
         this.viewType = 'year';
       } else if (view === 'year') {
         this.viewType = 'decade';
@@ -160,13 +162,12 @@ export class Controller implements IController {
     }
   }
 
-  getRenderData = (weekStart: WeekStart): IRenderData => {
-    this.weekStart = weekStart;
+  getRenderData = (): IRenderData => {
     const { month: currentMonth } = getDateData(this.date);
 
     const currentDateString = this.getCurrentDate();
     const currentDate = this.date;
-    const weekDays = getWeekDays({ start: weekStart });
+    const weekDays = getWeekDays({ start: this.weekStart });
     const calendarItems = this.getCalendarDays();
 
     const getPrevDate = this.switchDatePrev;
@@ -177,6 +178,7 @@ export class Controller implements IController {
     const titleHandler = this.handlerOnClickTitle;
 
     const viewType = this.viewType;
+    const withTodos = this.withTodosDecorator;
 
     return {
       currentDate,
@@ -190,6 +192,7 @@ export class Controller implements IController {
       clendarItemHandler,
       titleHandler,
       viewType,
+      withTodos,
     };
   };
 }

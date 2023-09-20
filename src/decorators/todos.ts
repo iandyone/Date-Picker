@@ -5,6 +5,8 @@ export function todoDecorator(BaseClass: DecoratorBaseClass) {
   return class extends BaseClass {
     constructor() {
       super();
+      this.withTodosDecorator = true;
+      this.viewType = 'month';
     }
 
     handlerOnClickCalendarItem(date: Date) {
@@ -23,7 +25,7 @@ export function todoDecorator(BaseClass: DecoratorBaseClass) {
         date.setDate(date.getDate() + 1);
         renderDataObserver.notify();
       } else {
-        super.switchDatePrev();
+        super.switchDateNext();
       }
     }
 
