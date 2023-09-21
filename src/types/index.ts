@@ -1,5 +1,5 @@
 import { Controller } from '@services/Controller';
-import { FormEvent } from 'react';
+import { FormEvent, MouseEvent } from 'react';
 
 export type ID = number | string;
 
@@ -8,6 +8,8 @@ export type handler = () => void;
 export type subscriber = handler;
 
 export type WeekStart = WeekDays.MONDAY | WeekDays.SUNDAY;
+
+type handlerContext = (e: MouseEvent<HTMLElement>) => void;
 
 export type DateCellItem = IDateCellItemDays | IDateCellItemMonths | IDateCellItemYears;
 
@@ -69,6 +71,8 @@ export interface ICalendar {
   getCurrentDate: () => string;
   switchDateNext: handler;
   switchDatePrev: handler;
+  handlerOnContextPrevDate: handlerContext;
+  handlerOnContextNextDate: handlerContext;
   getCurrentMonthDays: (numberOfDays: number) => DateCellItem[];
   getFirstMonthDateWeekDay: () => {
     year: number;
@@ -89,9 +93,12 @@ export interface IRenderDataObserver {
 }
 
 export interface IDecorator {
+  weekStart?: WeekStart;
   datePicker?: boolean;
   view?: ViewType;
   todos?: boolean;
+  minDate?: Date;
+  maxDate?: Date;
 }
 
 export interface IRenderData {
@@ -107,4 +114,9 @@ export interface IRenderData {
   titleHandler: handler;
   viewType: ViewType;
   withTodos: boolean;
+  minDate: Date;
+  maxDate: Date;
+
+  handlerOnContextPrevDate: handlerContext;
+  handlerOnContextNextDate: handlerContext;
 }

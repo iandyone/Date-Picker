@@ -5,9 +5,10 @@ import { View } from '@services/View';
 import { renderDataObserver } from '@observers/renderData';
 import { IDatePickerProps, IDatePickerState } from './types';
 import { calendarTypeDecorator } from '@decorators/view';
-import { IRenderData } from '@appTypes/index';
+import { IDecorator, IRenderData } from '@appTypes/index';
 import { todoDecorator } from '@decorators/todos';
 import { weekStartDecorator } from '@decorators/weekStart';
+import { limitDatestDecorator } from '@decorators/limitDates';
 
 export class DatePicker extends Component<IDatePickerProps, IDatePickerState> {
   private controller;
@@ -22,8 +23,12 @@ export class DatePicker extends Component<IDatePickerProps, IDatePickerState> {
     };
   }
 
-  getController = ({ todos, view, weekStart }: IDatePickerProps) => {
+  getController = ({ todos, view, weekStart, maxDate, minDate }: IDecorator) => {
     let DataPicker = Controller;
+
+    if (minDate || maxDate) {
+      DataPicker = limitDatestDecorator(DataPicker, minDate, maxDate);
+    }
 
     if (weekStart) {
       DataPicker = weekStartDecorator(DataPicker, weekStart);

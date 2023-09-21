@@ -22,8 +22,13 @@ export function todoDecorator(BaseClass: DecoratorBaseClass) {
     switchDateNext() {
       if (this.viewType === 'day') {
         const date = this.date;
-        date.setDate(date.getDate() + 1);
-        renderDataObserver.notify();
+        const newDate = new Date(date.toDateString());
+        newDate.setDate(date.getDate() + 1);
+
+        if (newDate <= this.maxDate) {
+          date.setDate(date.getDate() + 1);
+          renderDataObserver.notify();
+        }
       } else {
         super.switchDateNext();
       }
@@ -32,8 +37,13 @@ export function todoDecorator(BaseClass: DecoratorBaseClass) {
     switchDatePrev(): void {
       if (this.viewType === 'day') {
         const date = this.date;
-        date.setDate(date.getDate() - 1);
-        renderDataObserver.notify();
+        const newDate = new Date(date.toDateString());
+        newDate.setDate(date.getDate() - 1);
+
+        if (newDate >= this.minDate) {
+          date.setDate(date.getDate() - 1);
+          renderDataObserver.notify();
+        }
       } else {
         super.switchDatePrev();
       }

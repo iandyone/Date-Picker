@@ -2,7 +2,7 @@ import { ChangeEvent, FC, FormEvent, useMemo, useRef, useState } from 'react';
 import { DatePicker, Input } from './styled';
 import { IDateInputProps } from './types';
 
-export const DateInput: FC<IDateInputProps> = ({ handlerOnSubmit, withTodos }) => {
+export const DateInput: FC<IDateInputProps> = ({ handlerOnSubmit, withTodos, maxDate, minDate }) => {
   const [value, setValue] = useState<string>('');
   const [error, setError] = useState<boolean>(false);
   const inputRef = useRef(null);
@@ -38,7 +38,8 @@ export const DateInput: FC<IDateInputProps> = ({ handlerOnSubmit, withTodos }) =
       const newDateMonth = userDate.getMonth() + 1;
       const newDateDay = userDate.getDate();
 
-      isValidDate = newDateDay === day && newDateMonth === month && newDateYear === year;
+      isValidDate =
+        newDateDay === day && newDateMonth === month && newDateYear === year && checkDateRange(userDate);
 
       return isValidDate && userDate;
     } else if (!withTodos && value.length === 7) {
@@ -48,9 +49,13 @@ export const DateInput: FC<IDateInputProps> = ({ handlerOnSubmit, withTodos }) =
       const newDateYear = userDate.getFullYear();
       const newDateMonth = userDate.getMonth() + 1;
 
-      isValidDate = newDateMonth === month && newDateYear === year;
+      isValidDate = newDateMonth === month && newDateYear === year && checkDateRange(userDate);
       return isValidDate && userDate;
     }
+  }
+
+  function checkDateRange(date: Date) {
+    return date <= maxDate && date >= minDate;
   }
 
   function handlerOnChange(e: ChangeEvent<HTMLInputElement>) {

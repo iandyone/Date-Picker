@@ -14,16 +14,27 @@ import { Todos } from '@components/Todos';
 
 export class View implements IView {
   getView(renderData: IRenderData, decorators: IDecorator) {
-    const { currentDateString, getNextDate, getPrevDate, setUserDate, titleHandler, currentDate, withTodos } =
-      renderData;
+    const {
+      currentDateString,
+      getNextDate,
+      getPrevDate,
+      setUserDate,
+      titleHandler,
+      currentDate,
+      withTodos,
+      handlerOnContextNextDate,
+      handlerOnContextPrevDate,
+      minDate,
+      maxDate,
+    } = renderData;
     const { datePicker, view } = decorators;
     const title = getCalendarTitle();
 
     function getCalendarTitle() {
       if (view === 'decade') {
         const currentYear = currentDateString.slice(-4);
-        const startDecade = Math.trunc(+currentYear / 10) * 10;
-        const endDecade = startDecade + 10;
+        const startDecade = Math.max(Math.trunc(+currentYear / 10) * 10, minDate.getFullYear());
+        const endDecade = Math.min(startDecade + 10, maxDate.getFullYear());
 
         return `${startDecade} — ${endDecade}`;
       }
@@ -45,12 +56,27 @@ export class View implements IView {
       <ThemeProvider theme={theme}>
         <GlobalStyles />
         <Wrapper>
-          {datePicker && <DateInput handlerOnSubmit={setUserDate} withTodos={withTodos} />}
+          {datePicker && (
+            <DateInput
+              handlerOnSubmit={setUserDate}
+              withTodos={withTodos}
+              maxDate={maxDate}
+              minDate={minDate}
+            />
+          )}
           <Calendar>
             <Navigation>
-              <DateButton src={arrowLeftIcon} onClick={getPrevDate} />
+              <DateButton
+                src={arrowLeftIcon}
+                onClick={getPrevDate}
+                onContextMenu={handlerOnContextPrevDate}
+              />
               <Title onClick={titleHandler}>{title}</Title>
-              <DateButton src={arrowRightIcon} onClick={getNextDate} />
+              <DateButton
+                src={arrowRightIcon}
+                onClick={getNextDate}
+                onContextMenu={handlerOnContextNextDate}
+              />
             </Navigation>
             <Body>
               {view === 'decade' && <YearsView {...renderData} />}

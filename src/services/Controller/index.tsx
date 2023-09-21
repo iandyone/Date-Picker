@@ -4,6 +4,8 @@ import { getDaysAmountInAMonth } from '@utils/helpers/getDaysAmountInAMonth';
 import { getDateData } from '@utils/helpers/getDateData';
 import { renderDataObserver } from '@observers/renderData';
 import { IController } from './types';
+import { MAX_DATE, MIN_DATE } from '@constants/variables';
+import { MouseEvent } from 'react';
 
 export interface IControllerState {
   date: Date;
@@ -13,21 +15,33 @@ export class Controller implements IController {
   visibleCellsAmount = 42;
   weekStart: WeekStart;
   date: Date;
+  minDate: Date;
+  maxDate: Date;
   viewType: ViewType;
   withTodosDecorator: boolean;
   withViewDecorator: boolean;
   withWeekStartDecorator: boolean;
+  withLimitDatesDecorator: boolean;
 
-  constructor(viewType?: ViewType, weekStart: WeekStart = WeekDays.MONDAY) {
+  constructor(
+    viewType?: ViewType,
+    weekStart: WeekStart = WeekDays.MONDAY,
+    minDate: Date = MIN_DATE,
+    maxDate: Date = MAX_DATE,
+  ) {
     this.date = new Date();
     this.viewType = viewType;
     this.weekStart = weekStart;
+    this.minDate = minDate;
+    this.maxDate = maxDate;
     this.switchDateNext = this.switchDateNext.bind(this);
     this.switchDatePrev = this.switchDatePrev.bind(this);
     this.getCalendarDays = this.getCalendarDays.bind(this);
     this.handlerOnClickTitle = this.handlerOnClickTitle.bind(this);
     this.handlerOnSubmitDateInput = this.handlerOnSubmitDateInput.bind(this);
     this.handlerOnClickCalendarItem = this.handlerOnClickCalendarItem.bind(this);
+    this.handlerOnContextPrevDate = this.handlerOnContextPrevDate.bind(this);
+    this.handlerOnContextNextDate = this.handlerOnContextNextDate.bind(this);
   }
 
   getCurrentDate = () => {
@@ -40,13 +54,37 @@ export class Controller implements IController {
 
   switchDateNext() {
     const date = this.date;
-    date.setMonth(date.getMonth() + 1);
+    const newDate = new Date(date.toDateString());
+    newDate.setMonth(date.getMonth() + 1);
+
+    if (newDate <= this.maxDate) {
+      date.setMonth(date.getMonth() + 1);
+    }
+
     renderDataObserver.notify();
   }
 
   switchDatePrev() {
     const date = this.date;
-    date.setMonth(date.getMonth() - 1);
+    const newDate = new Date(date.toDateString());
+    newDate.setMonth(date.getMonth() - 1);
+
+    if (newDate >= this.minDate) {
+      date.setMonth(date.getMonth() - 1);
+    }
+
+    renderDataObserver.notify();
+  }
+
+  handlerOnContextPrevDate(e: MouseEvent<HTMLElement>) {
+    e.preventDefault();
+    this.date = new Date(this.minDate.toLocaleDateString());
+    renderDataObserver.notify();
+  }
+
+  handlerOnContextNextDate(e: MouseEvent<HTMLElement>) {
+    e.preventDefault();
+    this.date = new Date(this.maxDate.toLocaleDateString());
     renderDataObserver.notify();
   }
 
@@ -134,16 +172,22 @@ export class Controller implements IController {
   }
 
   handlerOnClickCalendarItem(date: Date) {
-    this.date = date;
-    const view = this.viewType;
+    const newDateYear = date.getFullYear();
+    const isNewDateInCalendarRange =
+      newDateYear <= this.maxDate.getFullYear() && newDateYear >= this.minDate.getFullYear();
 
-    if (view === 'decade') {
-      this.viewType = 'year';
-    } else if (view === 'year') {
-      this.viewType = 'month';
+    if (isNewDateInCalendarRange) {
+      this.date = date;
+      const view = this.viewType;
+
+      if (view === 'decade') {
+        this.viewType = 'year';
+      } else if (view === 'year') {
+        this.viewType = 'month';
+      }
+
+      renderDataObserver.notify();
     }
-
-    renderDataObserver.notify();
   }
 
   handlerOnClickTitle() {
@@ -177,8 +221,14 @@ export class Controller implements IController {
     const clendarItemHandler = this.handlerOnClickCalendarItem;
     const titleHandler = this.handlerOnClickTitle;
 
+    const handlerOnContextPrevDate = this.handlerOnContextPrevDate;
+    const handlerOnContextNextDate = this.handlerOnContextNextDate;
+
     const viewType = this.viewType;
     const withTodos = this.withTodosDecorator;
+
+    const minDate = this.minDate;
+    const maxDate = this.maxDate;
 
     return {
       currentDate,
@@ -193,6 +243,10 @@ export class Controller implements IController {
       titleHandler,
       viewType,
       withTodos,
+      handlerOnContextPrevDate,
+      handlerOnContextNextDate,
+      minDate,
+      maxDate,
     };
   };
 }

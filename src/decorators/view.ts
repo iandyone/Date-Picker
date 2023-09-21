@@ -11,11 +11,18 @@ export function calendarTypeDecorator(BaseClass: DecoratorBaseClass, view: ViewT
     switchDateNext(): void {
       const view = this.viewType;
       const date = this.date;
+      const newDate = new Date(date.toDateString());
 
       if (view === 'decade') {
-        date.setFullYear(date.getFullYear() + 12);
+        newDate.setFullYear(date.getFullYear() + 12);
+        if (newDate <= this.maxDate) {
+          date.setFullYear(date.getFullYear() + 12);
+        }
       } else if (view === 'year') {
-        date.setFullYear(date.getFullYear() + 1);
+        newDate.setFullYear(date.getFullYear() + 1);
+        if (newDate <= this.maxDate) {
+          date.setFullYear(date.getFullYear() + 1);
+        }
       } else if (view === 'month') {
         super.switchDateNext();
       }
@@ -26,11 +33,18 @@ export function calendarTypeDecorator(BaseClass: DecoratorBaseClass, view: ViewT
     switchDatePrev(): void {
       const view = this.viewType;
       const date = this.date;
+      const newDate = new Date(date.toDateString());
 
       if (view === 'decade') {
-        date.setFullYear(date.getFullYear() - 12);
+        newDate.setFullYear(date.getFullYear() - 12);
+        if (newDate >= this.minDate) {
+          date.setFullYear(date.getFullYear() - 12);
+        }
       } else if (view === 'year') {
-        date.setFullYear(date.getFullYear() - 1);
+        newDate.setFullYear(date.getFullYear() - 1);
+        if (newDate >= this.minDate) {
+          date.setFullYear(date.getFullYear() - 1);
+        }
       } else if (view === 'month') {
         super.switchDatePrev();
       }

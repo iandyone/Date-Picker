@@ -4,6 +4,4 @@ export interface IDatePickerState {
   data: IRenderData;
 }
 
-export interface IDatePickerProps extends IDecorator {
-  weekStart?: WeekStart;
-}
+export interface IDatePickerProps extends IDecorator {}
