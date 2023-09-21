@@ -24,7 +24,7 @@ export class Controller implements IController {
   withLimitDatesDecorator: boolean;
 
   constructor(
-    viewType?: ViewType,
+    viewType: ViewType = 'month',
     weekStart: WeekStart = WeekDays.MONDAY,
     minDate: Date = MIN_DATE,
     maxDate: Date = MAX_DATE,
@@ -78,13 +78,13 @@ export class Controller implements IController {
 
   handlerOnContextPrevDate(e: MouseEvent<HTMLElement>) {
     e.preventDefault();
-    this.date = new Date(this.minDate.toLocaleDateString());
+    this.date = new Date(this.minDate);
     renderDataObserver.notify();
   }
 
   handlerOnContextNextDate(e: MouseEvent<HTMLElement>) {
     e.preventDefault();
-    this.date = new Date(this.maxDate.toLocaleDateString());
+    this.date = new Date(this.maxDate);
     renderDataObserver.notify();
   }
 

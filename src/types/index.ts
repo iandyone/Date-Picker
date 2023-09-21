@@ -1,5 +1,5 @@
 import { Controller } from '@services/Controller';
-import { FormEvent, MouseEvent } from 'react';
+import { MouseEvent } from 'react';
 
 export type ID = number | string;
 
@@ -9,7 +9,7 @@ export type subscriber = handler;
 
 export type WeekStart = WeekDays.MONDAY | WeekDays.SUNDAY;
 
-type handlerContext = (e: MouseEvent<HTMLElement>) => void;
+export type handlerContext = (e: MouseEvent<HTMLElement>) => void;
 
 export type DateCellItem = IDateCellItemDays | IDateCellItemMonths | IDateCellItemYears;
 
@@ -20,6 +20,8 @@ export type ViewType = 'day' | 'month' | 'year' | 'decade';
 export type DecoratorBaseClass = typeof Controller;
 
 export type SubmitHandler = (date: Date) => void;
+
+export type DateLimit = Date | number;
 
 export interface ITodoList {
   [key: string]: string[];

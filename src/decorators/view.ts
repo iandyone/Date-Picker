@@ -4,8 +4,9 @@ import { renderDataObserver } from '@observers/renderData';
 export function calendarTypeDecorator(BaseClass: DecoratorBaseClass, view: ViewType) {
   return class extends BaseClass {
     constructor() {
-      super(view);
+      super();
       this.withViewDecorator = true;
+      this.viewType = view;
     }
 
     switchDateNext(): void {
@@ -22,6 +23,16 @@ export function calendarTypeDecorator(BaseClass: DecoratorBaseClass, view: ViewT
         newDate.setFullYear(date.getFullYear() + 1);
         if (newDate <= this.maxDate) {
           date.setFullYear(date.getFullYear() + 1);
+        }
+      }
+      if (this.viewType === 'day') {
+        const date = this.date;
+        const newDate = new Date(date.toDateString());
+        newDate.setDate(date.getDate() + 1);
+
+        if (newDate <= this.maxDate) {
+          date.setDate(date.getDate() + 1);
+          renderDataObserver.notify();
         }
       } else if (view === 'month') {
         super.switchDateNext();
@@ -44,6 +55,15 @@ export function calendarTypeDecorator(BaseClass: DecoratorBaseClass, view: ViewT
         newDate.setFullYear(date.getFullYear() - 1);
         if (newDate >= this.minDate) {
           date.setFullYear(date.getFullYear() - 1);
+        }
+      } else if (this.viewType === 'day') {
+        const date = this.date;
+        const newDate = new Date(date.toDateString());
+        newDate.setDate(date.getDate() - 1);
+
+        if (newDate >= this.minDate) {
+          date.setDate(date.getDate() - 1);
+          renderDataObserver.notify();
         }
       } else if (view === 'month') {
         super.switchDatePrev();

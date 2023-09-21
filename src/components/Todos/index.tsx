@@ -5,7 +5,7 @@ import addTodoIcon from '@assets/check.png';
 import { getDateData } from '@utils/helpers/getDateData';
 import { TodoItemComponent } from './TodoItem';
 
-const TodosComponent: FC<IRenderData> = ({ currentDate }) => {
+const TodosComponent: FC<IRenderData> = ({ currentDate, withTodos }) => {
   const [todo, setTodo] = useState('');
   const [todoList, setTodoList] = useState<string[]>([]);
   const key = useMemo(getTodosKey, [currentDate.getDate()]);
@@ -56,28 +56,32 @@ const TodosComponent: FC<IRenderData> = ({ currentDate }) => {
   }, [currentDate.getDate()]);
 
   return (
-    <Wrapper>
-      <Title>TODOS</Title>
-      <Body>
-        <TodoList>
-          {todoList &&
-            todoList.map((todo, index) => (
-              <TodoItemComponent
-                todo={todo}
-                index={index + 1}
-                handler={handlerOnClickTodo}
-                key={index + todo}
-              />
-            ))}
-        </TodoList>
-        <Field onSubmit={handlerOnSubmit}>
-          <Input value={todo} onChange={handlerOnChange} />
-          <ButtonAdd>
-            <Icon src={addTodoIcon} />
-          </ButtonAdd>
-        </Field>
-      </Body>
-    </Wrapper>
+    <>
+      {withTodos && (
+        <Wrapper>
+          <Title>TODOS</Title>
+          <Body>
+            <TodoList>
+              {todoList &&
+                todoList.map((todo, index) => (
+                  <TodoItemComponent
+                    todo={todo}
+                    index={index + 1}
+                    handler={handlerOnClickTodo}
+                    key={index + todo}
+                  />
+                ))}
+            </TodoList>
+            <Field onSubmit={handlerOnSubmit}>
+              <Input value={todo} onChange={handlerOnChange} />
+              <ButtonAdd>
+                <Icon src={addTodoIcon} />
+              </ButtonAdd>
+            </Field>
+          </Body>
+        </Wrapper>
+      )}
+    </>
   );
 };
 
