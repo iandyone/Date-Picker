@@ -1,6 +1,6 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
-export const Calendar = styled.section`
+export const Calendar = styled.section<{ $withRangeDecorator: boolean }>`
   width: 250px;
   height: 240px;
   border-radius: ${(props) => props.theme.borderRadius};
@@ -11,6 +11,13 @@ export const Calendar = styled.section`
   flex-direction: column;
   position: relative;
   overflow: hidden;
+
+  ${({ $withRangeDecorator }) =>
+    $withRangeDecorator &&
+    css`
+      border-radius: ${(props) => props.theme.borderRadius} ${(props) => props.theme.borderRadius} 0px 0px;
+      border-bottom: none;
+    `}
 `;
 
 export const Navigation = styled.nav`
@@ -61,4 +68,24 @@ export const DateButton = styled.img.attrs(({ src }) => ({
 export const Body = styled.div`
   display: grid;
   height: 100%;
+`;
+
+export const RangeClearButton = styled.button`
+  width: 100%;
+  background-color: transparent;
+  border: 1px solid ${(props) => props.theme.borderColor};
+  border-radius: 0px 0px ${(props) => props.theme.borderRadius} ${(props) => props.theme.borderRadius};
+  height: 36px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  &:active {
+    transition: ${(props) => props.theme.transition};
+    transform: ${(props) => props.theme.transformActive};
+  }
 `;

@@ -9,8 +9,8 @@ export function rangeDecorator(BaseClass: DecoratorBaseClass) {
       const { month, year } = getDateData(date);
 
       this.withRangeDecorator = true;
-      this.rangeStart = new Date(year, month, 22);
-      this.rangeEnd = new Date(year, month + 1, 8);
+      this.rangeStart = new Date(year, month, 6);
+      this.rangeEnd = new Date(year, month, 21);
     }
   };
 }

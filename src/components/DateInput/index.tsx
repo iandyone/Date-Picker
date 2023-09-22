@@ -31,7 +31,6 @@ export const DateInput: FC<IDateInputProps> = ({ handlerOnSubmit, maxDate, minDa
   function handlerOnChange(e: ChangeEvent<HTMLInputElement>) {
     const newValue = e.target.value;
     const regex = /^[0-9/]*$/;
-    // const limit = withTodos ? 10 : 7;
     const limit = 10;
     const isValidValue = newValue.length <= limit && regex.test(newValue);
 

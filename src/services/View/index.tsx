@@ -3,8 +3,8 @@ import { ThemeProvider } from 'styled-components';
 import arrowLeftIcon from '@assets/arrow-left.png';
 import arrowRightIcon from '@assets/arrow-right.png';
 import { IView } from './types';
-import { Body, DateButton, Title, Navigation, Calendar } from './styled';
-import { CustomTheme, IDecorator, IRenderData, ITheme } from '@appTypes/index';
+import { Body, DateButton, Title, Navigation, Calendar, RangeClearButton } from './styled';
+import { CustomTheme, IDecorator, IRenderData, ITheme, ViewType } from '@appTypes/index';
 import { GlobalStyles, Wrapper } from '@styles/index';
 import { DateInput } from '@components/DateInput';
 import { DaysView } from '@components/DaysView';
@@ -24,6 +24,7 @@ export class View implements IView {
       currentDate,
       handlerOnContextNextDate,
       handlerOnContextPrevDate,
+      hadnlerOnClickClearDateRange,
       minDate,
       maxDate,
       theme: customTheme,
@@ -31,51 +32,17 @@ export class View implements IView {
       rangeStart,
       rangeEnd,
     } = renderData;
-    const { datePicker, view, range: rangeDecorator } = decorators;
-    const title = getCalendarTitle();
-    const styles = getStyles(customTheme);
-
-    function getStyles(customTheme: CustomTheme): CustomTheme {
-      const styles: CustomTheme = theme;
-
-      if (customTheme) {
-        for (const styleKey in theme) {
-          if (styleKey in theme) {
-            const style = styleKey as keyof ITheme;
-            styles[style] = customTheme[style] ?? theme[style];
-          }
-        }
-      }
-      return styles;
-    }
-
-    function getCalendarTitle() {
-      if (view === 'decade') {
-        const currentYear = currentDateString.slice(-4);
-        const startDecade = Math.max(Math.trunc(+currentYear / 10) * 10, minDate.getFullYear());
-        const endDecade = Math.min(startDecade + 10, maxDate.getFullYear());
-
-        return `${startDecade} — ${endDecade}`;
-      }
-
-      if (view === 'year') {
-        return currentDateString.slice(-4);
-      }
-
-      if (view === 'day') {
-        const day = currentDate.getDate();
-
-        return `${day} ${currentDateString}`;
-      }
-
-      return currentDateString;
-    }
+    const { datePicker: datePickerDecorator, range: rangeDecorator, view } = decorators;
+    const title = this.getCalendatTitle(view, currentDateString, minDate, maxDate, currentDate);
+    const styles = this.getStyles(customTheme);
 
     return (
       <ThemeProvider theme={styles}>
         <GlobalStyles />
         <Wrapper>
-          {datePicker && <DateInput handlerOnSubmit={setUserDate} maxDate={maxDate} minDate={minDate} />}
+          {datePickerDecorator && (
+            <DateInput handlerOnSubmit={setUserDate} maxDate={maxDate} minDate={minDate} />
+          )}
 
           {rangeDecorator && (
             <DateRange
@@ -87,7 +54,7 @@ export class View implements IView {
             />
           )}
 
-          <Calendar>
+          <Calendar $withRangeDecorator={rangeDecorator}>
             <Navigation>
               <DateButton
                 src={arrowLeftIcon}
@@ -108,8 +75,54 @@ export class View implements IView {
               {view === 'day' && <Todos {...renderData} />}
             </Body>
           </Calendar>
+          {rangeDecorator && (
+            <RangeClearButton onClick={hadnlerOnClickClearDateRange}>Clear</RangeClearButton>
+          )}
         </Wrapper>
       </ThemeProvider>
     );
+  }
+
+  private getStyles(customTheme: CustomTheme): CustomTheme {
+    const styles: CustomTheme = theme;
+
+    if (customTheme) {
+      for (const styleKey in theme) {
+        if (styleKey in theme) {
+          const style = styleKey as keyof ITheme;
+          styles[style] = customTheme[style] ?? theme[style];
+        }
+      }
+    }
+    return styles;
+  }
+
+  private getCalendatTitle(
+    view: ViewType,
+    currentDateString: string,
+    minDate: Date,
+    maxDate: Date,
+    currentDate: Date,
+  ) {
+    if (view === 'decade') {
+      const currentYear = currentDateString.slice(-4);
+      const startDecade = Math.max(Math.trunc(+currentYear / 10) * 10, minDate.getFullYear());
+      const index = Math.abs(Math.trunc(+currentYear / 10) * 10 - minDate.getFullYear());
+      const endDecade = Math.min(startDecade + (10 - index), maxDate.getFullYear());
+
+      return `${startDecade} — ${endDecade}`;
+    }
+
+    if (view === 'year') {
+      return currentDateString.slice(-4);
+    }
+
+    if (view === 'day') {
+      const day = currentDate.getDate();
+
+      return `${day} ${currentDateString}`;
+    }
+
+    return currentDateString;
   }
 }

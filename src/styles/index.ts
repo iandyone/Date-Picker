@@ -30,15 +30,9 @@ export const GlobalStyles = createGlobalStyle`
   }
 
 
-
-  input:hover {
-    transition: ${(props) => props.theme.transition};
-    border-color: ${(props) => props.theme.hoverColor};
-  }
   input:focus, input:focus-visible {
     outline: none;
     transition: ${(props) => props.theme.transition};
-    border-color: ${(props) => props.theme.textColor};
   }
 
   @font-face {
@@ -74,4 +68,6 @@ export const GlobalStyles = createGlobalStyle`
 
 export const Wrapper = styled.div`
   width: 272px;
+  display: flex;
+  flex-direction: column;
 `;

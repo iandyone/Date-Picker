@@ -1,4 +1,4 @@
-import { FC, memo, useState, ChangeEvent } from 'react';
+import { FC, memo, useState, ChangeEvent, useEffect } from 'react';
 import { RangeInput, Wrapper } from './styled';
 import { getDateFromUserInput } from '@utils/helpers/getDateFromUserInput';
 import { IDateRangeProps } from './types';
@@ -63,12 +63,23 @@ const DateRangeComponent: FC<IDateRangeProps> = ({
   }
 
   function getEndRangeDateDefaultString() {
+    if (!rangeEnd) {
+      return '';
+    }
+
     const { date, month, year } = getDateData(rangeEnd);
     const dayValue = getFixedValue(String(date));
     const monthValue = getFixedValue(String(month + 1));
 
     return `${dayValue}/${monthValue}/${year}`;
   }
+
+  useEffect(() => {
+    if (!rangeStart && !rangeEnd) {
+      setRangeStartDate('');
+      setRangeEndDate('');
+    }
+  }, [rangeEnd, rangeStart]);
 
   return (
     <Wrapper>

@@ -57,6 +57,7 @@ export class Controller implements IController {
     this.handlerOnContextPrevDate = this.handlerOnContextPrevDate.bind(this);
     this.handlerOnContextNextDate = this.handlerOnContextNextDate.bind(this);
     this.setDateRange = this.setDateRange.bind(this);
+    this.clearDateRange = this.clearDateRange.bind(this);
   }
 
   getCurrentDate = () => {
@@ -124,7 +125,7 @@ export class Controller implements IController {
     const { month, year } = getDateData(this.date);
     const startWeekCoefficient = this.weekStart === WeekDays.MONDAY ? 0 : 1;
     const currentMonthFirstDay = new Date(year, month, 1);
-    const dayOfTheWeek = currentMonthFirstDay.getDay(); // день недели первого числа месяца
+    const dayOfTheWeek = currentMonthFirstDay.getDay();
 
     return { year, month, dayOfTheWeek, startWeekCoefficient };
   };
@@ -132,8 +133,8 @@ export class Controller implements IController {
   getPreviousMonthDays = () => {
     const { month, year, dayOfTheWeek, startWeekCoefficient } = this.getFirstMonthDateWeekDay();
     const previousMonthCeilsAmount =
-      dayOfTheWeek === 0 ? 6 + startWeekCoefficient : dayOfTheWeek - 1 + startWeekCoefficient; // сколько ячеек нужно заполнить данными из предыдущего месяца
-    const getDaysOfPrevMonth = getDaysAmountInAMonth(new Date(year, month - 1)); // все числа предыдущего месяца
+      dayOfTheWeek === 0 ? 6 + startWeekCoefficient : dayOfTheWeek - 1 + startWeekCoefficient;
+    const getDaysOfPrevMonth = getDaysAmountInAMonth(new Date(year, month - 1));
 
     const dateCeils: DateCellItem[] = [];
 
@@ -151,11 +152,11 @@ export class Controller implements IController {
 
   getNextMonthDays = () => {
     const { month, year, dayOfTheWeek, startWeekCoefficient } = this.getFirstMonthDateWeekDay();
-    const previousMonthCeilsAmount = dayOfTheWeek === 0 ? 6 : dayOfTheWeek - 1; // сколько ячеек нужно заполнить данными из предыдущего месяца
+    const previousMonthCeilsAmount = dayOfTheWeek === 0 ? 6 : dayOfTheWeek - 1;
 
-    const daysAmount = getDaysAmountInAMonth(this.date); // сколько дней текущем месяце
+    const daysAmount = getDaysAmountInAMonth(this.date);
     const nextMonthCeilsAmount =
-      this.visibleCellsAmount - daysAmount - previousMonthCeilsAmount - startWeekCoefficient; // сколько ячеек нужно заполнить данными из нового месяца
+      this.visibleCellsAmount - daysAmount - previousMonthCeilsAmount - startWeekCoefficient;
 
     const [cellYear, cellMonth] = month === 11 ? [year + 1, 0] : [year, month + 1];
     const dateCeils: DateCellItem[] = [];
@@ -223,6 +224,13 @@ export class Controller implements IController {
     }
   }
 
+  clearDateRange() {
+    this.rangeStart = null;
+    this.rangeEnd = null;
+
+    renderDataObserver.notify();
+  }
+
   setDateRange(value: Date, type: DateRangeType) {
     type === 'start' ? (this.rangeStart = value) : (this.rangeEnd = value);
     renderDataObserver.notify();
@@ -245,6 +253,7 @@ export class Controller implements IController {
     const clendarItemHandler = this.handlerOnClickCalendarItem;
     const handlerOnDateRange = this.setDateRange;
     const titleHandler = this.handlerOnClickTitle;
+    const hadnlerOnClickClearDateRange = this.clearDateRange;
 
     const viewType = this.viewType;
     const withTodos = this.withTodosDecorator;
@@ -276,6 +285,7 @@ export class Controller implements IController {
       rangeStart,
       rangeEnd,
       handlerOnDateRange,
+      hadnlerOnClickClearDateRange,
     };
   };
 }

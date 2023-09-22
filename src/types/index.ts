@@ -150,4 +150,5 @@ export interface IRenderData {
   handlerOnContextPrevDate: handlerContext;
   handlerOnContextNextDate: handlerContext;
   handlerOnDateRange: handlerRange;
+  hadnlerOnClickClearDateRange: handler;
 }

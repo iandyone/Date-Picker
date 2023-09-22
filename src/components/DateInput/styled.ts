@@ -24,9 +24,4 @@ export const Input = styled.input.attrs((props) => ({
   type: 'text',
 }))`
   width: 100%;
-
-  // &:focus-visible {
-  //   border: none;
-  //   outline: none;
-  // }
 `;
