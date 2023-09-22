@@ -1,6 +1,7 @@
 import {
   CustomTheme,
   DateCellItem,
+  DateRangeType,
   IRenderData,
   Months,
   ViewType,
@@ -31,7 +32,10 @@ export class Controller implements IController {
   withWeekStartDecorator: boolean;
   withLimitDatesDecorator: boolean;
   withThemeDecorator: boolean;
+  withRangeDecorator: boolean;
   visibleCellsAmount = 42;
+  rangeStart: Date;
+  rangeEnd: Date;
 
   constructor(
     viewType: ViewType = 'month',
@@ -52,6 +56,7 @@ export class Controller implements IController {
     this.handlerOnClickCalendarItem = this.handlerOnClickCalendarItem.bind(this);
     this.handlerOnContextPrevDate = this.handlerOnContextPrevDate.bind(this);
     this.handlerOnContextNextDate = this.handlerOnContextNextDate.bind(this);
+    this.setDateRange = this.setDateRange.bind(this);
   }
 
   getCurrentDate = () => {
@@ -177,7 +182,7 @@ export class Controller implements IController {
 
   handlerOnSubmitDateInput(date: Date) {
     this.date = date;
-    this.viewType = this.withTodosDecorator ? 'day' : 'month';
+    this.viewType = 'day';
     renderDataObserver.notify();
   }
 
@@ -194,6 +199,8 @@ export class Controller implements IController {
         this.viewType = 'year';
       } else if (view === 'year') {
         this.viewType = 'month';
+      } else if (view === 'month') {
+        this.viewType = 'day';
       }
 
       renderDataObserver.notify();
@@ -216,23 +223,28 @@ export class Controller implements IController {
     }
   }
 
+  setDateRange(value: Date, type: DateRangeType) {
+    type === 'start' ? (this.rangeStart = value) : (this.rangeEnd = value);
+    renderDataObserver.notify();
+  }
+
   getRenderData = (): IRenderData => {
     const { month: currentMonth } = getDateData(this.date);
 
-    const currentDateString = this.getCurrentDate();
     const currentDate = this.date;
-    const weekDays = getWeekDays({ start: this.weekStart });
     const calendarItems = this.getCalendarDays();
+    const currentDateString = this.getCurrentDate();
+    const weekDays = getWeekDays({ start: this.weekStart });
 
     const getPrevDate = this.switchDatePrev;
     const getNextDate = this.switchDateNext;
     const setUserDate = this.handlerOnSubmitDateInput;
 
-    const clendarItemHandler = this.handlerOnClickCalendarItem;
-    const titleHandler = this.handlerOnClickTitle;
-
     const handlerOnContextPrevDate = this.handlerOnContextPrevDate;
     const handlerOnContextNextDate = this.handlerOnContextNextDate;
+    const clendarItemHandler = this.handlerOnClickCalendarItem;
+    const handlerOnDateRange = this.setDateRange;
+    const titleHandler = this.handlerOnClickTitle;
 
     const viewType = this.viewType;
     const withTodos = this.withTodosDecorator;
@@ -240,6 +252,8 @@ export class Controller implements IController {
     const minDate = this.minDate;
     const maxDate = this.maxDate;
     const theme = this.customTheme;
+    const rangeStart = this.rangeStart;
+    const rangeEnd = this.rangeEnd;
 
     return {
       currentDate,
@@ -259,6 +273,9 @@ export class Controller implements IController {
       minDate,
       maxDate,
       theme,
+      rangeStart,
+      rangeEnd,
+      handlerOnDateRange,
     };
   };
 }

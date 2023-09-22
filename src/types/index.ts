@@ -11,6 +11,8 @@ export type WeekStart = WeekDays.MONDAY | WeekDays.SUNDAY;
 
 export type handlerContext = (e: MouseEvent<HTMLElement>) => void;
 
+export type handlerRange = (date: Date, type: DateRangeType) => void;
+
 export type DateCellItem = IDateCellItemDays | IDateCellItemMonths | IDateCellItemYears;
 
 export type DateHandler = (date: Date, viewType?: ViewType) => void;
@@ -24,6 +26,8 @@ export type SubmitHandler = (date: Date) => void;
 export type DateLimit = Date | number;
 
 export type CustomTheme = Partial<ITheme>;
+
+export type DateRangeType = 'start' | 'end';
 
 export interface ITodoList {
   [key: string]: string[];
@@ -107,6 +111,10 @@ export interface ITheme {
   activeCollor: string;
   borderRadius: string;
   transformActive: string;
+  inputPadding: string;
+  rangeStartColor: string;
+  rangeEndColor: string;
+  inRangeColor: string;
 }
 
 export interface IDecorator {
@@ -117,6 +125,7 @@ export interface IDecorator {
   minDate?: Date;
   maxDate?: Date;
   customTheme?: CustomTheme;
+  range: boolean;
 }
 
 export interface IRenderData {
@@ -135,7 +144,10 @@ export interface IRenderData {
   minDate: Date;
   maxDate: Date;
   theme?: CustomTheme;
+  rangeStart?: Date;
+  rangeEnd?: Date;
 
   handlerOnContextPrevDate: handlerContext;
   handlerOnContextNextDate: handlerContext;
+  handlerOnDateRange: handlerRange;
 }

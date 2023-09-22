@@ -4,4 +4,6 @@ export interface IDayCeilProps {
   date: IDateCellItemDays;
   currentMonth: number;
   handler: DateHandler;
+  rangeStart: Date;
+  rangeEnd: Date;
 }

@@ -10,6 +10,7 @@ import { todoDecorator } from '@decorators/todos';
 import { weekStartDecorator } from '@decorators/weekStart';
 import { limitDatestDecorator } from '@decorators/limitDates';
 import { themeDecorator } from '@decorators/theme';
+import { rangeDecorator } from '@decorators/rangeDecorator';
 
 export class DatePicker extends Component<IDatePickerProps, IDatePickerState> {
   private controller;
@@ -24,7 +25,15 @@ export class DatePicker extends Component<IDatePickerProps, IDatePickerState> {
     };
   }
 
-  getController = ({ todos, view, weekStart, maxDate, minDate, customTheme }: IDecorator) => {
+  protected getController = ({
+    todos,
+    view,
+    weekStart,
+    maxDate,
+    minDate,
+    customTheme,
+    range,
+  }: IDecorator) => {
     let DataPicker = Controller;
 
     if (minDate || maxDate) {
@@ -47,10 +56,14 @@ export class DatePicker extends Component<IDatePickerProps, IDatePickerState> {
       DataPicker = themeDecorator(DataPicker, customTheme);
     }
 
+    if (range) {
+      DataPicker = rangeDecorator(DataPicker);
+    }
+
     return new DataPicker();
   };
 
-  updateRenderData = () => {
+  protected updateRenderData = () => {
     const data: IRenderData = this.controller.getRenderData();
     this.setState((prevState) => ({ ...prevState, data }));
   };
@@ -81,10 +94,9 @@ export class DatePicker extends Component<IDatePickerProps, IDatePickerState> {
 
   render() {
     const data = this.state.data;
-    const { datePicker } = this.props;
+    const { datePicker, range } = this.props;
     const view = data.viewType;
-
-    const decorators = { datePicker, view };
+    const decorators = { datePicker, view, range };
     const datePickerView = this.view.getView(data, decorators);
 
     return <h1>{datePickerView}</h1>;

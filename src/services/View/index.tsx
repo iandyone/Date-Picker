@@ -11,6 +11,7 @@ import { DaysView } from '@components/DaysView';
 import { MonthsView } from '@components/MonthView';
 import { YearsView } from '@components/YearsView';
 import { Todos } from '@components/Todos';
+import { DateRange } from '@components/DateRange';
 
 export class View implements IView {
   getView(renderData: IRenderData, decorators: IDecorator) {
@@ -21,25 +22,23 @@ export class View implements IView {
       setUserDate,
       titleHandler,
       currentDate,
-      withTodos,
       handlerOnContextNextDate,
       handlerOnContextPrevDate,
       minDate,
       maxDate,
       theme: customTheme,
+      handlerOnDateRange,
+      rangeStart,
+      rangeEnd,
     } = renderData;
-    const { datePicker, view } = decorators;
+    const { datePicker, view, range: rangeDecorator } = decorators;
     const title = getCalendarTitle();
     const styles = getStyles(customTheme);
-
-    // console.log();
-    // console.log(customTheme);
 
     function getStyles(customTheme: CustomTheme): CustomTheme {
       const styles: CustomTheme = theme;
 
       if (customTheme) {
-        // console.log(customTheme);
         for (const styleKey in theme) {
           if (styleKey in theme) {
             const style = styleKey as keyof ITheme;
@@ -76,14 +75,18 @@ export class View implements IView {
       <ThemeProvider theme={styles}>
         <GlobalStyles />
         <Wrapper>
-          {datePicker && (
-            <DateInput
-              handlerOnSubmit={setUserDate}
-              withTodos={withTodos}
-              maxDate={maxDate}
+          {datePicker && <DateInput handlerOnSubmit={setUserDate} maxDate={maxDate} minDate={minDate} />}
+
+          {rangeDecorator && (
+            <DateRange
+              handlerRange={handlerOnDateRange}
+              rangeStart={rangeStart}
+              rangeEnd={rangeEnd}
               minDate={minDate}
+              maxDate={maxDate}
             />
           )}
+
           <Calendar>
             <Navigation>
               <DateButton

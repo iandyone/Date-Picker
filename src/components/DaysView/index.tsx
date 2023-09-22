@@ -3,7 +3,14 @@ import { FC, memo } from 'react';
 import { DayCeil } from './DayCeil';
 import { Week, WeekDay, Days } from './styled';
 
-const DaysComponent: FC<IRenderData> = ({ calendarItems, currentMonth, weekDays, clendarItemHandler }) => {
+const DaysComponent: FC<IRenderData> = ({
+  calendarItems,
+  currentMonth,
+  weekDays,
+  clendarItemHandler,
+  rangeStart,
+  rangeEnd,
+}) => {
   return (
     <>
       <Week>
@@ -18,6 +25,8 @@ const DaysComponent: FC<IRenderData> = ({ calendarItems, currentMonth, weekDays,
             handler={clendarItemHandler}
             currentMonth={currentMonth}
             key={index}
+            rangeStart={rangeStart}
+            rangeEnd={rangeEnd}
           />
         ))}
       </Days>

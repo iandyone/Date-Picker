@@ -11,4 +11,8 @@ export const theme: ITheme = {
   activeCollor: '#2f80ed',
   borderRadius: '8px',
   transformActive: 'scale(0.95)',
+  inputPadding: '4px 14px;',
+  rangeStartColor: 'rgba(47, 128, 237, 0.60)',
+  rangeEndColor: 'rgba(47, 128, 237, 0.60)',
+  inRangeColor: 'rgba(47, 128, 237, 0.10)',
 };

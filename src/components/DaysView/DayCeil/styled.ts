@@ -37,3 +37,52 @@ export const CurrentDay = styled(Day)`
     transition: ${(props) => props.theme.transition};
     background-color: ${(props) => props.theme.activeCollor};
 `;
+
+export const RangeStartDay = styled(CurrentDay)`
+  padding: 0px;
+  width: 100%;
+  height: 100%;
+  background: ${(props) => props.theme.rangeStartColor};
+  border-radius: ${(props) => props.theme.borderRadius} 0px 0px ${(props) => props.theme.borderRadius};
+
+
+  &:hover {
+    background: ${(props) => props.theme.rangeStartColor};
+`;
+
+export const RangeEndDay = styled(RangeStartDay)`
+  background: ${(props) => props.theme.rangeEndColor};
+  border-radius: 0px ${(props) => props.theme.borderRadius} ${(props) => props.theme.borderRadius} 0px;
+
+  &:hover {
+    background: ${(props) => props.theme.rangeEndColor};
+  }
+`;
+
+export const InRangeDay = styled(CurrentDay)`
+  background: ${(props) => props.theme.inRangeColor};
+  color: ${(props) => props.theme.activeCollor};
+  padding: 0px;
+  width: 100%;
+  height: 100%;
+  border-radius: 0px;
+
+  &:hover {
+    background: ${(props) => props.theme.inRangeColor};
+  }
+`;
+
+export const RangeStartCurrentDay = styled(RangeStartDay)`
+  background: ${(props) => props.theme.activeCollor};
+  color: #fff;
+`;
+
+export const RangeEndCurrentDay = styled(RangeEndDay)`
+  background: ${(props) => props.theme.activeCollor};
+  color: #fff;
+`;
+
+export const InRangeCurrentDay = styled(InRangeDay)`
+  background: ${(props) => props.theme.activeCollor};
+  color: #fff;
+`;

@@ -1,19 +1,16 @@
-import { ChangeEvent, FC, FormEvent, useMemo, useRef, useState } from 'react';
+import { ChangeEvent, FC, FormEvent, useRef, useState } from 'react';
 import { DatePicker, Input } from './styled';
 import { IDateInputProps } from './types';
+import { getDateFromUserInput } from '@utils/helpers/getDateFromUserInput';
 
-export const DateInput: FC<IDateInputProps> = ({ handlerOnSubmit, withTodos, maxDate, minDate }) => {
+export const DateInput: FC<IDateInputProps> = ({ handlerOnSubmit, maxDate, minDate }) => {
   const [value, setValue] = useState<string>('');
   const [error, setError] = useState<boolean>(false);
   const inputRef = useRef(null);
-  const placeholder = useMemo(getPlaceholder, [withTodos]);
-
-  function getPlaceholder() {
-    return withTodos ? 'DD/MM/YYYY' : 'MM/YYYY';
-  }
+  const placeholder = 'Go to "DD/MM/YYYY"';
 
   function handlerOnSubmitForm(e: FormEvent<HTMLFormElement>) {
-    const userDate = validateUserDateString();
+    const userDate = validateUserDateString(value);
 
     if (userDate) {
       setValue('');
@@ -27,41 +24,15 @@ export const DateInput: FC<IDateInputProps> = ({ handlerOnSubmit, withTodos, max
     e.preventDefault();
   }
 
-  function validateUserDateString() {
-    let isValidDate = false;
-
-    if (withTodos && value.length === 10) {
-      const [day, month, year] = value.split('/').map(Number);
-      const userDate = new Date(year, month - 1, day);
-
-      const newDateYear = userDate.getFullYear();
-      const newDateMonth = userDate.getMonth() + 1;
-      const newDateDay = userDate.getDate();
-
-      isValidDate =
-        newDateDay === day && newDateMonth === month && newDateYear === year && checkDateRange(userDate);
-
-      return isValidDate && userDate;
-    } else if (!withTodos && value.length === 7) {
-      const [month, year] = value.split('/').map(Number);
-      const userDate = new Date(year, month - 1, 1);
-
-      const newDateYear = userDate.getFullYear();
-      const newDateMonth = userDate.getMonth() + 1;
-
-      isValidDate = newDateMonth === month && newDateYear === year && checkDateRange(userDate);
-      return isValidDate && userDate;
-    }
-  }
-
-  function checkDateRange(date: Date) {
-    return date <= maxDate && date >= minDate;
+  function validateUserDateString(value: string) {
+    return getDateFromUserInput(value, minDate, maxDate);
   }
 
   function handlerOnChange(e: ChangeEvent<HTMLInputElement>) {
     const newValue = e.target.value;
     const regex = /^[0-9/]*$/;
-    const limit = withTodos ? 10 : 7;
+    // const limit = withTodos ? 10 : 7;
+    const limit = 10;
     const isValidValue = newValue.length <= limit && regex.test(newValue);
 
     if (isValidValue) {
