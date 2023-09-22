@@ -1,3 +1,5 @@
+import { ITheme } from '@appTypes/index';
+
 export const theme: ITheme = {
   fontSize: '14px',
   textColor: '#000',
@@ -10,16 +12,3 @@ export const theme: ITheme = {
   borderRadius: '8px',
   transformActive: 'scale(0.95)',
 };
-
-export interface ITheme {
-  fontSize: string;
-  textColor: string;
-  transition: string;
-  padding: string;
-  hoverColor: string;
-  otherDateColor: string;
-  borderColor: string;
-  activeCollor: string;
-  borderRadius: string;
-  transformActive: string;
-}

@@ -1,4 +1,12 @@
-import { DateCellItem, IRenderData, Months, ViewType, WeekDays, WeekStart } from '@appTypes/index';
+import {
+  CustomTheme,
+  DateCellItem,
+  IRenderData,
+  Months,
+  ViewType,
+  WeekDays,
+  WeekStart,
+} from '@appTypes/index';
 import { getWeekDays } from '@utils/helpers/getWeekDays';
 import { getDaysAmountInAMonth } from '@utils/helpers/getDaysAmountInAMonth';
 import { getDateData } from '@utils/helpers/getDateData';
@@ -12,16 +20,18 @@ export interface IControllerState {
 }
 
 export class Controller implements IController {
-  visibleCellsAmount = 42;
-  weekStart: WeekStart;
   date: Date;
   minDate: Date;
   maxDate: Date;
+  customTheme: CustomTheme;
   viewType: ViewType;
+  weekStart: WeekStart;
   withTodosDecorator: boolean;
   withViewDecorator: boolean;
   withWeekStartDecorator: boolean;
   withLimitDatesDecorator: boolean;
+  withThemeDecorator: boolean;
+  visibleCellsAmount = 42;
 
   constructor(
     viewType: ViewType = 'month',
@@ -229,6 +239,7 @@ export class Controller implements IController {
 
     const minDate = this.minDate;
     const maxDate = this.maxDate;
+    const theme = this.customTheme;
 
     return {
       currentDate,
@@ -247,6 +258,7 @@ export class Controller implements IController {
       handlerOnContextNextDate,
       minDate,
       maxDate,
+      theme,
     };
   };
 }

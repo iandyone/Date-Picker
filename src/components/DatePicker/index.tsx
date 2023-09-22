@@ -9,6 +9,7 @@ import { IDecorator, IRenderData } from '@appTypes/index';
 import { todoDecorator } from '@decorators/todos';
 import { weekStartDecorator } from '@decorators/weekStart';
 import { limitDatestDecorator } from '@decorators/limitDates';
+import { themeDecorator } from '@decorators/theme';
 
 export class DatePicker extends Component<IDatePickerProps, IDatePickerState> {
   private controller;
@@ -23,7 +24,7 @@ export class DatePicker extends Component<IDatePickerProps, IDatePickerState> {
     };
   }
 
-  getController = ({ todos, view, weekStart, maxDate, minDate }: IDecorator) => {
+  getController = ({ todos, view, weekStart, maxDate, minDate, customTheme }: IDecorator) => {
     let DataPicker = Controller;
 
     if (minDate || maxDate) {
@@ -40,6 +41,10 @@ export class DatePicker extends Component<IDatePickerProps, IDatePickerState> {
 
     if (todos) {
       DataPicker = todoDecorator(DataPicker);
+    }
+
+    if (customTheme) {
+      DataPicker = themeDecorator(DataPicker, customTheme);
     }
 
     return new DataPicker();
@@ -59,6 +64,10 @@ export class DatePicker extends Component<IDatePickerProps, IDatePickerState> {
   }
 
   shouldComponentUpdate(nextProps: Readonly<IDatePickerProps>) {
+    if (!Object.is(nextProps.customTheme, this.props.customTheme)) {
+      return true;
+    }
+
     if (this.props !== nextProps) {
       this.controller = this.getController(nextProps);
 

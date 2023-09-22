@@ -23,6 +23,8 @@ export type SubmitHandler = (date: Date) => void;
 
 export type DateLimit = Date | number;
 
+export type CustomTheme = Partial<ITheme>;
+
 export interface ITodoList {
   [key: string]: string[];
 }
@@ -94,6 +96,19 @@ export interface IRenderDataObserver {
   notify(): void;
 }
 
+export interface ITheme {
+  fontSize: string;
+  textColor: string;
+  transition: string;
+  padding: string;
+  hoverColor: string;
+  otherDateColor: string;
+  borderColor: string;
+  activeCollor: string;
+  borderRadius: string;
+  transformActive: string;
+}
+
 export interface IDecorator {
   weekStart?: WeekStart;
   datePicker?: boolean;
@@ -101,6 +116,7 @@ export interface IDecorator {
   todos?: boolean;
   minDate?: Date;
   maxDate?: Date;
+  customTheme?: CustomTheme;
 }
 
 export interface IRenderData {
@@ -118,6 +134,7 @@ export interface IRenderData {
   withTodos: boolean;
   minDate: Date;
   maxDate: Date;
+  theme?: CustomTheme;
 
   handlerOnContextPrevDate: handlerContext;
   handlerOnContextNextDate: handlerContext;

@@ -4,7 +4,7 @@ import arrowLeftIcon from '@assets/arrow-left.png';
 import arrowRightIcon from '@assets/arrow-right.png';
 import { IView } from './types';
 import { Body, DateButton, Title, Navigation, Calendar } from './styled';
-import { IDecorator, IRenderData } from '@appTypes/index';
+import { CustomTheme, IDecorator, IRenderData, ITheme } from '@appTypes/index';
 import { GlobalStyles, Wrapper } from '@styles/index';
 import { DateInput } from '@components/DateInput';
 import { DaysView } from '@components/DaysView';
@@ -26,9 +26,29 @@ export class View implements IView {
       handlerOnContextPrevDate,
       minDate,
       maxDate,
+      theme: customTheme,
     } = renderData;
     const { datePicker, view } = decorators;
     const title = getCalendarTitle();
+    const styles = getStyles(customTheme);
+
+    // console.log();
+    // console.log(customTheme);
+
+    function getStyles(customTheme: CustomTheme): CustomTheme {
+      const styles: CustomTheme = theme;
+
+      if (customTheme) {
+        // console.log(customTheme);
+        for (const styleKey in theme) {
+          if (styleKey in theme) {
+            const style = styleKey as keyof ITheme;
+            styles[style] = customTheme[style] ?? theme[style];
+          }
+        }
+      }
+      return styles;
+    }
 
     function getCalendarTitle() {
       if (view === 'decade') {
@@ -53,7 +73,7 @@ export class View implements IView {
     }
 
     return (
-      <ThemeProvider theme={theme}>
+      <ThemeProvider theme={styles}>
         <GlobalStyles />
         <Wrapper>
           {datePicker && (
