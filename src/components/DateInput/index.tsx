@@ -1,7 +1,8 @@
+import { getDateFromUserInput } from '@utils/helpers/getDateFromUserInput';
 import { ChangeEvent, FC, FormEvent, useRef, useState } from 'react';
+
 import { DatePicker, Input } from './styled';
 import { IDateInputProps } from './types';
-import { getDateFromUserInput } from '@utils/helpers/getDateFromUserInput';
 
 export const DateInput: FC<IDateInputProps> = ({ handlerOnSubmit, maxDate, minDate }) => {
   const [value, setValue] = useState<string>('');

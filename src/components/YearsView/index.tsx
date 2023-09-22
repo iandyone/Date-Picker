@@ -1,7 +1,8 @@
 import { IRenderData } from '@appTypes/index';
 import { FC, memo } from 'react';
-import { YearCeil } from './YearCeil';
+
 import { YearsContainer } from './styled';
+import { YearCeil } from './YearCeil';
 
 const YearsViewComponent: FC<IRenderData> = ({ calendarItems, clendarItemHandler }) => {
   return (

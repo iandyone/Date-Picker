@@ -1,8 +1,9 @@
 import { Months } from '@appTypes/index';
 import { getDateData } from '@utils/helpers/getDateData';
 import { FC, memo } from 'react';
-import { IMonthComponentProps } from './types';
+
 import { CurrentMonth, Month } from './styled';
+import { IMonthComponentProps } from './types';
 
 export const MonthCeilComponent: FC<IMonthComponentProps> = ({ date, handler }) => {
   const { month, year } = date;

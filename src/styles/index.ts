@@ -1,8 +1,8 @@
-import styled, { createGlobalStyle } from 'styled-components';
-import openSansRegular from '@assets/fonts/OpenSans-Regular.ttf';
 import openSansBold from '@assets/fonts/OpenSans-Bold.ttf';
-import openSansSemiBold from '@assets/fonts/OpenSans-SemiBold.ttf';
 import openSansMedium from '@assets/fonts/OpenSans-Medium.ttf';
+import openSansRegular from '@assets/fonts/OpenSans-Regular.ttf';
+import openSansSemiBold from '@assets/fonts/OpenSans-SemiBold.ttf';
+import styled, { createGlobalStyle } from 'styled-components';
 
 export const GlobalStyles = createGlobalStyle`
 * {

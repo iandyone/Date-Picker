@@ -1,18 +1,18 @@
-import { FC } from 'react';
-import { Component } from 'react';
+import { IDecorator, IRenderData } from '@appTypes/index';
+import ErrorBoundary from '@components/ErrorBoundary';
+import { limitDatestDecorator } from '@decorators/limitDates';
+import { rangeDecorator } from '@decorators/range';
+import { themeDecorator } from '@decorators/theme';
+import { todoDecorator } from '@decorators/todos';
+import { calendarTypeDecorator } from '@decorators/view';
+import { weekStartDecorator } from '@decorators/weekStart';
+import { renderDataObserver } from '@observers/renderData';
 import { Controller } from '@services/Controller';
 import { View } from '@services/View';
+import { FC } from 'react';
+import { Component } from 'react';
 
-import { renderDataObserver } from '@observers/renderData';
 import { IDatePickerProps, IDatePickerState } from './types';
-import { calendarTypeDecorator } from '@decorators/view';
-import { IDecorator, IRenderData } from '@appTypes/index';
-import { todoDecorator } from '@decorators/todos';
-import { weekStartDecorator } from '@decorators/weekStart';
-import { limitDatestDecorator } from '@decorators/limitDates';
-import { themeDecorator } from '@decorators/theme';
-import { rangeDecorator } from '@decorators/range';
-import ErrorBoundary from '@components/ErrorBoundary';
 
 class DatePickerComponent extends Component<IDatePickerProps, IDatePickerState> {
   private controller;

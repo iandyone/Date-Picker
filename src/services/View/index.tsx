@@ -1,17 +1,18 @@
-import { theme } from '@constants/theme';
-import { ThemeProvider } from 'styled-components';
+import { CustomTheme, IDecorator, IRenderData, ITheme, ViewType } from '@appTypes/index';
 import arrowLeftIcon from '@assets/arrow-left.png';
 import arrowRightIcon from '@assets/arrow-right.png';
-import { IView } from './types';
-import { Body, DateButton, Title, Navigation, Calendar, RangeClearButton } from './styled';
-import { CustomTheme, IDecorator, IRenderData, ITheme, ViewType } from '@appTypes/index';
-import { GlobalStyles, Wrapper } from '@styles/index';
 import { DateInput } from '@components/DateInput';
+import { DateRange } from '@components/DateRange';
 import { DaysView } from '@components/DaysView';
 import { MonthsView } from '@components/MonthView';
-import { YearsView } from '@components/YearsView';
 import { Todos } from '@components/Todos';
-import { DateRange } from '@components/DateRange';
+import { YearsView } from '@components/YearsView';
+import { theme } from '@constants/theme';
+import { GlobalStyles, Wrapper } from '@styles/index';
+import { ThemeProvider } from 'styled-components';
+
+import { Body, Calendar, DateButton, Navigation, RangeClearButton, Title } from './styled';
+import { IView } from './types';
 
 export class View implements IView {
   getView(renderData: IRenderData, decorators: IDecorator) {

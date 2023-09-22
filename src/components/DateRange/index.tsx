@@ -1,9 +1,10 @@
-import { FC, memo, useState, ChangeEvent, useEffect } from 'react';
-import { RangeInput, Wrapper } from './styled';
-import { getDateFromUserInput } from '@utils/helpers/getDateFromUserInput';
-import { IDateRangeProps } from './types';
 import { getDateData } from '@utils/helpers/getDateData';
+import { getDateFromUserInput } from '@utils/helpers/getDateFromUserInput';
 import { getFixedValue } from '@utils/helpers/getFixedValue';
+import { ChangeEvent, FC, memo, useEffect, useState } from 'react';
+
+import { RangeInput, Wrapper } from './styled';
+import { IDateRangeProps } from './types';
 
 const DateRangeComponent: FC<IDateRangeProps> = ({
   handlerRange,

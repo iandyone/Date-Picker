@@ -8,13 +8,14 @@ import {
   WeekDays,
   WeekStart,
 } from '@appTypes/index';
-import { getWeekDays } from '@utils/helpers/getWeekDays';
-import { getDaysAmountInAMonth } from '@utils/helpers/getDaysAmountInAMonth';
-import { getDateData } from '@utils/helpers/getDateData';
-import { renderDataObserver } from '@observers/renderData';
-import { IController } from './types';
 import { MAX_DATE, MIN_DATE } from '@constants/variables';
+import { renderDataObserver } from '@observers/renderData';
+import { getDateData } from '@utils/helpers/getDateData';
+import { getDaysAmountInAMonth } from '@utils/helpers/getDaysAmountInAMonth';
+import { getWeekDays } from '@utils/helpers/getWeekDays';
 import { MouseEvent } from 'react';
+
+import { IController } from './types';
 
 export interface IControllerState {
   date: Date;

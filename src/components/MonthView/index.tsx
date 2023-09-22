@@ -1,7 +1,8 @@
-import { FC, memo } from 'react';
-import { MonthContainer } from './styled';
 import { IRenderData } from '@appTypes/index';
+import { FC, memo } from 'react';
+
 import { MonthCeil } from './MonthCeil';
+import { MonthContainer } from './styled';
 
 const MonthsComponent: FC<IRenderData> = ({ calendarItems, clendarItemHandler }) => {
   return (

@@ -1,7 +1,8 @@
+import removeIcon from '@assets/x-mark.png';
 import { FC, MouseEvent, useMemo } from 'react';
+
 import { ButtonRemove, Icon, Todo, TodoItem } from './styled';
 import { ITodoItemProps } from './types';
-import removeIcon from '@assets/x-mark.png';
 
 export const TodoItemComponent: FC<ITodoItemProps> = ({ todo, index, handler }) => {
   const todoString = useMemo(getTodo, []);

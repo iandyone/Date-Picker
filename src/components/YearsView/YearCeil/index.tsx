@@ -1,5 +1,6 @@
 import { getDateData } from '@utils/helpers/getDateData';
 import { FC } from 'react';
+
 import { CurrentYear, OthertMonthDay, Year } from './styled';
 import { IMonthComponentProps } from './types';
 

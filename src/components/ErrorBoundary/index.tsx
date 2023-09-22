@@ -1,5 +1,6 @@
 import { ErrorBoundaryProps, ErrorBoundaryState } from '@components/ErrorBoundary/types';
 import React, { Suspense } from 'react';
+
 import { Message, Spinner } from './styled';
 
 export class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundaryState> {

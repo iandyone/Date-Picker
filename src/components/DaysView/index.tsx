@@ -1,7 +1,8 @@
-import { IRenderData, IDateCellItemDays } from '@appTypes/index';
+import { IDateCellItemDays, IRenderData } from '@appTypes/index';
 import { FC, memo } from 'react';
+
 import { DayCeil } from './DayCeil';
-import { Week, WeekDay, Days } from './styled';
+import { Days, Week, WeekDay } from './styled';
 
 const DaysComponent: FC<IRenderData> = ({
   calendarItems,

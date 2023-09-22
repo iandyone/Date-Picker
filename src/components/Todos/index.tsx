@@ -1,8 +1,9 @@
 import { IRenderData, ITodoList } from '@appTypes/index';
-import { ChangeEvent, FC, FormEvent, memo, useCallback, useEffect, useMemo, useState } from 'react';
-import { Body, Icon, Field, Input, Title, Wrapper, ButtonAdd, TodoList } from './styled';
 import addTodoIcon from '@assets/check.png';
 import { getDateData } from '@utils/helpers/getDateData';
+import { ChangeEvent, FC, FormEvent, memo, useCallback, useEffect, useMemo, useState } from 'react';
+
+import { Body, ButtonAdd, Field, Icon, Input, Title, TodoList, Wrapper } from './styled';
 import { TodoItemComponent } from './TodoItem';
 
 const TodosComponent: FC<IRenderData> = ({ currentDate, withTodos }) => {

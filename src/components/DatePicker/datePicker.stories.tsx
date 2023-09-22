@@ -1,8 +1,9 @@
 import { WeekDays } from '@appTypes/index';
-import { Meta, StoryObj } from '@storybook/react';
-import { DatePicker } from '.';
-import { MAX_DATE, MIN_DATE } from '@constants/variables';
 import { theme } from '@constants/theme';
+import { MAX_DATE, MIN_DATE } from '@constants/variables';
+import { Meta, StoryObj } from '@storybook/react';
+
+import { DatePicker } from '.';
 
 const meta: Meta<typeof DatePicker> = {
   title: 'Date Picker',
