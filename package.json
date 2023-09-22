@@ -1,5 +1,5 @@
 {
-  "name": "calendarr",
+  "name": "date-picker",
   "version": "1.0.0",
   "repository": "https://github.com/iandyone/Date-Picker.git",
   "author": "Andrei Bernatski <bernatski.a@gmail.com>",
@@ -55,6 +55,7 @@
     "rollup": "^3.29.1",
     "rollup-plugin-copy": "^3.5.0",
     "rollup-plugin-dts": "^6.0.2",
+    "rollup-plugin-font": "^1.1.2",
     "rollup-plugin-peer-deps-external": "^2.2.4",
     "storybook": "7.4.1",
     "tsconfig-paths-webpack-plugin": "^4.1.0",
@@ -62,8 +63,7 @@
   },
   "peerDependencies": {
     "react": "*",
-    "react-dom": "*",
-    "styled-components": "*"
+    "react-dom": "*"
   },
   "files": [
     "dist"

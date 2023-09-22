@@ -226,9 +226,6 @@ export class Controller implements IController {
   }
 
   clearDateRange() {
-    this.rangeStart = null;
-    this.rangeEnd = null;
-
     renderDataObserver.notify();
   }
 

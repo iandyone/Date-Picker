@@ -31,12 +31,12 @@ export const Default: Story = {
   args: {
     weekStart: WeekDays.MONDAY,
     datePicker: true,
-    view: 'month',
+    range: true,
     todos: true,
+    view: 'month',
     // customTheme: customTheme,
     minDate: new Date(1997, 8),
     maxDate: new Date(2025, 8),
-    range: true,
   },
   argTypes: {
     weekStart: {

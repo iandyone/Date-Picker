@@ -45,7 +45,11 @@ export default [
       }),
       peerDepsExternal(),
       svgr({ icon: true }),
-      url(),
+      url({
+        include: ['**/*.woff', '**/*.woff2', '**/*.ttf',  '**/*.png'], // Укажите типы файлов, которые нужно обрабатывать
+        limit: false, // Отключите ограничение на размер файлов (полезно для шрифтов)
+        emitFiles: true, // Разрешите плагину создавать файлы для обработанных ресурсов
+      }),
       resolve(),
       commonjs(),
       typescript(),
@@ -53,7 +57,7 @@ export default [
     external: ['react', 'react-dom',],
   },
   {
-    input: './dist/src/components/Calendar/index.d.ts',
+    input: './dist/src/components/DatePicker/index.d.ts',
     output: [{ file: './dist/index.d.ts', format: 'es' }],
     plugins: [dts()],
     external: [/\.css$/],

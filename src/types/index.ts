@@ -125,7 +125,7 @@ export interface IDecorator {
   minDate?: Date;
   maxDate?: Date;
   customTheme?: CustomTheme;
-  range: boolean;
+  range?: boolean;
 }
 
 export interface IRenderData {
