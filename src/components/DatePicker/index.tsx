@@ -1,3 +1,4 @@
+import { FC } from 'react';
 import { Component } from 'react';
 import { Controller } from '@services/Controller';
 import { View } from '@services/View';
@@ -10,9 +11,10 @@ import { todoDecorator } from '@decorators/todos';
 import { weekStartDecorator } from '@decorators/weekStart';
 import { limitDatestDecorator } from '@decorators/limitDates';
 import { themeDecorator } from '@decorators/theme';
-import { rangeDecorator } from '@decorators/rangeDecorator';
+import { rangeDecorator } from '@decorators/range';
+import ErrorBoundary from '@components/ErrorBoundary';
 
-export class DatePicker extends Component<IDatePickerProps, IDatePickerState> {
+class DatePickerComponent extends Component<IDatePickerProps, IDatePickerState> {
   private controller;
   private view;
 
@@ -102,3 +104,11 @@ export class DatePicker extends Component<IDatePickerProps, IDatePickerState> {
     return <h1>{datePickerView}</h1>;
   }
 }
+
+export const DatePicker: FC<IDatePickerProps> = (props) => {
+  return (
+    <ErrorBoundary>
+      <DatePickerComponent {...props} />
+    </ErrorBoundary>
+  );
+};

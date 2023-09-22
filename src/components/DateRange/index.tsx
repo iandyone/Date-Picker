@@ -21,7 +21,9 @@ const DateRangeComponent: FC<IDateRangeProps> = ({
     const date = e.target.value;
     const startRangeDate = getDateFromUserInput(date, minDate, maxDate);
 
-    setRangeStartDate(date);
+    if (date.length <= 10) {
+      setRangeStartDate(date);
+    }
 
     if (startRangeDate) {
       setRangeStartError(false);
@@ -39,7 +41,9 @@ const DateRangeComponent: FC<IDateRangeProps> = ({
 
     const isValidValue = endRangeDate > startRangeDate;
 
-    setRangeEndDate(date);
+    if (date.length <= 10) {
+      setRangeEndDate(date);
+    }
 
     if (isValidValue) {
       setRangeEndError(false);
