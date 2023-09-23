@@ -1,5 +1,5 @@
 import { getDateData } from '@utils/helpers/getDateData';
-import { FC, memo } from 'react';
+import { FC, memo, MouseEvent, useEffect, useMemo, useState } from 'react';
 
 import {
   CurrentDay,
@@ -14,10 +14,29 @@ import {
 } from './styled';
 import { IDayCeilProps } from './types';
 
-const DayCeilComponent: FC<IDayCeilProps> = ({ date, currentMonth, handler, rangeEnd, rangeStart }) => {
+const DayCeilComponent: FC<IDayCeilProps> = ({
+  date,
+  currentMonth,
+  handler,
+  rangeEnd,
+  rangeStart,
+  onContext,
+}) => {
   const { day, month, year } = date;
   const { date: todayDate, month: todayMonth, year: todayYear } = getDateData(new Date());
   const Component = getComponent();
+  const key = useMemo(getKey, [day, month, year]);
+  const [isHoliday, setIsHoliday] = useState(getHolidayStatus);
+
+  function getHolidayStatus() {
+    const holidays = JSON.parse(localStorage.getItem('holidays')) ?? {};
+
+    return Boolean(holidays[key]);
+  }
+
+  function getKey() {
+    return `${day}${month}${year}`;
+  }
 
   function getComponent() {
     const isRange = rangeStart && rangeEnd;
@@ -43,12 +62,39 @@ const DayCeilComponent: FC<IDayCeilProps> = ({ date, currentMonth, handler, rang
     return OthertMonthDay;
   }
 
+  useEffect(() => {
+    setIsHoliday(getHolidayStatus());
+  }, [day, month, year]);
+
   function handlerOnClick() {
     const newDate = new Date(year, month, day);
     handler(newDate);
   }
 
-  return <Component onClick={handlerOnClick}>{day}</Component>;
+  function handlerOnContext(e: MouseEvent<HTMLElement>) {
+    const newStatus = !isHoliday;
+    setIsHoliday(newStatus);
+
+    const holidays = JSON.parse(localStorage.getItem('holidays')) ?? {};
+
+    if (newStatus) {
+      holidays[key] = newStatus;
+    } else {
+      delete holidays[key];
+    }
+
+    localStorage.setItem('holidays', JSON.stringify(holidays));
+
+    onContext();
+
+    e.preventDefault();
+  }
+
+  return (
+    <Component onClick={handlerOnClick} onContextMenu={handlerOnContext} $isHoliday={isHoliday}>
+      {day}
+    </Component>
+  );
 };
 
 export const DayCeil = memo(DayCeilComponent);

@@ -14,7 +14,7 @@ export const DatePicker = styled.form<{
   ${({ $error }) =>
     $error &&
     css`
-      border-color: red;
+      border-color: ${(props) => props.theme.errorColor};
       transition: ${(props) => props.theme.transition};
     `}
 `;

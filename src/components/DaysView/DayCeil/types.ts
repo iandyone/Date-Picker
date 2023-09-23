@@ -1,4 +1,4 @@
-import { IDateCellItemDays, DateHandler } from '@appTypes/index';
+import { IDateCellItemDays, DateHandler, subscriber } from '@appTypes/index';
 
 export interface IDayCeilProps {
   date: IDateCellItemDays;
@@ -6,4 +6,5 @@ export interface IDayCeilProps {
   handler: DateHandler;
   rangeStart: Date;
   rangeEnd: Date;
+  onContext: subscriber;
 }

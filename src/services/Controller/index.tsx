@@ -34,6 +34,7 @@ export class Controller implements IController {
   withLimitDatesDecorator: boolean;
   withThemeDecorator: boolean;
   withRangeDecorator: boolean;
+  withWeekendDecorator: boolean;
   visibleCellsAmount = 42;
   rangeStart: Date;
   rangeEnd: Date;
@@ -57,6 +58,7 @@ export class Controller implements IController {
     this.handlerOnClickCalendarItem = this.handlerOnClickCalendarItem.bind(this);
     this.handlerOnContextPrevDate = this.handlerOnContextPrevDate.bind(this);
     this.handlerOnContextNextDate = this.handlerOnContextNextDate.bind(this);
+    this.handlerOnContextCalendarItem = this.handlerOnContextCalendarItem.bind(this);
     this.setDateRange = this.setDateRange.bind(this);
     this.clearDateRange = this.clearDateRange.bind(this);
   }
@@ -209,6 +211,10 @@ export class Controller implements IController {
     }
   }
 
+  handlerOnContextCalendarItem() {
+    renderDataObserver.notify();
+  }
+
   handlerOnClickTitle() {
     if (this.viewType) {
       const view = this.viewType;
@@ -252,6 +258,7 @@ export class Controller implements IController {
     const handlerOnDateRange = this.setDateRange;
     const titleHandler = this.handlerOnClickTitle;
     const hadnlerOnClickClearDateRange = this.clearDateRange;
+    const handlerOnContextCalendarItem = this.handlerOnContextCalendarItem;
 
     const viewType = this.viewType;
     const withTodos = this.withTodosDecorator;
@@ -284,6 +291,7 @@ export class Controller implements IController {
       rangeEnd,
       handlerOnDateRange,
       hadnlerOnClickClearDateRange,
+      handlerOnContextCalendarItem,
     };
   };
 }

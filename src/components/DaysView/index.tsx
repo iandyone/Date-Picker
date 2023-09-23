@@ -11,6 +11,7 @@ const DaysComponent: FC<IRenderData> = ({
   clendarItemHandler,
   rangeStart,
   rangeEnd,
+  handlerOnContextCalendarItem,
 }) => {
   return (
     <>
@@ -24,6 +25,7 @@ const DaysComponent: FC<IRenderData> = ({
           <DayCeil
             date={date as IDateCellItemDays}
             handler={clendarItemHandler}
+            onContext={handlerOnContextCalendarItem}
             currentMonth={currentMonth}
             key={index}
             rangeStart={rangeStart}

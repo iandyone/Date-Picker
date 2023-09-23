@@ -92,6 +92,8 @@ export interface ICalendar {
   getPreviousMonthDays: () => DateCellItem[];
   getNextMonthDays: () => DateCellItem[];
   getCalendarDays: () => DateCellItem[];
+  handlerOnContextCalendarItem: handler;
+  handlerOnClickCalendarItem: SubmitHandler;
 }
 
 export interface IRenderDataObserver {
@@ -115,6 +117,8 @@ export interface ITheme {
   rangeStartColor: string;
   rangeEndColor: string;
   inRangeColor: string;
+  holidayColor: string;
+  errorColor: string;
 }
 
 export interface IDecorator {
@@ -126,6 +130,7 @@ export interface IDecorator {
   maxDate?: Date;
   customTheme?: CustomTheme;
   range?: boolean;
+  weekends?: boolean;
 }
 
 export interface IRenderData {
@@ -151,4 +156,5 @@ export interface IRenderData {
   handlerOnContextNextDate: handlerContext;
   handlerOnDateRange: handlerRange;
   hadnlerOnClickClearDateRange: handler;
+  handlerOnContextCalendarItem: handler;
 }

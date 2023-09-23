@@ -15,4 +15,6 @@ export const theme: ITheme = {
   rangeStartColor: 'rgba(47, 128, 237, 0.60)',
   rangeEndColor: 'rgba(47, 128, 237, 0.60)',
   inRangeColor: 'rgba(47, 128, 237, 0.10)',
+  holidayColor: '#ff0000',
+  errorColor: '#ff0000',
 };

@@ -21,7 +21,7 @@ export const RangeInput = styled.input.attrs((props) => ({
   ${({ $error }) =>
     $error &&
     css`
-      border-color: red;
+      border-color: ${(props) => props.theme.errorColor};
       transition: ${(props) => props.theme.transition};
     `}
 `;
