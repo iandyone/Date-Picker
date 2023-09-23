@@ -6,13 +6,13 @@ import {
   Months,
   ViewType,
   WeekDays,
+  WeekDaysProps,
   WeekStart,
 } from '@appTypes/index';
 import { MAX_DATE, MIN_DATE } from '@constants/variables';
 import { renderDataObserver } from '@observers/renderData';
 import { getDateData } from '@utils/helpers/getDateData';
 import { getDaysAmountInAMonth } from '@utils/helpers/getDaysAmountInAMonth';
-import { getWeekDays } from '@utils/helpers/getWeekDays';
 import { MouseEvent } from 'react';
 
 import { IController } from './types';
@@ -61,6 +61,11 @@ export class Controller implements IController {
     this.handlerOnContextCalendarItem = this.handlerOnContextCalendarItem.bind(this);
     this.setDateRange = this.setDateRange.bind(this);
     this.clearDateRange = this.clearDateRange.bind(this);
+
+    this.getPreviousMonthDays = this.getPreviousMonthDays.bind(this);
+    this.getNextMonthDays = this.getNextMonthDays.bind(this);
+    this.getCurrentMonthDays = this.getCurrentMonthDays.bind(this);
+    this.getWeekDays = this.getWeekDays.bind(this);
   }
 
   getCurrentDate = () => {
@@ -107,7 +112,22 @@ export class Controller implements IController {
     renderDataObserver.notify();
   }
 
-  getCurrentMonthDays = (numberOfDays: number) => {
+  getWeekDays({ format = 'short', start = WeekDays.MONDAY }: WeekDaysProps) {
+    let days: string[] = Object.values(WeekDays);
+
+    if (format === 'short') {
+      days = days.map((day: string) => day.slice(0, 2).toUpperCase());
+    }
+
+    if (start === WeekDays.SUNDAY) {
+      const newWeekStart = days.pop();
+      days.unshift(newWeekStart);
+    }
+
+    return days;
+  }
+
+  getCurrentMonthDays(numberOfDays: number) {
     const date = this.date;
     const year = date.getFullYear();
     const month = date.getMonth();
@@ -122,7 +142,7 @@ export class Controller implements IController {
     }
 
     return days;
-  };
+  }
 
   getFirstMonthDateWeekDay = () => {
     const { month, year } = getDateData(this.date);
@@ -133,7 +153,7 @@ export class Controller implements IController {
     return { year, month, dayOfTheWeek, startWeekCoefficient };
   };
 
-  getPreviousMonthDays = () => {
+  getPreviousMonthDays() {
     const { month, year, dayOfTheWeek, startWeekCoefficient } = this.getFirstMonthDateWeekDay();
     const previousMonthCeilsAmount =
       dayOfTheWeek === 0 ? 6 + startWeekCoefficient : dayOfTheWeek - 1 + startWeekCoefficient;
@@ -151,9 +171,9 @@ export class Controller implements IController {
     }
 
     return dateCeils.reverse();
-  };
+  }
 
-  getNextMonthDays = () => {
+  getNextMonthDays() {
     const { month, year, dayOfTheWeek, startWeekCoefficient } = this.getFirstMonthDateWeekDay();
     const previousMonthCeilsAmount = dayOfTheWeek === 0 ? 6 : dayOfTheWeek - 1;
 
@@ -172,7 +192,7 @@ export class Controller implements IController {
       });
     }
     return dateCeils;
-  };
+  }
 
   getCalendarDays() {
     const currentMonthDaysAmount = getDaysAmountInAMonth(this.date);
@@ -246,7 +266,7 @@ export class Controller implements IController {
     const currentDate = this.date;
     const calendarItems = this.getCalendarDays();
     const currentDateString = this.getCurrentDate();
-    const weekDays = getWeekDays({ start: this.weekStart });
+    const weekDays = this.getWeekDays({ start: this.weekStart });
 
     const getPrevDate = this.switchDatePrev;
     const getNextDate = this.switchDateNext;
@@ -268,6 +288,7 @@ export class Controller implements IController {
     const theme = this.customTheme;
     const rangeStart = this.rangeStart;
     const rangeEnd = this.rangeEnd;
+    const withoutHolidays = this.withWeekendDecorator;
 
     return {
       currentDate,
@@ -292,6 +313,7 @@ export class Controller implements IController {
       handlerOnDateRange,
       hadnlerOnClickClearDateRange,
       handlerOnContextCalendarItem,
+      withoutHolidays,
     };
   };
 }

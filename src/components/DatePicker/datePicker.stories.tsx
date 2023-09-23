@@ -29,6 +29,7 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
+    noWeekends: true,
     weekStart: WeekDays.MONDAY,
     datePicker: true,
     range: true,

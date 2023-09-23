@@ -12,15 +12,16 @@ const DaysComponent: FC<IRenderData> = ({
   rangeStart,
   rangeEnd,
   handlerOnContextCalendarItem,
+  withoutHolidays,
 }) => {
   return (
     <>
-      <Week>
+      <Week $withoutHolidays={withoutHolidays}>
         {weekDays.map((day) => (
           <WeekDay key={day}>{day}</WeekDay>
         ))}
       </Week>
-      <Days>
+      <Days $withoutHolidays={withoutHolidays}>
         {calendarItems.map((date, index) => (
           <DayCeil
             date={date as IDateCellItemDays}

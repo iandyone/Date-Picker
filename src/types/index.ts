@@ -58,6 +58,16 @@ export enum WeekDays {
   SUNDAY = 'Sunday',
 }
 
+export enum WeekDaysID {
+  SUNDAY,
+  MONDAY,
+  TUESDAY,
+  WEDNESDAY,
+  THIRSDAY,
+  FRIDAY,
+  SATURDAY,
+}
+
 export interface IDateCellItemDays {
   day: number;
   month: number;
@@ -77,6 +87,7 @@ export interface IDateCellItemYears {
 
 export interface ICalendar {
   getCurrentDate: () => string;
+  getWeekDays: ({}: WeekDaysProps) => string[];
   switchDateNext: handler;
   switchDatePrev: handler;
   handlerOnContextPrevDate: handlerContext;
@@ -130,7 +141,7 @@ export interface IDecorator {
   maxDate?: Date;
   customTheme?: CustomTheme;
   range?: boolean;
-  weekends?: boolean;
+  noWeekends?: boolean;
 }
 
 export interface IRenderData {
@@ -151,10 +162,18 @@ export interface IRenderData {
   theme?: CustomTheme;
   rangeStart?: Date;
   rangeEnd?: Date;
+  withoutHolidays: boolean;
 
   handlerOnContextPrevDate: handlerContext;
   handlerOnContextNextDate: handlerContext;
   handlerOnDateRange: handlerRange;
   hadnlerOnClickClearDateRange: handler;
   handlerOnContextCalendarItem: handler;
+}
+
+export type WeekDayFormat = 'full' | 'short';
+
+export interface WeekDaysProps {
+  format?: WeekDayFormat;
+  start?: WeekStart;
 }

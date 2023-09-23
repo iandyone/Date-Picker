@@ -3,9 +3,10 @@ import styled, { css } from 'styled-components';
 export const Day = styled.span<{ $isHoliday?: boolean }>`
   color: ${(props) => props.theme.textColor};
   font-size: ${(props) => props.theme.fontSize};
-  padding: ${(props) => props.theme.padding};
+  padding: ${(props) => props.theme.padding} 0;
+  width: 100%;
+  height: 100%;
   height: 20px;
-  width: 20px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -43,11 +44,13 @@ export const OthertMonthDay = styled(Day)<{ $isHoliday?: boolean }>`
 export const CurrentDay = styled(Day)<{ $isHoliday?: boolean }>`
   background: ${(props) => props.theme.activeCollor};
   color: #fff;
+  transition: ${(props) => props.theme.transition};
 
   &:hover {
     cursor: pointer;
     transition: ${(props) => props.theme.transition};
     background-color: ${(props) => props.theme.activeCollor};
+    transition: ${(props) => props.theme.transition};
   }
 
   ${({ $isHoliday }) =>
@@ -63,36 +66,31 @@ export const RangeStartDay = styled(CurrentDay)<{ $isHoliday?: boolean }>`
   height: 100%;
   background: ${(props) => props.theme.rangeStartColor};
   border-radius: ${(props) => props.theme.borderRadius} 0px 0px ${(props) => props.theme.borderRadius};
+  transition: ${(props) => props.theme.transition};
 
   &:hover {
     background: ${(props) => props.theme.rangeStartColor};
+    border: 1px solid ${(props) => props.theme.textColor};
+    transition: ${(props) => props.theme.transition};
   }
-
-  ${({ $isHoliday }) =>
-    $isHoliday &&
-    css`
-      color: ${(props) => props.theme.holidayColor};
-    `}
 `;
 
 export const RangeEndDay = styled(RangeStartDay)<{ $isHoliday?: boolean }>`
   background: ${(props) => props.theme.rangeEndColor};
   border-radius: 0px ${(props) => props.theme.borderRadius} ${(props) => props.theme.borderRadius} 0px;
+  transition: ${(props) => props.theme.transition};
 
   &:hover {
     background: ${(props) => props.theme.rangeEndColor};
+    border: 1px solid ${(props) => props.theme.textColor};
+    transition: ${(props) => props.theme.transition};
   }
-
-  ${({ $isHoliday }) =>
-    $isHoliday &&
-    css`
-      color: ${(props) => props.theme.holidayColor};
-    `}
 `;
 
 export const InRangeDay = styled(CurrentDay)<{ $isHoliday?: boolean }>`
   background: ${(props) => props.theme.inRangeColor};
   color: ${(props) => props.theme.activeCollor};
+  transition: ${(props) => props.theme.transition};
   padding: 0px;
   width: 100%;
   height: 100%;
@@ -100,6 +98,8 @@ export const InRangeDay = styled(CurrentDay)<{ $isHoliday?: boolean }>`
 
   &:hover {
     background: ${(props) => props.theme.inRangeColor};
+    border: 1px solid ${(props) => props.theme.textColor};
+    transition: ${(props) => props.theme.transition};
   }
 
   ${({ $isHoliday }) =>

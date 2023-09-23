@@ -33,6 +33,7 @@ export class View implements IView {
       rangeStart,
       rangeEnd,
     } = renderData;
+
     const { datePicker: datePickerDecorator, range: rangeDecorator, view } = decorators;
     const title = this.getCalendatTitle(view, currentDateString, minDate, maxDate, currentDate);
     const styles = this.getStyles(customTheme);
