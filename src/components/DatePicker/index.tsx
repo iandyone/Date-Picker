@@ -95,8 +95,8 @@ class DatePickerComponent extends Component<IDatePickerProps, IDatePickerState> 
   }
 
   render() {
-    const data = this.state.data;
     const { datePicker, range } = this.props;
+    const data = this.state.data;
     const view = data.viewType;
     const decorators = { datePicker, view, range };
     const datePickerView = this.view.getView(data, decorators);

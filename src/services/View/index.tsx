@@ -107,11 +107,11 @@ export class View implements IView {
   ) {
     if (view === 'decade') {
       const currentYear = currentDateString.slice(-4);
-      const startDecade = Math.max(Math.trunc(+currentYear / 10) * 10, minDate.getFullYear());
-      const index = Math.abs(Math.trunc(+currentYear / 10) * 10 - minDate.getFullYear());
-      const endDecade = Math.min(startDecade + (10 - index), maxDate.getFullYear());
+      const startDecade = Math.trunc(+currentYear / 10) * 10;
+      const titleDateFrom = Math.max(startDecade, minDate.getFullYear());
+      const endDecade = Math.min(startDecade + 9, maxDate.getFullYear());
 
-      return `${startDecade} — ${endDecade}`;
+      return `${titleDateFrom} — ${endDecade}`;
     }
 
     if (view === 'year') {

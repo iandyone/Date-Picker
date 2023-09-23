@@ -36,7 +36,7 @@ export const Default: Story = {
     view: 'month',
     // customTheme: customTheme,
     minDate: new Date(1997, 8),
-    maxDate: new Date(2025, 8),
+    maxDate: new Date(2039, 8),
   },
   argTypes: {
     weekStart: {
