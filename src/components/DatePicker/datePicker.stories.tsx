@@ -29,15 +29,15 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    noWeekends: true,
+    noWeekends: false,
     weekStart: WeekDays.MONDAY,
     datePicker: true,
     range: true,
     todos: true,
     view: 'month',
-    // customTheme: customTheme,
     minDate: new Date(1997, 8),
     maxDate: new Date(2039, 8),
+    // customTheme: customTheme,
   },
   argTypes: {
     weekStart: {

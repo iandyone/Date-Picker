@@ -130,6 +130,8 @@ export interface ITheme {
   inRangeColor: string;
   holidayColor: string;
   errorColor: string;
+  width?: string;
+  height?: string;
 }
 
 export interface IDecorator {

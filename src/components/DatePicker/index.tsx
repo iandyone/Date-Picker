@@ -85,11 +85,9 @@ class DatePickerComponent extends Component<IDatePickerProps, IDatePickerState> 
   }
 
   shouldComponentUpdate(nextProps: Readonly<IDatePickerProps>) {
-    if (!Object.is(nextProps.customTheme, this.props.customTheme)) {
-      return true;
-    }
+    const isCustomStylesUpdated = !Object.is(nextProps.customTheme, this.props.customTheme);
 
-    if (this.props !== nextProps) {
+    if (this.props !== nextProps || isCustomStylesUpdated) {
       this.controller = this.getController(nextProps);
 
       this.setState((prevState) => ({
@@ -101,10 +99,10 @@ class DatePickerComponent extends Component<IDatePickerProps, IDatePickerState> 
   }
 
   render() {
-    const { datePicker, range } = this.props;
+    const { datePicker, range, customTheme } = this.props;
     const data = this.state.data;
     const view = data.viewType;
-    const decorators = { datePicker, view, range };
+    const decorators = { datePicker, view, range, customTheme };
     const datePickerView = this.view.getView(data, decorators);
 
     return <>{datePickerView}</>;

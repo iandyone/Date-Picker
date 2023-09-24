@@ -37,6 +37,7 @@ export class View implements IView {
     const { datePicker: datePickerDecorator, range: rangeDecorator, view } = decorators;
     const title = this.getCalendatTitle(view, currentDateString, minDate, maxDate, currentDate);
     const styles = this.getStyles(customTheme);
+    const clearRangeButtonVisability = !(rangeStart || rangeEnd);
 
     return (
       <ThemeProvider theme={styles}>
@@ -56,7 +57,7 @@ export class View implements IView {
             />
           )}
 
-          <Calendar $withRangeDecorator={rangeDecorator}>
+          <Calendar $withRangeDecorator={rangeDecorator} $withClearRangeButton={clearRangeButtonVisability}>
             <Navigation>
               <DateButton
                 src={arrowLeftIcon}
@@ -78,7 +79,9 @@ export class View implements IView {
             </Body>
           </Calendar>
           {rangeDecorator && (
-            <RangeClearButton onClick={hadnlerOnClickClearDateRange}>Clear</RangeClearButton>
+            <RangeClearButton onClick={hadnlerOnClickClearDateRange} $visability={clearRangeButtonVisability}>
+              Clear
+            </RangeClearButton>
           )}
         </Wrapper>
       </ThemeProvider>

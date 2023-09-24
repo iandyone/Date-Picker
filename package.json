@@ -10,10 +10,11 @@
   "scripts": {
     "build": "rollup --config ./rollup.config.mjs",
     "sb": "storybook dev -p 6006",
-    "build-storybook": "storybook build",
+    "build-sb": "storybook build",
     "prepare": "husky install",
     "prettier": "npx prettier --write **/*.{ts,tsx,json}",
-    "lint:fix": "eslint \"**/*.{ts,tsx}\" --fix"
+    "lint:fix": "eslint \"**/*.{ts,tsx}\" --fix",
+    "deploy": "gh-pages -d storybook-static"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": "yarn lint:fix",
@@ -47,6 +48,7 @@
     "eslint-plugin-react": "^7.33.2",
     "eslint-plugin-simple-import-sort": "^10.0.0",
     "eslint-plugin-storybook": "^0.6.13",
+    "gh-pages": "^6.0.0",
     "husky": "^8.0.3",
     "lint-staged": "^14.0.1",
     "prettier": "^3.0.3",

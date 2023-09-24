@@ -67,7 +67,7 @@ export const GlobalStyles = createGlobalStyle`
 `;
 
 export const Wrapper = styled.div`
-  width: 272px;
+  width: ${(props) => props.theme.width};
   display: flex;
   flex-direction: column;
 `;

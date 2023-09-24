@@ -1,8 +1,8 @@
 import styled, { css } from 'styled-components';
 
-export const Calendar = styled.section<{ $withRangeDecorator: boolean }>`
-  width: 250px;
-  height: 240px;
+export const Calendar = styled.section<{ $withRangeDecorator: boolean; $withClearRangeButton: boolean }>`
+  width: ${(props) => props.theme.width};
+  height: ${(props) => props.theme.height};
   border-radius: ${(props) => props.theme.borderRadius};
   border: 1px solid ${(props) => props.theme.borderColor};
   background: #fff;
@@ -11,12 +11,18 @@ export const Calendar = styled.section<{ $withRangeDecorator: boolean }>`
   flex-direction: column;
   position: relative;
   overflow: hidden;
+  box-sizing: border-box;
 
   ${({ $withRangeDecorator }) =>
     $withRangeDecorator &&
     css`
       border-radius: ${(props) => props.theme.borderRadius} ${(props) => props.theme.borderRadius} 0px 0px;
-      border-bottom: none;
+    `}
+
+  ${({ $withClearRangeButton }) =>
+    $withClearRangeButton &&
+    css`
+      border-radius: ${(props) => props.theme.borderRadius};
     `}
 `;
 
@@ -41,8 +47,6 @@ export const Title = styled.h1`
 
   &:active {
     transition: ${(props) => props.theme.transition};
-    transform: ${(props) => props.theme.transformActive};
-
     transform: scale(0.9);
   }
 `;
@@ -70,15 +74,17 @@ export const Body = styled.div`
   height: 100%;
 `;
 
-export const RangeClearButton = styled.button`
-  width: 100%;
+export const RangeClearButton = styled.button<{ $visability?: boolean }>`
+  width: ${(props) => props.theme.width};
   background-color: transparent;
   border: 1px solid ${(props) => props.theme.borderColor};
   border-radius: 0px 0px ${(props) => props.theme.borderRadius} ${(props) => props.theme.borderRadius};
+  transition: ${(props) => props.theme.transition};
   height: 36px;
   display: flex;
   justify-content: center;
   align-items: center;
+  border-top: none;
 
   &:hover {
     cursor: pointer;
@@ -86,6 +92,12 @@ export const RangeClearButton = styled.button`
 
   &:active {
     transition: ${(props) => props.theme.transition};
-    transform: ${(props) => props.theme.transformActive};
+    opacity: 0.6;
   }
+
+  ${({ $visability }) =>
+    $visability &&
+    css`
+      display: none;
+    `}
 `;

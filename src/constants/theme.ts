@@ -17,4 +17,6 @@ export const theme: ITheme = {
   inRangeColor: 'rgba(47, 128, 237, 0.10)',
   holidayColor: '#ff0000',
   errorColor: '#ff0000',
+  height: '260px',
+  width: '250px',
 };
