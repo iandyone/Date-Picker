@@ -2,7 +2,7 @@ import { IDateCellItemDays, IRenderData } from '@appTypes/index';
 import { FC, memo } from 'react';
 
 import { DayCeil } from './DayCeil';
-import { Days, Week, WeekDay } from './styled';
+import { Days, DayViewContainer, Week, WeekDay } from './styled';
 
 const DaysComponent: FC<IRenderData> = ({
   calendarItems,
@@ -15,10 +15,12 @@ const DaysComponent: FC<IRenderData> = ({
   withoutHolidays,
 }) => {
   return (
-    <>
-      <Week $withoutHolidays={withoutHolidays}>
+    <DayViewContainer data-testid='day-view'>
+      <Week $withoutHolidays={withoutHolidays} data-testid='week-days'>
         {weekDays.map((day) => (
-          <WeekDay key={day}>{day}</WeekDay>
+          <WeekDay key={day} data-testid='week-day'>
+            {day}
+          </WeekDay>
         ))}
       </Week>
       <Days $withoutHolidays={withoutHolidays}>
@@ -34,8 +36,8 @@ const DaysComponent: FC<IRenderData> = ({
           />
         ))}
       </Days>
-    </>
+    </DayViewContainer>
   );
 };
 
-export const DaysView = memo(DaysComponent);
+export const DayView = memo(DaysComponent);

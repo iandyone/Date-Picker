@@ -59,10 +59,10 @@ const TodosComponent: FC<IRenderData> = ({ currentDate, withTodos }) => {
   return (
     <>
       {withTodos && (
-        <Wrapper>
+        <Wrapper data-testid='todo-component'>
           <Title>TODOS</Title>
           <Body>
-            <TodoList>
+            <TodoList data-testid='todo-list'>
               {todoList &&
                 todoList.map((todo, index) => (
                   <TodoItemComponent
@@ -73,7 +73,7 @@ const TodosComponent: FC<IRenderData> = ({ currentDate, withTodos }) => {
                   />
                 ))}
             </TodoList>
-            <Field onSubmit={handlerOnSubmit}>
+            <Field onSubmit={handlerOnSubmit} data-testid='todo-input'>
               <Input value={todo} onChange={handlerOnChange} />
               <ButtonAdd>
                 <Icon src={addTodoIcon} />

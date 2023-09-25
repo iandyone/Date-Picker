@@ -1,5 +1,7 @@
 import styled, { css } from 'styled-components';
 
+export const DayViewContainer = styled.div``;
+
 export const Week = styled.ul<{ $withoutHolidays: boolean }>`
   display: grid;
   justify-content: space-between;

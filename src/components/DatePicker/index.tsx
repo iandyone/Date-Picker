@@ -6,7 +6,7 @@ import { themeDecorator } from '@decorators/theme';
 import { todoDecorator } from '@decorators/todos';
 import { viewDecorator } from '@decorators/view';
 import { weekendDecorator } from '@decorators/weekends';
-import { weekStartDecorator } from '@decorators/weekStart';
+import { weekstartDecorator } from '@decorators/weekstart';
 import { renderDataObserver } from '@observers/renderData';
 import { Controller } from '@services/Controller';
 import { View } from '@services/View';
@@ -45,7 +45,7 @@ class DatePickerComponent extends Component<IDatePickerProps, IDatePickerState> 
     }
 
     if (weekStart) {
-      DataPicker = weekStartDecorator(DataPicker, weekStart);
+      DataPicker = weekstartDecorator(DataPicker, weekStart);
     }
 
     if (view) {
@@ -61,7 +61,7 @@ class DatePickerComponent extends Component<IDatePickerProps, IDatePickerState> 
     }
 
     if (range) {
-      DataPicker = rangeDecorator(DataPicker);
+      DataPicker = rangeDecorator(DataPicker, {});
     }
 
     if (noWeekends) {

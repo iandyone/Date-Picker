@@ -28,6 +28,10 @@ const DayCeilComponent: FC<IDayCeilProps> = ({
   const key = useMemo(getKey, [day, month, year]);
   const [isHoliday, setIsHoliday] = useState(getHolidayStatus);
 
+  useEffect(() => {
+    setIsHoliday(getHolidayStatus());
+  }, [day, month, year]);
+
   function getHolidayStatus() {
     const holidays = JSON.parse(localStorage.getItem('holidays')) ?? {};
 
@@ -62,10 +66,6 @@ const DayCeilComponent: FC<IDayCeilProps> = ({
     return OthertMonthDay;
   }
 
-  useEffect(() => {
-    setIsHoliday(getHolidayStatus());
-  }, [day, month, year]);
-
   function handlerOnClick() {
     const newDate = new Date(year, month, day);
     handler(newDate);
@@ -91,7 +91,11 @@ const DayCeilComponent: FC<IDayCeilProps> = ({
   }
 
   return (
-    <Component onClick={handlerOnClick} onContextMenu={handlerOnContext} $isHoliday={isHoliday}>
+    <Component
+      onClick={handlerOnClick}
+      onContextMenu={handlerOnContext}
+      $isHoliday={isHoliday}
+      data-testid='ceil-day'>
       {day}
     </Component>
   );

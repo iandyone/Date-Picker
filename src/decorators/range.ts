@@ -1,7 +1,12 @@
 import { DecoratorBaseClass } from '@appTypes/index';
 import { getDateData } from '@utils/helpers/getDateData';
 
-export function rangeDecorator(BaseClass: DecoratorBaseClass) {
+interface IRangeDates {
+  rangeStart?: Date;
+  rangeEnd?: Date;
+}
+
+export function rangeDecorator(BaseClass: DecoratorBaseClass, { rangeStart, rangeEnd }: IRangeDates) {
   return class extends BaseClass {
     constructor() {
       super();
@@ -9,8 +14,8 @@ export function rangeDecorator(BaseClass: DecoratorBaseClass) {
       const { month, year } = getDateData(date);
 
       this.withRangeDecorator = true;
-      this.rangeStart = new Date(year, month, 6);
-      this.rangeEnd = new Date(year, month, 21);
+      this.rangeStart = rangeStart ?? new Date(year, month, 6);
+      this.rangeEnd = rangeEnd ?? new Date(year, month, 21);
     }
 
     clearDateRange() {

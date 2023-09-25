@@ -3,10 +3,10 @@ import arrowLeftIcon from '@assets/arrow-left.png';
 import arrowRightIcon from '@assets/arrow-right.png';
 import { DateInput } from '@components/DateInput';
 import { DateRange } from '@components/DateRange';
-import { DaysView } from '@components/DaysView';
-import { MonthsView } from '@components/MonthView';
+import { DayView } from '@components/DaysView';
+import { MonthView } from '@components/MonthView';
 import { Todos } from '@components/Todos';
-import { YearsView } from '@components/YearsView';
+import { YearView } from '@components/YearView';
 import { theme } from '@constants/theme';
 import { GlobalStyles, Wrapper } from '@styles/index';
 import { ThemeProvider } from 'styled-components';
@@ -44,7 +44,12 @@ export class View implements IView {
         <GlobalStyles />
         <Wrapper>
           {datePickerDecorator && (
-            <DateInput handlerOnSubmit={setUserDate} maxDate={maxDate} minDate={minDate} />
+            <DateInput
+              handlerOnSubmit={setUserDate}
+              maxDate={maxDate}
+              minDate={minDate}
+              data-testid='date-picker'
+            />
           )}
 
           {rangeDecorator && (
@@ -54,32 +59,43 @@ export class View implements IView {
               rangeEnd={rangeEnd}
               minDate={minDate}
               maxDate={maxDate}
+              data-testid='date-range'
             />
           )}
 
-          <Calendar $withRangeDecorator={rangeDecorator} $withClearRangeButton={clearRangeButtonVisability}>
+          <Calendar
+            $withRangeDecorator={rangeDecorator}
+            $withClearRangeButton={clearRangeButtonVisability}
+            data-testid='date-picker'>
             <Navigation>
               <DateButton
                 src={arrowLeftIcon}
                 onClick={getPrevDate}
                 onContextMenu={handlerOnContextPrevDate}
+                data-testid='prev-date-button'
               />
-              <Title onClick={titleHandler}>{title}</Title>
+              <Title onClick={titleHandler} data-testid='current-date'>
+                {title}
+              </Title>
               <DateButton
                 src={arrowRightIcon}
                 onClick={getNextDate}
                 onContextMenu={handlerOnContextNextDate}
+                data-testid='next-date-button'
               />
             </Navigation>
             <Body>
-              {view === 'decade' && <YearsView {...renderData} />}
-              {view === 'year' && <MonthsView {...renderData} />}
-              {(!view || view === 'month') && <DaysView {...renderData} />}
-              {view === 'day' && <Todos {...renderData} />}
+              {view === 'decade' && <YearView {...renderData} data-testid='years-view' />}
+              {view === 'year' && <MonthView {...renderData} data-testid='month-view' />}
+              {(!view || view === 'month') && <DayView {...renderData} data-testid='days-view' />}
+              {view === 'day' && <Todos {...renderData} data-testid='todos' />}
             </Body>
           </Calendar>
           {rangeDecorator && (
-            <RangeClearButton onClick={hadnlerOnClickClearDateRange} $visability={clearRangeButtonVisability}>
+            <RangeClearButton
+              onClick={hadnlerOnClickClearDateRange}
+              $visability={clearRangeButtonVisability}
+              data-testid='range-clear-button'>
               Clear
             </RangeClearButton>
           )}

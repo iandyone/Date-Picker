@@ -11,7 +11,7 @@
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
     "baseUrl": ".",
-    "types": ["node"],
+    "types": ["node", "jest"],
     "declaration": true,
     "paths": {
       "@components/*": ["./src/components/*"],
@@ -35,5 +35,11 @@
       "module": "CommonJS"
     }
   },
-  "include": ["./src/**/*.ts", "./src/**/*.tsx", "./rollup.config.mjs", "./global.d.tsx"]
+  "include": [
+    "./src/**/*.ts",
+    "./src/**/*.tsx",
+    "./rollup.config.mjs",
+    "./global.d.tsx",
+    "./config/jest/jest-setup.ts"
+  ]
 }

@@ -1,10 +1,10 @@
 import { DecoratorBaseClass, WeekStart } from '@appTypes/index';
 
-export function weekStartDecorator(BaseClass: DecoratorBaseClass, weekStart: WeekStart) {
+export function weekstartDecorator(BaseClass: DecoratorBaseClass, weekStart: WeekStart) {
   return class extends BaseClass {
     constructor() {
       super();
-      this.withWeekStartDecorator = true;
+      this.withweekstartDecorator = true;
       this.weekStart = weekStart;
     }
   };

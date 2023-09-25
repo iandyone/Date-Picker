@@ -4,9 +4,9 @@ import { FC, memo } from 'react';
 import { MonthCeil } from './MonthCeil';
 import { MonthContainer } from './styled';
 
-const MonthsComponent: FC<IRenderData> = ({ calendarItems, clendarItemHandler }) => {
+const MonthComponent: FC<IRenderData> = ({ calendarItems, clendarItemHandler }) => {
   return (
-    <MonthContainer>
+    <MonthContainer data-testid='month-view'>
       {calendarItems.map((date, index) => (
         <MonthCeil date={date} handler={clendarItemHandler} key={index} />
       ))}
@@ -14,4 +14,4 @@ const MonthsComponent: FC<IRenderData> = ({ calendarItems, clendarItemHandler })
   );
 };
 
-export const MonthsView = memo(MonthsComponent);
+export const MonthView = memo(MonthComponent);

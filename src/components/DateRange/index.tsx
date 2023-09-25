@@ -18,6 +18,13 @@ const DateRangeComponent: FC<IDateRangeProps> = ({
   const [rangeStartError, setRangeStartError] = useState(false);
   const [rangeEndError, setRangeEndError] = useState(false);
 
+  useEffect(() => {
+    if (!rangeStart && !rangeEnd) {
+      setRangeStartDate('');
+      setRangeEndDate('');
+    }
+  }, [rangeEnd, rangeStart]);
+
   function handlerOnChangeRangeStart(e: ChangeEvent<HTMLInputElement>) {
     const date = e.target.value;
     const startRangeDate = getDateFromUserInput(date, minDate, maxDate);
@@ -75,13 +82,6 @@ const DateRangeComponent: FC<IDateRangeProps> = ({
     return `${dayValue}/${monthValue}/${year}`;
   }
 
-  useEffect(() => {
-    if (!rangeStart && !rangeEnd) {
-      setRangeStartDate('');
-      setRangeEndDate('');
-    }
-  }, [rangeEnd, rangeStart]);
-
   return (
     <Wrapper>
       <RangeInput
@@ -89,12 +89,14 @@ const DateRangeComponent: FC<IDateRangeProps> = ({
         onChange={handlerOnChangeRangeStart}
         value={rangeStartDate}
         $error={rangeStartError}
+        data-testid='range-input-start'
       />
       <RangeInput
         placeholder='To date'
         onChange={handlerOnChangeRangeEnd}
         value={rangeEndDate}
         $error={rangeEndError}
+        data-testid='range-input-end'
       />
     </Wrapper>
   );

@@ -1,4 +1,4 @@
-import { WeekDays } from '@appTypes/index';
+import { CustomTheme, WeekDays } from '@appTypes/index';
 import { theme } from '@constants/theme';
 import { MAX_DATE, MIN_DATE } from '@constants/variables';
 import { Meta, StoryObj } from '@storybook/react';
@@ -14,30 +14,30 @@ const meta: Meta<typeof DatePicker> = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-// const customTheme: CustomTheme = {
-//   fontSize: '14px',
-//   textColor: '#000',
-//   transition: 'all .3s ease',
-//   padding: '5px',
-//   hoverColor: '#f1f1f1',
-//   otherDateColor: '#aaaaaa',
-//   borderColor: 'blue',
-//   activeCollor: '#2f80ed',
-//   borderRadius: '8px',
-//   transformActive: 'scale(0.85)',
-// };
+const customTheme: CustomTheme = {
+  // fontSize: '14px',
+  // textColor: '#000',
+  // transition: 'all .3s ease',
+  // padding: '5px',
+  // hoverColor: '#f1f1f1',
+  otherDateColor: '#aaaaaa',
+  borderColor: 'red',
+  // activeCollor: '#2f80ed',
+  // borderRadius: '8px',
+  // transformActive: 'scale(0.85)',
+};
 
 export const Default: Story = {
   args: {
-    noWeekends: false,
-    weekStart: WeekDays.MONDAY,
-    datePicker: true,
+    // noWeekends: false,
+    // weekStart: WeekDays.MONDAY,
+    // datePicker: true,
     range: true,
-    todos: true,
-    view: 'month',
-    minDate: new Date(1997, 8),
-    maxDate: new Date(2039, 8),
-    // customTheme: customTheme,
+    // todos: true,
+    // view: 'month',
+    // minDate: new Date(1997, 8),
+    // maxDate: new Date(2039, 8),
+    customTheme: customTheme,
   },
   argTypes: {
     weekStart: {

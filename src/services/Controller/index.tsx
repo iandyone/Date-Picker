@@ -30,7 +30,7 @@ export class Controller implements IController {
   weekStart: WeekStart;
   withTodosDecorator: boolean;
   withViewDecorator: boolean;
-  withWeekStartDecorator: boolean;
+  withweekstartDecorator: boolean;
   withLimitDatesDecorator: boolean;
   withThemeDecorator: boolean;
   withRangeDecorator: boolean;

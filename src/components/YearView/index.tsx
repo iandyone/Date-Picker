@@ -4,9 +4,9 @@ import { FC, memo } from 'react';
 import { YearsContainer } from './styled';
 import { YearCeil } from './YearCeil';
 
-const YearsViewComponent: FC<IRenderData> = ({ calendarItems, clendarItemHandler }) => {
+const YeaViewComponent: FC<IRenderData> = ({ calendarItems, clendarItemHandler }) => {
   return (
-    <YearsContainer>
+    <YearsContainer data-testid='year-view'>
       {calendarItems.map((date, index) => {
         const isOtherDecadeYear = index === 0 || index === 11;
 
@@ -23,4 +23,4 @@ const YearsViewComponent: FC<IRenderData> = ({ calendarItems, clendarItemHandler
   );
 };
 
-export const YearsView = memo(YearsViewComponent);
+export const YearView = memo(YeaViewComponent);
