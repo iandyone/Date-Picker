@@ -6,7 +6,7 @@ import { themeDecorator } from '@decorators/theme';
 import { todoDecorator } from '@decorators/todos';
 import { viewDecorator } from '@decorators/view';
 import { weekendDecorator } from '@decorators/weekends';
-import { weekstartDecorator } from '@decorators/weekstart';
+import { weekstartDecorator } from '@decorators/weekStart';
 import { Controller } from '@services/Controller';
 import { getDateData } from '@utils/helpers/getDateData';
 

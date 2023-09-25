@@ -1,12 +1,12 @@
 import { Months, WeekDays, WeekDaysID } from '@appTypes/index';
 import { MAX_DATE, MIN_DATE } from '@constants/variables';
 import { weekendDecorator } from '@decorators/weekends';
-import { weekstartDecorator } from '@decorators/weekstart';
+import { weekstartDecorator } from '@decorators/weekStart';
 import { Controller } from '@services/Controller';
 import { fireEvent, render, screen } from '@testing-library/react';
 import { getDateData } from '@utils/helpers/getDateData';
 
-import { DatePicker } from '.';
+import { DatePicker } from '..';
 
 function getTitleString(month: string, year: number | string) {
   return `${month[0] + month.slice(1).toLocaleLowerCase()} ${year}`;

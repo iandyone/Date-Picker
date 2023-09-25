@@ -1,31 +1,35 @@
 <h1 align="center">Date-Picker Library</h1>
 <p align="center">A simple react date picker component with custom settings</p>
 
+## Demo
+[Storybook deploy link](https://date-picker-pdz1jhuln-iandyone.vercel.app/)
+
+
 ## Installation
 
 ```sh
-npm install iandyone/date-picker
+npm install date-picker-iandyone
 ```
 
 <p>or</p>
 
 ```sh
-yarn add iandyone/date-picker
+yarn add date-picker-iandyone
 ```
 
 ## Usage
 
-<p>Import the DatePicker components from iandyone/date-picker</p>
+<p>Import the DatePicker components from date-picker-iandyone</p>
 
 ```sh
-import { DatePicker } from 'iandyone/date-picker'
+import { DatePicker } from 'date-picker-iandyone'
 ```
 
 <p>Now you can render it like a normal react component</p>
 
 
 ```sh
-import { DatePicker } from 'iandyone/date-picker';
+import { DatePicker } from 'date-picker-iandyone';
 
 const YourComponent = () => {
 
@@ -36,7 +40,7 @@ const YourComponent = () => {
 
 ```
 
-![image](https://github.com/iandyone/Date-Picker/assets/84668094/a9410bdc-e487-475c-8598-31f752d6a4da)
+![image](https://github.com/Date-Picker-iandyone/assets/84668094/a9410bdc-e487-475c-8598-31f752d6a4da)
 
 <p>In the basic version, the component displays the current month.</p>
 <p>You can move to the next or previous month by clicking the corresponding buttons located at the top of the component.</p>
@@ -59,7 +63,7 @@ const YourComponent = () => {
 | `datePicker?`  | `boolean`                           | `false`   | Select the start week day for month view                                                                     |
 | `range?`       | `boolean`                           | `false`   | Enable/disable the ability to set the date range. When activated, additional input fields are displayed on the UI for the possibility to enter range boundaries |
 | `todos?`       | `boolean`                           | `false`   | Enable/disable todos in the day date-picker view                                                            |
-| `todos?`       | `day \| month \| year \| decade`    | `false`   | Adds new types of calendar view: day, month, year, decade and allows to select the default view   |
+| `view?`        | `day \| month \| year \| decade`    | `false`   | Adds new types of calendar view: day, month, year, decade and allows to select the default view   |
 | `minDate?`     | Date \| timestamp                   |           | Allows you to set the minimum possible date for the calendar                                   |
 | `maxDate?`     | Date \| timestamp                   |           | Allows you to set the maximum possible date for the calendar                                    |
 | `customTheme?` | object                              |           | Pass an object with properties to override the component's styles                                    |

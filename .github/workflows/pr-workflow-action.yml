@@ -25,6 +25,8 @@ jobs:
         run: yarn build-sb
       - name: check rollup build
         run: yarn build
+      - name: unit tests
+        run: yarn test
       - name: check code style
         run: yarn lint:fix
 
