@@ -1,7 +1,6 @@
-import { CustomTheme, WeekDays } from '@appTypes/index';
+import { WeekDays } from '@appTypes/index';
+import { DatePicker } from '@components/DatePicker';
 import { Meta, StoryObj } from '@storybook/react';
-
-import { DatePicker } from '..';
 
 const meta: Meta<typeof DatePicker> = {
   title: 'Date Picker',
@@ -11,21 +10,6 @@ const meta: Meta<typeof DatePicker> = {
 
 export default meta;
 type Story = StoryObj<typeof meta>;
-
-const customTheme: CustomTheme = {
-  fontSize: '18px',
-  textColor: 'green',
-  transition: 'all .3s ease',
-  padding: '10px',
-  hoverColor: '#f1f1f1',
-  otherDateColor: '#aaaaaa',
-  borderColor: 'green',
-  activeCollor: 'green',
-  borderRadius: '16px',
-  transformActive: 'scale(0.85)',
-  width: '340px',
-  height: '340px',
-};
 
 export const Default: Story = {};
 
@@ -92,6 +76,7 @@ export const WithRange: Story = {
 export const DayView: Story = {
   args: {
     view: 'day',
+    todos: true,
   },
   argTypes: {
     range: {
@@ -149,17 +134,6 @@ export const WithDateLimit: Story = {
   },
 };
 
-export const WithCustomStyle: Story = {
-  args: {
-    customTheme: customTheme,
-  },
-  argTypes: {
-    range: {
-      description: 'Pass an object with properties to override the component styles',
-    },
-  },
-};
-
 export const CustomWithAllProperties: Story = {
   args: {
     datePicker: true,
@@ -170,6 +144,5 @@ export const CustomWithAllProperties: Story = {
     weekStart: WeekDays.SUNDAY,
     minDate: new Date(2020, 8, 13),
     maxDate: new Date(2030, 8, 13),
-    customTheme: customTheme,
   },
 };
