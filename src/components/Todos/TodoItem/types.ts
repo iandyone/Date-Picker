@@ -1,8 +1,7 @@
-import { ID } from '@appTypes/index';
+import { ID } from '@appTypes/types';
 
 export interface ITodoItemProps {
   todo: string;
   index: ID;
-  todosKey?: string;
   handler: (todo: string) => void;
 }

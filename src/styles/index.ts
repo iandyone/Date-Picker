@@ -10,7 +10,7 @@ export const GlobalStyles = createGlobalStyle`
   margin: 0;
   border: 0;
   font-family: 'Open Sans';
-  font-weight: 400;
+  font-weight: ${({ theme }) => theme.font.regular};
 
   ul {
     list-style: none;
@@ -25,49 +25,56 @@ export const GlobalStyles = createGlobalStyle`
   }
 
   ::-webkit-scrollbar-thumb {
-    background-color: ${(props) => props.theme.textColor};
+    background-color: ${({ theme }) => theme.colors.text};
     border-radius: 8px;
   }
 
 
   input:focus, input:focus-visible {
     outline: none;
-    transition: ${(props) => props.theme.transition};
+    transition: ${({ theme }) => theme.animation.transition};
   }
 
   @font-face {
     font-family: 'Open Sans';
     src: url(${openSansRegular}) format('truetype');
-    font-weight: 400;
+    font-weight: ${({ theme }) => theme.font.regular};
     font-style: normal;
     font-display: auto;
   }
   @font-face {
     font-family: 'Open Sans';
     src: url(${openSansMedium}) format('truetype');
-    font-weight: 500;
+    font-weight: ${({ theme }) => theme.font.medium};
     font-style: normal;
     font-display: auto;
   }
   @font-face {
     font-family: 'Open Sans';
     src: url(${openSansSemiBold}) format('truetype');
-    font-weight: 600;
+    font-weight: ${({ theme }) => theme.font.semibold};
     font-style: normal;
     font-display: auto;
   }
   @font-face {
     font-family: 'Open Sans';
     src: url(${openSansBold}) format('truetype');
-    font-weight: 700;
+    font-weight: ${({ theme }) => theme.font.bold};
     font-style: normal;
     font-display: auto;
+  }
+
+
+  @keyframes spinAnimation {
+    to {
+      transform: rotate(360deg);
+    }
   }
 }
 `;
 
 export const Wrapper = styled.div`
-  width: ${(props) => props.theme.width};
+  width: ${({ theme }) => theme.spaces.width};
   display: flex;
   flex-direction: column;
 `;

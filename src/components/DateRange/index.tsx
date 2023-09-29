@@ -1,6 +1,4 @@
-import { getDateData } from '@utils/helpers/getDateData';
-import { getDateFromUserInput } from '@utils/helpers/getDateFromUserInput';
-import { getFixedValue } from '@utils/helpers/getFixedValue';
+import { getDateData, getDateFromUserInput, getFixedValue } from '@utils/helpers/date';
 import { ChangeEvent, FC, memo, useEffect, useState } from 'react';
 
 import { RangeInput, Wrapper } from './styled';
@@ -85,14 +83,14 @@ const DateRangeComponent: FC<IDateRangeProps> = ({
   return (
     <Wrapper>
       <RangeInput
-        placeholder='From date'
+        placeholder='DD/MM/YYYY'
         onChange={handlerOnChangeRangeStart}
         value={rangeStartDate}
         $error={rangeStartError}
         data-testid='range-input-start'
       />
       <RangeInput
-        placeholder='To date'
+        placeholder='DD/MM/YYYY'
         onChange={handlerOnChangeRangeEnd}
         value={rangeEndDate}
         $error={rangeEndError}

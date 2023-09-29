@@ -1,4 +1,4 @@
-import { CustomTheme, DecoratorBaseClass } from '@appTypes/index';
+import { CustomTheme, DecoratorBaseClass } from '@appTypes/types';
 
 export function themeDecorator(BaseClass: DecoratorBaseClass, theme: CustomTheme) {
   return class extends BaseClass {

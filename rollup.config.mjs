@@ -6,6 +6,7 @@ import alias from '@rollup/plugin-alias';
 import dts from 'rollup-plugin-dts';
 import url from '@rollup/plugin-url';
 import svgr from '@svgr/rollup';
+import replace from 'rollup-plugin-replace';
 
 import path from 'path';
 import { createRequire } from 'node:module';
@@ -33,6 +34,9 @@ export default [
       },
     ],
     plugins: [
+      replace({
+        'process.env.NODE_ENV': JSON.stringify('production'),
+      }),
       alias({
         entries: [
           { find: '@components', replacement: path.resolve(__dirname, 'src', 'components') },
@@ -40,21 +44,24 @@ export default [
           { find: '@constants', replacement: path.resolve(__dirname, 'src', 'constants') },
           { find: '@decorators', replacement: path.resolve(__dirname, 'src', 'decorators') },
           { find: '@services', replacement: path.resolve(__dirname, 'src', 'services') },
+          { find: '@appTypes', replacement: path.resolve(__dirname, 'src', 'types') },
+          { find: '@appTypes', replacement: path.resolve(__dirname, 'src', 'types') },
+          { find: '@appTypes', replacement: path.resolve(__dirname, 'src', 'types') },
           { find: '@src', replacement: './src' },
         ],
       }),
       peerDepsExternal(),
       svgr({ icon: true }),
       url({
-        include: ['**/*.woff', '**/*.woff2', '**/*.ttf',  '**/*.png'], // Укажите типы файлов, которые нужно обрабатывать
-        limit: false, // Отключите ограничение на размер файлов (полезно для шрифтов)
-        emitFiles: true, // Разрешите плагину создавать файлы для обработанных ресурсов
+        include: ['**/*.woff', '**/*.woff2', '**/*.ttf', '**/*.png'],
+        limit: false,
+        emitFiles: true,
       }),
       resolve(),
       commonjs(),
       typescript(),
     ],
-    external: ['react', 'react-dom',],
+    external: ['react', 'react-dom'],
   },
   {
     input: './dist/src/components/DatePicker/index.d.ts',

@@ -1,4 +1,4 @@
-import { DecoratorBaseClass } from '@appTypes/index';
+import { DecoratorBaseClass } from '@appTypes/types';
 import { renderDataObserver } from '@observers/renderData';
 
 export function todoDecorator(BaseClass: DecoratorBaseClass) {

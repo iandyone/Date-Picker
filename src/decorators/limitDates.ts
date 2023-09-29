@@ -1,4 +1,4 @@
-import { DateLimit, DecoratorBaseClass } from '@appTypes/index';
+import { DateLimit, DecoratorBaseClass } from '@appTypes/types';
 
 export function limitDatestDecorator(
   BaseClass: DecoratorBaseClass,

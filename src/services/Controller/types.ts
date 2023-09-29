@@ -1,7 +1,7 @@
-import { ICalendar, IRenderData, WeekStart } from '@appTypes/index';
+import { ICalendar, IRenderData } from '@appTypes';
 
 export interface IController extends ICalendar {
-  getRenderData: (weekStart: WeekStart) => IRenderData;
+  getRenderData: () => IRenderData;
 }
 
 export interface IControllerState {

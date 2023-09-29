@@ -1,4 +1,4 @@
-import { IDateCellItemMonths, DateHandler } from '@appTypes/index';
+import { IDateCellItemMonths, DateHandler } from '@appTypes';
 
 export interface IMonthComponentProps {
   date: IDateCellItemMonths;

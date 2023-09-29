@@ -1,27 +1,29 @@
 import styled, { css } from 'styled-components';
 
+const space = '10px';
+
 export const Wrapper = styled.div`
   display: flex;
   justify-content: space-between;
-  column-gap: 20px;
-  margin-bottom: 10px;
+  column-gap: ${space};
+  margin-bottom: ${space};
 `;
 
 export const RangeInput = styled.input.attrs((props) => ({
   placeholder: props.placeholder,
   type: 'text',
 }))<{ $error: boolean }>`
-  border-radius: ${(props) => props.theme.borderRadius};
-  border: 1px solid ${(props) => props.theme.borderColor};
+  border-radius: ${({ theme }) => theme.spaces.borderRadius};
+  border: 1px solid ${({ theme }) => theme.colors.border};
+  padding: ${({ theme }) => theme.spaces.inputPadding};
+  transition: ${({ theme }) => theme.animation.transition};
   height: 20px;
-  padding: ${(props) => props.theme.inputPadding};
   width: 100%;
-  transition: ${(props) => props.theme.transition};
 
   ${({ $error }) =>
     $error &&
     css`
-      border-color: ${(props) => props.theme.errorColor};
-      transition: ${(props) => props.theme.transition};
+      border-color: ${({ theme }) => theme.colors.error};
+      transition: ${({ theme }) => theme.animation.transition};
     `}
 `;

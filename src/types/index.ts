@@ -1,71 +1,55 @@
-import { Controller } from '@services/Controller';
-import { MouseEvent } from 'react';
+import {
+  handler,
+  handlerContext,
+  DateCellItem,
+  SubmitHandler,
+  subscriber,
+  WeekStart,
+  ViewType,
+  CustomTheme,
+  DateHandler,
+  handlerRange,
+  WeekDayFormat,
+} from './types';
 
-export type ID = number | string;
+export interface IFont {
+  size?: string;
+  bold?: number;
+  regular?: number;
+  medium?: number;
+  semibold?: number;
+  family?: string;
+}
 
-export type handler = () => void;
+export interface IColor {
+  text?: string;
+  otherDate?: string;
+  border?: string;
+  active?: string;
+  rangeStart?: string;
+  rangeEnd?: string;
+  inRange?: string;
+  holiday?: string;
+  error?: string;
+  textLight?: string;
+  hover?: string;
+}
 
-export type subscriber = handler;
-
-export type WeekStart = WeekDays.MONDAY | WeekDays.SUNDAY;
-
-export type handlerContext = (e: MouseEvent<HTMLElement>) => void;
-
-export type handlerRange = (date: Date, type: DateRangeType) => void;
-
-export type DateCellItem = IDateCellItemDays | IDateCellItemMonths | IDateCellItemYears;
-
-export type DateHandler = (date: Date, viewType?: ViewType) => void;
-
-export type ViewType = 'day' | 'month' | 'year' | 'decade';
-
-export type DecoratorBaseClass = typeof Controller;
-
-export type SubmitHandler = (date: Date) => void;
-
-export type DateLimit = Date | number;
-
-export type CustomTheme = Partial<ITheme>;
-
-export type DateRangeType = 'start' | 'end';
+export interface ISpace {
+  borderRadius?: string;
+  inputPadding?: string;
+  loaderSize?: string;
+  padding?: string;
+  height?: string;
+  width?: string;
+}
+export interface IAnimation {
+  transition?: string;
+  transformActive?: string;
+}
 
 export interface ITodoList {
   [key: string]: string[];
-}
-
-export enum Months {
-  JANUARY,
-  FEBRUARY,
-  MARCH,
-  APRIL,
-  MAY,
-  JUNE,
-  JULY,
-  AUGUST,
-  SEPTEMBER,
-  OCTOBER,
-  NOVEMBER,
-  DECEMBER,
-}
-
-export enum WeekDays {
-  MONDAY = 'Monday',
-  TUESDAY = 'Tuesday',
-  WEDNESDAY = 'Wednesday',
-  THIRSDAY = 'Thirsday',
-  FRIDAY = 'Friday',
-  SATURDAY = 'Saturday',
-  SUNDAY = 'Sunday',
-}
-
-export enum WeekDaysID {
-  SUNDAY,
-  MONDAY,
-  TUESDAY,
-  WEDNESDAY,
-  THIRSDAY,
-  FRIDAY,
-  SATURDAY,
 }
 
 export interface IDateCellItemDays {
@@ -114,24 +98,10 @@ export interface IRenderDataObserver {
 }
 
 export interface ITheme {
-  fontSize: string;
-  textColor: string;
-  transition: string;
-  padding: string;
-  hoverColor: string;
-  otherDateColor: string;
-  borderColor: string;
-  activeCollor: string;
-  borderRadius: string;
-  transformActive: string;
-  inputPadding: string;
-  rangeStartColor: string;
-  rangeEndColor: string;
-  inRangeColor: string;
-  holidayColor: string;
-  errorColor: string;
-  width?: string;
-  height?: string;
+  font: IFont;
+  colors: IColor;
+  spaces: ISpace;
+  animation: IAnimation;
 }
 
 export interface IDecorator {
@@ -172,8 +142,6 @@ export interface IRenderData {
   hadnlerOnClickClearDateRange: handler;
   handlerOnContextCalendarItem: handler;
 }
-
-export type WeekDayFormat = 'full' | 'short';
 
 export interface WeekDaysProps {
   format?: WeekDayFormat;

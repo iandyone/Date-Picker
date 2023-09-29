@@ -27,7 +27,7 @@
     "ecmaVersion": "latest",
     "sourceType": "module"
   },
-  "plugins": ["@typescript-eslint", "react", "simple-import-sort"],
+  "plugins": ["@typescript-eslint", "react", "simple-import-sort", "import"],
   "rules": {
     "indent": ["error", 2],
     "linebreak-style": ["error", "windows"],
@@ -40,6 +40,9 @@
     "no-multiple-empty-lines": "error",
     "no-console": "warn",
     "simple-import-sort/imports": "error",
-    "simple-import-sort/exports": "error"
+    "simple-import-sort/exports": "error",
+    "import/first": "error",
+    "import/newline-after-import": "error",
+    "import/no-duplicates": "error"
   }
 }

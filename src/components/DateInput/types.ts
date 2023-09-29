@@ -1,4 +1,4 @@
-import { SubmitHandler } from '@appTypes/index';
+import { SubmitHandler } from '@appTypes/types';
 
 export interface IDateInputProps {
   handlerOnSubmit: SubmitHandler;

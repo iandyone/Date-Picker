@@ -1,10 +1,10 @@
 import styled, { css } from 'styled-components';
 
 export const Calendar = styled.section<{ $withRangeDecorator: boolean; $withClearRangeButton: boolean }>`
-  width: ${(props) => props.theme.width};
-  height: ${(props) => props.theme.height};
-  border-radius: ${(props) => props.theme.borderRadius};
-  border: 1px solid ${(props) => props.theme.borderColor};
+  width: ${({ theme }) => theme.spaces.width};
+  height: ${({ theme }) => theme.spaces.height};
+  border-radius: ${({ theme }) => theme.spaces.borderRadius};
+  border: 1px solid ${({ theme }) => theme.colors.border};
   background: #fff;
   padding: 10px;
   display: flex;
@@ -16,13 +16,14 @@ export const Calendar = styled.section<{ $withRangeDecorator: boolean; $withClea
   ${({ $withRangeDecorator }) =>
     $withRangeDecorator &&
     css`
-      border-radius: ${(props) => props.theme.borderRadius} ${(props) => props.theme.borderRadius} 0px 0px;
+      border-radius: ${({ theme }) => theme.spaces.borderRadius} ${({ theme }) => theme.spaces.borderRadius}
+        0px 0px;
     `}
 
   ${({ $withClearRangeButton }) =>
     $withClearRangeButton &&
     css`
-      border-radius: ${(props) => props.theme.borderRadius};
+      border-radius: ${({ theme }) => theme.spaces.borderRadius};
     `}
 `;
 
@@ -34,19 +35,19 @@ export const Navigation = styled.nav`
 `;
 
 export const Title = styled.h1`
-  font-size: ${(props) => props.theme.fontSize};
-  color: ${(props) => props.theme.textColor};
-  font-weight: 700;
-  font-family: 'Open Sans';
-  transition: ${(props) => props.theme.transition};
+  font-size: ${({ theme }) => theme.font.size};
+  color: ${({ theme }) => theme.colors.text};
+  font-weight: ${({ theme }) => theme.font.bold};
+  font-family: ${({ theme }) => theme.font.family};
+  transition: ${({ theme }) => theme.animation.transition};
 
   &:hover {
     cursor: pointer;
-    transition: ${(props) => props.theme.transition};
+    transition: ${({ theme }) => theme.animation.transition};
   }
 
   &:active {
-    transition: ${(props) => props.theme.transition};
+    transition: ${({ theme }) => theme.animation.transition};
     transform: scale(0.9);
   }
 `;
@@ -57,29 +58,29 @@ export const DateButton = styled.img.attrs(({ src }) => ({
 }))`
   width: 20px;
   height: 20px;
-  transition: ${(props) => props.theme.transition};
+  transition: ${({ theme }) => theme.animation.transition};
 
   &:hover {
     cursor: pointer;
   }
 
   &:active {
-    transition: ${(props) => props.theme.transition};
-    transform: ${(props) => props.theme.transformActive};
+    transition: ${({ theme }) => theme.animation.transition};
+    transform: ${({ theme }) => theme.animation.transformActive};
   }
 `;
 
 export const Body = styled.div`
-  display: grid;
   height: 100%;
 `;
 
 export const RangeClearButton = styled.button<{ $visability?: boolean }>`
-  width: ${(props) => props.theme.width};
+  width: ${({ theme }) => theme.spaces.width};
   background-color: transparent;
-  border: 1px solid ${(props) => props.theme.borderColor};
-  border-radius: 0px 0px ${(props) => props.theme.borderRadius} ${(props) => props.theme.borderRadius};
-  transition: ${(props) => props.theme.transition};
+  border: 1px solid ${({ theme }) => theme.colors.border};
+  border-radius: 0px 0px ${({ theme }) => theme.spaces.borderRadius}
+    ${({ theme }) => theme.spaces.borderRadius};
+  transition: ${({ theme }) => theme.animation.transition};
   height: 36px;
   display: flex;
   justify-content: center;
@@ -91,7 +92,7 @@ export const RangeClearButton = styled.button<{ $visability?: boolean }>`
   }
 
   &:active {
-    transition: ${(props) => props.theme.transition};
+    transition: ${({ theme }) => theme.animation.transition};
     opacity: 0.6;
   }
 

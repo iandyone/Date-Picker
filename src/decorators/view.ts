@@ -1,4 +1,5 @@
-import { DateCellItem, DecoratorBaseClass, IDateCellItemYears, ViewType } from '@appTypes/index';
+import { IDateCellItemYears } from '@appTypes';
+import { DateCellItem, DecoratorBaseClass, ViewType } from '@appTypes/types';
 import { renderDataObserver } from '@observers/renderData';
 
 export function viewDecorator(BaseClass: DecoratorBaseClass, view: ViewType) {

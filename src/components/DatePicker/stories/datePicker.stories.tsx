@@ -1,4 +1,4 @@
-import { WeekDays } from '@appTypes/index';
+import { WeekDays } from '@appTypes/enums';
 import { DatePicker } from '@components/DatePicker';
 import { Meta, StoryObj } from '@storybook/react';
 
@@ -11,7 +11,14 @@ const meta: Meta<typeof DatePicker> = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Default: Story = {};
+export const Default: Story = {
+  args: {
+    todos: true,
+    datePicker: true,
+    view: 'month',
+    range: true,
+  },
+};
 
 export const CustomWeekStart: Story = {
   args: {

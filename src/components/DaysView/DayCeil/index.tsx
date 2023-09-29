@@ -1,4 +1,4 @@
-import { getDateData } from '@utils/helpers/getDateData';
+import { getDateData } from '@utils/helpers/date';
 import { FC, memo, MouseEvent, useEffect, useMemo, useState } from 'react';
 
 import {

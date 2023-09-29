@@ -1,4 +1,5 @@
-import { CustomTheme, IDecorator, IRenderData, ITheme, ViewType } from '@appTypes/index';
+import { IDecorator, IRenderData, ITheme } from '@appTypes';
+import { CustomTheme, ViewType } from '@appTypes/types';
 import arrowLeftIcon from '@assets/arrow-left.png';
 import arrowRightIcon from '@assets/arrow-right.png';
 import { DateInput } from '@components/DateInput';
@@ -64,7 +65,7 @@ export class View implements IView {
           )}
 
           <Calendar
-            $withRangeDecorator={rangeDecorator}
+            $withRangeDecorator={rangeDecorator!}
             $withClearRangeButton={clearRangeButtonVisability}
             data-testid='date-picker'>
             <Navigation>
@@ -104,17 +105,16 @@ export class View implements IView {
     );
   }
 
-  private getStyles(customTheme: CustomTheme): CustomTheme {
-    const styles: CustomTheme = theme;
+  private getStyles(customTheme?: CustomTheme): ITheme {
+    const styles: ITheme = theme;
 
     if (customTheme) {
-      for (const styleKey in theme) {
-        if (styleKey in theme) {
-          const style = styleKey as keyof ITheme;
-          styles[style] = customTheme[style] ?? theme[style];
-        }
-      }
+      styles.font = { ...styles.font, ...customTheme.font };
+      styles.colors = { ...styles.colors, ...customTheme.colors };
+      styles.spaces = { ...styles.spaces, ...customTheme.spaces };
+      styles.animation = { ...styles.animation, ...customTheme.animation };
     }
+
     return styles;
   }
 
@@ -127,7 +127,7 @@ export class View implements IView {
   ) {
     if (view === 'decade') {
       const currentYear = currentDateString.slice(-4);
-      const startDecade = Math.trunc(+currentYear / 10) * 10;
+      const startDecade = Math.trunc(Number(currentYear) / 10) * 10;
       const titleDateFrom = Math.max(startDecade, minDate.getFullYear());
       const endDecade = Math.min(startDecade + 9, maxDate.getFullYear());
 

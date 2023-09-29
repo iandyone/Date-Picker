@@ -4,18 +4,18 @@ export const DatePicker = styled.form<{
   $error: boolean;
 }>`
   height: 26px;
-  margin-bottom: 15px;
+  margin-bottom: 10px;
   display: flex;
-  border-radius: ${(props) => props.theme.borderRadius};
-  border: 1px solid ${(props) => props.theme.borderColor};
-  padding: ${(props) => props.theme.inputPadding};
-  transition: ${(props) => props.theme.transition};
+  border-radius: ${({ theme }) => theme.spaces.borderRadius};
+  border: 1px solid ${({ theme }) => theme.colors.border};
+  padding: ${({ theme }) => theme.spaces.inputPadding};
+  transition: ${({ theme }) => theme.animation.transition};
 
   ${({ $error }) =>
     $error &&
     css`
-      border-color: ${(props) => props.theme.errorColor};
-      transition: ${(props) => props.theme.transition};
+      border-color: ${({ theme }) => theme.colors.error};
+      transition: ${({ theme }) => theme.animation.transition};
     `}
 `;
 

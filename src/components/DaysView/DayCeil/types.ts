@@ -1,4 +1,5 @@
-import { IDateCellItemDays, DateHandler, subscriber } from '@appTypes/index';
+import { IDateCellItemDays } from '@appTypes';
+import { DateHandler, subscriber } from '@appTypes/types';
 
 export interface IDayCeilProps {
   date: IDateCellItemDays;

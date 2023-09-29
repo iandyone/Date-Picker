@@ -1,4 +1,4 @@
-import { IRenderData } from '@appTypes/index';
+import { IRenderData } from '@appTypes';
 import { FC, memo } from 'react';
 
 import { YearsContainer } from './styled';

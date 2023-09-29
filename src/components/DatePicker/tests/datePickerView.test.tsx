@@ -1,10 +1,10 @@
-import { Months, WeekDays, WeekDaysID } from '@appTypes/index';
+import { Months, WeekDays, WeekDaysID } from '@appTypes/enums';
 import { MAX_DATE, MIN_DATE } from '@constants/variables';
 import { weekendDecorator } from '@decorators/weekends';
 import { weekstartDecorator } from '@decorators/weekStart';
 import { Controller } from '@services/Controller';
 import { fireEvent, render, screen } from '@testing-library/react';
-import { getDateData } from '@utils/helpers/getDateData';
+import { getDateData } from '@utils/helpers/date';
 
 import { DatePicker } from '..';
 

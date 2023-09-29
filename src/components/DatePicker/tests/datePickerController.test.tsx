@@ -1,4 +1,5 @@
-import { CustomTheme, WeekDays } from '@appTypes/index';
+import { WeekDays } from '@appTypes/enums';
+import { CustomTheme } from '@appTypes/types';
 import { MAX_DATE, MIN_DATE } from '@constants/variables';
 import { limitDatestDecorator } from '@decorators/limitDates';
 import { rangeDecorator } from '@decorators/range';
@@ -8,7 +9,7 @@ import { viewDecorator } from '@decorators/view';
 import { weekendDecorator } from '@decorators/weekends';
 import { weekstartDecorator } from '@decorators/weekStart';
 import { Controller } from '@services/Controller';
-import { getDateData } from '@utils/helpers/getDateData';
+import { getDateData } from '@utils/helpers/date';
 
 describe('Date picker controller test', () => {
   it('should have default configuration with no decorators', () => {
@@ -76,7 +77,7 @@ describe('Date picker controller test', () => {
   });
 
   it('theme decorator should update the controller configuration', () => {
-    const newTheme: CustomTheme = { fontSize: '20px' };
+    const newTheme: CustomTheme = { animation: { transformActive: '', transition: '' } };
 
     const ControllerClass = themeDecorator(Controller, newTheme);
     const controllerInstance = new ControllerClass();

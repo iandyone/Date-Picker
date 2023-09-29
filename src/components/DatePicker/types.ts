@@ -1,4 +1,4 @@
-import { IDecorator, IRenderData, WeekStart } from '@appTypes/index';
+import { IDecorator, IRenderData } from '@appTypes';
 
 export interface IDatePickerState {
   data: IRenderData;

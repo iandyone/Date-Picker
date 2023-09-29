@@ -1,10 +1,10 @@
-import { getDateData } from '@utils/helpers/getDateData';
-import { FC } from 'react';
+import { getDateData } from '@utils/helpers/date';
+import { FC, memo } from 'react';
 
 import { CurrentYear, OthertMonthDay, Year } from './styled';
 import { IMonthComponentProps } from './types';
 
-export const YearCeil: FC<IMonthComponentProps> = ({ date, handler, isOtherDecadeYear }) => {
+const YearCeilComponent: FC<IMonthComponentProps> = ({ date, handler, isOtherDecadeYear }) => {
   const { year: todayYear } = getDateData(new Date());
   const { year } = date;
   let View;
@@ -24,3 +24,5 @@ export const YearCeil: FC<IMonthComponentProps> = ({ date, handler, isOtherDecad
 
   return <View onClick={handlerOnClick}>{year}</View>;
 };
+
+export const YearCeil = memo(YearCeilComponent);

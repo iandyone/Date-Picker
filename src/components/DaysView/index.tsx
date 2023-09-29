@@ -1,4 +1,4 @@
-import { IDateCellItemDays, IRenderData } from '@appTypes/index';
+import { IDateCellItemDays, IRenderData } from '@appTypes';
 import { FC, memo } from 'react';
 
 import { DayCeil } from './DayCeil';

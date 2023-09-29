@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 
-export const TodoItem = styled.li`
+const size = '20px';
+
+export const TodoCeil = styled.li`
   display: flex;
   justidy-content: space-between;
   column-gap: 10px;
@@ -21,16 +23,16 @@ export const Icon = styled.img.attrs(({ src }) => ({
   src: src,
   alt: 'remove button',
 }))`
-  width: 20px;
-  height: 20px;
-  transition: ${(props) => props.theme.transition};
+  width: ${size};
+  height: ${size};
+  transition: ${({ theme }) => theme.animation.transition};
 
   &:hover {
     cursor: pointer;
   }
 
   &:active {
-    transition: ${(props) => props.theme.transition};
-    transform: ${(props) => props.theme.transformActive};
+    transition: ${({ theme }) => theme.animation.transition};
+    transform: ${({ theme }) => theme.animation.transformActive};
   }
 `;

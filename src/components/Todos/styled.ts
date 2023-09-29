@@ -1,12 +1,17 @@
 import styled from 'styled-components';
 
-export const Wrapper = styled.div``;
+const size = '20px';
+
+export const Wrapper = styled.div`
+  width: 100%;
+  height: 100%;
+`;
 
 export const Title = styled.h2`
-  font-size: ${(props) => props.theme.fontSize};
-  color: ${(props) => props.theme.textColor};
-  transition: ${(props) => props.theme.transition};
-  font-weight: 700;
+  font-size: ${({ theme }) => theme.font.size};
+  color: ${({ theme }) => theme.colors.text};
+  transition: ${({ theme }) => theme.animation.transition};
+  font-weight: ${({ theme }) => theme.font.bold};
   text-align: center;
   margin-bottom: 10px;
 `;
@@ -21,7 +26,7 @@ export const Body = styled.div`
 export const TodoList = styled.ol`
   flex: 1 1 auto;
   overflow-y: auto;
-  font-size: ${(props) => props.theme.fontSize};
+  font-size: ${({ theme }) => theme.font.size};
   max-height: 145px;
   padding-right: 2px;
   margin-right: -4px;
@@ -48,17 +53,17 @@ export const Icon = styled.img.attrs(({ src }) => ({
   src: src,
   alt: 'add todo',
 }))`
-  width: 20px;
-  height: 20px;
-  transition: ${(props) => props.theme.transition};
+  width: ${size};
+  height: ${size};
+  transition: ${({ theme }) => theme.animation.transition};
 
   &:hover {
     cursor: pointer;
   }
 
   &:active {
-    transition: ${(props) => props.theme.transition};
-    transform: ${(props) => props.theme.transformActive};
+    transition: ${({ theme }) => theme.animation.transition};
+    transform: ${({ theme }) => theme.animation.transformActive};
   }
 `;
 
@@ -66,10 +71,10 @@ export const Input = styled.input.attrs({
   placeholder: 'Type a todo...',
   type: 'text',
 })`
-  border-radius: ${(props) => props.theme.borderRadius};
-  border: 1px solid ${(props) => props.theme.borderColor};
-  height: 20px;
+  border-radius: ${({ theme }) => theme.spaces.borderRadius};
+  border: 1px solid ${({ theme }) => theme.colors.border};
+  height: ${size};
   padding: 4px;
   width: 100%;
-  transition: ${(props) => props.theme.transition};
+  transition: ${({ theme }) => theme.animation.transition};
 `;

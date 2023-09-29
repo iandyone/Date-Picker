@@ -1,18 +1,9 @@
-import {
-  CustomTheme,
-  DateCellItem,
-  DateRangeType,
-  IRenderData,
-  Months,
-  ViewType,
-  WeekDays,
-  WeekDaysProps,
-  WeekStart,
-} from '@appTypes/index';
+import { IRenderData, WeekDaysProps } from '@appTypes';
+import { Months, WeekDays } from '@appTypes/enums';
+import { CustomTheme, DateCellItem, DateRangeType, ViewType, WeekStart } from '@appTypes/types';
 import { MAX_DATE, MIN_DATE } from '@constants/variables';
 import { renderDataObserver } from '@observers/renderData';
-import { getDateData } from '@utils/helpers/getDateData';
-import { getDaysAmountInAMonth } from '@utils/helpers/getDaysAmountInAMonth';
+import { getDateData, getDaysAmountInAMonth } from '@utils/helpers/date';
 import { MouseEvent } from 'react';
 
 import { IController } from './types';
@@ -53,13 +44,7 @@ export class Controller implements IController {
     this.switchDateNext = this.switchDateNext.bind(this);
     this.switchDatePrev = this.switchDatePrev.bind(this);
     this.getCalendarDays = this.getCalendarDays.bind(this);
-    this.handlerOnClickTitle = this.handlerOnClickTitle.bind(this);
-    this.handlerOnSubmitDateInput = this.handlerOnSubmitDateInput.bind(this);
     this.handlerOnClickCalendarItem = this.handlerOnClickCalendarItem.bind(this);
-    this.handlerOnContextPrevDate = this.handlerOnContextPrevDate.bind(this);
-    this.handlerOnContextNextDate = this.handlerOnContextNextDate.bind(this);
-    this.handlerOnContextCalendarItem = this.handlerOnContextCalendarItem.bind(this);
-    this.setDateRange = this.setDateRange.bind(this);
     this.clearDateRange = this.clearDateRange.bind(this);
 
     this.getPreviousMonthDays = this.getPreviousMonthDays.bind(this);
@@ -74,6 +59,58 @@ export class Controller implements IController {
     const year = date.getFullYear();
 
     return `${month[0].toUpperCase() + month.slice(1)} ${year}`;
+  };
+
+  handlerOnContextPrevDate = (e: MouseEvent<HTMLElement>) => {
+    e.preventDefault();
+    this.date = new Date(this.minDate);
+    renderDataObserver.notify();
+  };
+
+  handlerOnContextNextDate = (e: MouseEvent<HTMLElement>) => {
+    e.preventDefault();
+    this.date = new Date(this.maxDate);
+    renderDataObserver.notify();
+  };
+
+  handlerOnContextCalendarItem = () => {
+    renderDataObserver.notify();
+  };
+
+  handlerOnClickTitle = () => {
+    if (this.viewType) {
+      const view = this.viewType;
+
+      if (view === 'day') {
+        this.viewType = 'month';
+      } else if (view === 'month' && this.withViewDecorator) {
+        this.viewType = 'year';
+      } else if (view === 'year') {
+        this.viewType = 'decade';
+      }
+
+      renderDataObserver.notify();
+    }
+  };
+
+  getFirstMonthDateWeekDay = () => {
+    const { month, year } = getDateData(this.date);
+    const startWeekCoefficient = this.weekStart === WeekDays.MONDAY ? 0 : 1;
+    const currentMonthFirstDay = new Date(year, month, 1);
+    const dayOfTheWeek = currentMonthFirstDay.getDay();
+
+    return { year, month, dayOfTheWeek, startWeekCoefficient };
+  };
+
+  handlerOnSubmitDateInput = (date: Date) => {
+    this.date = date;
+    this.viewType = 'day';
+    renderDataObserver.notify();
+  };
+
+  setDateRange = (value: Date, type: DateRangeType) => {
+    type === 'start' ? (this.rangeStart = value) : (this.rangeEnd = value);
+    renderDataObserver.notify();
   };
 
   switchDateNext() {
@@ -97,18 +134,6 @@ export class Controller implements IController {
       date.setMonth(date.getMonth() - 1);
     }
 
-    renderDataObserver.notify();
-  }
-
-  handlerOnContextPrevDate(e: MouseEvent<HTMLElement>) {
-    e.preventDefault();
-    this.date = new Date(this.minDate);
-    renderDataObserver.notify();
-  }
-
-  handlerOnContextNextDate(e: MouseEvent<HTMLElement>) {
-    e.preventDefault();
-    this.date = new Date(this.maxDate);
     renderDataObserver.notify();
   }
 
@@ -143,15 +168,6 @@ export class Controller implements IController {
 
     return days;
   }
-
-  getFirstMonthDateWeekDay = () => {
-    const { month, year } = getDateData(this.date);
-    const startWeekCoefficient = this.weekStart === WeekDays.MONDAY ? 0 : 1;
-    const currentMonthFirstDay = new Date(year, month, 1);
-    const dayOfTheWeek = currentMonthFirstDay.getDay();
-
-    return { year, month, dayOfTheWeek, startWeekCoefficient };
-  };
 
   getPreviousMonthDays() {
     const { month, year, dayOfTheWeek, startWeekCoefficient } = this.getFirstMonthDateWeekDay();
@@ -204,12 +220,6 @@ export class Controller implements IController {
     return [...prevMonthDays, ...currentMonthDays, ...nextMonthDays];
   }
 
-  handlerOnSubmitDateInput(date: Date) {
-    this.date = date;
-    this.viewType = 'day';
-    renderDataObserver.notify();
-  }
-
   handlerOnClickCalendarItem(date: Date) {
     const newDateYear = date.getFullYear();
     const isNewDateInCalendarRange =
@@ -231,32 +241,7 @@ export class Controller implements IController {
     }
   }
 
-  handlerOnContextCalendarItem() {
-    renderDataObserver.notify();
-  }
-
-  handlerOnClickTitle() {
-    if (this.viewType) {
-      const view = this.viewType;
-
-      if (view === 'day') {
-        this.viewType = 'month';
-      } else if (view === 'month' && this.withViewDecorator) {
-        this.viewType = 'year';
-      } else if (view === 'year') {
-        this.viewType = 'decade';
-      }
-
-      renderDataObserver.notify();
-    }
-  }
-
   clearDateRange() {
-    renderDataObserver.notify();
-  }
-
-  setDateRange(value: Date, type: DateRangeType) {
-    type === 'start' ? (this.rangeStart = value) : (this.rangeEnd = value);
     renderDataObserver.notify();
   }
 

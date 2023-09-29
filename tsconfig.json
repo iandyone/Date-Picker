@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "strict": true,
     "outDir": "./dist/",
     "noImplicitAny": true,
     "module": "ESNext",
@@ -13,21 +14,25 @@
     "baseUrl": ".",
     "types": ["node", "jest"],
     "declaration": true,
+    "strictNullChecks": false,
     "paths": {
       "@components/*": ["./src/components/*"],
       "@assets/*": ["./src/assets/*"],
       "@constants/*": ["./src/constants/*"],
-      "@styles/*": ["./src/styles/*"],
+      "@styles": ["./src/styles"],
       "@utils/*": ["./src/utils/*"],
       "@hooks/*": ["src/hooks/*"],
       "@store/*": ["./src/store/*"],
       "@reducers/*": ["./src/store/reducers/*"],
       "@pages/*": ["./src/pages/*"],
-      "@appTypes/*": ["./src/types/*"],
+      "@appTypes": ["./src/types"],
       "@observers/*": ["./src/observers/*"],
       "@decorators/*": ["./src/decorators/*"],
       "@services/*": ["./src/services/*"],
-      "@config/*": ["./config/*"]
+      "@config/*": ["./config/*"],
+
+      "@appTypes/*": ["./src/types/*"],
+      "@styles/*": ["./src/styles/*"]
     }
   },
   "ts-node": {

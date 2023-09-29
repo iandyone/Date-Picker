@@ -1,14 +1,14 @@
-import { getDateFromUserInput } from '@utils/helpers/getDateFromUserInput';
-import { ChangeEvent, FC, FormEvent, useRef, useState } from 'react';
+import { getDateFromUserInput } from '@utils/helpers/date';
+import { ChangeEvent, FC, FormEvent, memo, useRef, useState } from 'react';
 
 import { DatePicker, Input } from './styled';
 import { IDateInputProps } from './types';
 
-export const DateInput: FC<IDateInputProps> = ({ handlerOnSubmit, maxDate, minDate }) => {
+const DateInputComponent: FC<IDateInputProps> = ({ handlerOnSubmit, maxDate, minDate }) => {
   const [value, setValue] = useState<string>('');
   const [error, setError] = useState<boolean>(false);
   const inputRef = useRef(null);
-  const placeholder = 'Go to "DD/MM/YYYY"';
+  const placeholder = 'To date DD/MM/YYYY';
 
   function handlerOnSubmitForm(e: FormEvent<HTMLFormElement>) {
     const userDate = validateUserDateString(value);
@@ -16,8 +16,11 @@ export const DateInput: FC<IDateInputProps> = ({ handlerOnSubmit, maxDate, minDa
     if (userDate) {
       setValue('');
       setError(false);
-      inputRef.current.blur();
       handlerOnSubmit(userDate);
+
+      if (inputRef) {
+        inputRef.current!.blur();
+      }
     } else {
       setError(true);
     }
@@ -47,3 +50,5 @@ export const DateInput: FC<IDateInputProps> = ({ handlerOnSubmit, maxDate, minDa
     </DatePicker>
   );
 };
+
+export const DateInput = memo(DateInputComponent);

@@ -1,4 +1,4 @@
-import { DecoratorBaseClass, WeekStart } from '@appTypes/index';
+import { DecoratorBaseClass, WeekStart } from '@appTypes/types';
 
 export function weekstartDecorator(BaseClass: DecoratorBaseClass, weekStart: WeekStart) {
   return class extends BaseClass {

@@ -1,4 +1,4 @@
-import { IRenderDataObserver, subscriber } from '@appTypes/index';
+import { IRenderDataObserver, subscriber } from '@appTypes';
 
 export class Observer implements IRenderDataObserver {
   private static instance: Observer | null = null;

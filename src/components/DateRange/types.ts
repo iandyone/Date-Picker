@@ -1,4 +1,4 @@
-import { handlerRange } from '@appTypes/index';
+import { handlerRange } from '@appTypes/types';
 
 export interface IDateRangeProps {
   handlerRange: handlerRange;

@@ -1,4 +1,4 @@
-import { IDecorator, IRenderData } from '@appTypes/index';
+import { IDecorator, IRenderData } from '@appTypes';
 import ErrorBoundary from '@components/ErrorBoundary';
 import { limitDatestDecorator } from '@decorators/limitDates';
 import { rangeDecorator } from '@decorators/range';
@@ -10,8 +10,7 @@ import { weekstartDecorator } from '@decorators/weekStart';
 import { renderDataObserver } from '@observers/renderData';
 import { Controller } from '@services/Controller';
 import { View } from '@services/View';
-import { FC } from 'react';
-import { Component } from 'react';
+import { Component, memo } from 'react';
 
 import { IDatePickerProps, IDatePickerState } from './types';
 
@@ -105,14 +104,8 @@ class DatePickerComponent extends Component<IDatePickerProps, IDatePickerState> 
     const decorators = { datePicker, view, range, customTheme };
     const datePickerView = this.view.getView(data, decorators);
 
-    return <>{datePickerView}</>;
+    return <ErrorBoundary>{datePickerView}</ErrorBoundary>;
   }
 }
 
-export const DatePicker: FC<IDatePickerProps> = (props) => {
-  return (
-    <ErrorBoundary>
-      <DatePickerComponent {...props} />
-    </ErrorBoundary>
-  );
-};
+export const DatePicker = memo(DatePickerComponent);

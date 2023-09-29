@@ -1,5 +1,7 @@
-import { DateCellItem, DecoratorBaseClass, WeekDays, WeekDaysID, WeekDaysProps } from '@appTypes/index';
-import { getDateData } from '@utils/helpers/getDateData';
+import { WeekDaysProps } from '@appTypes';
+import { WeekDays, WeekDaysID } from '@appTypes/enums';
+import { DateCellItem, DecoratorBaseClass } from '@appTypes/types';
+import { getDateData } from '@utils/helpers/date';
 
 export function weekendDecorator(BaseClass: DecoratorBaseClass) {
   return class extends BaseClass {

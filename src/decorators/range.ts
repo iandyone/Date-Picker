@@ -1,5 +1,5 @@
-import { DecoratorBaseClass } from '@appTypes/index';
-import { getDateData } from '@utils/helpers/getDateData';
+import { DecoratorBaseClass } from '@appTypes/types';
+import { getDateData } from '@utils/helpers/date';
 
 interface IRangeDates {
   rangeStart?: Date;

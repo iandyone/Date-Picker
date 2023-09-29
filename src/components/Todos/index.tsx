@@ -1,28 +1,28 @@
-import { IRenderData, ITodoList } from '@appTypes/index';
+import { IRenderData, ITodoList } from '@appTypes';
 import addTodoIcon from '@assets/check.png';
-import { getDateData } from '@utils/helpers/getDateData';
+import { getDateData } from '@utils/helpers/date';
 import { ChangeEvent, FC, FormEvent, memo, useCallback, useEffect, useMemo, useState } from 'react';
 
 import { Body, ButtonAdd, Field, Icon, Input, Title, TodoList, Wrapper } from './styled';
-import { TodoItemComponent } from './TodoItem';
+import { TodoItem } from './TodoItem';
 
 const TodosComponent: FC<IRenderData> = ({ currentDate, withTodos }) => {
   const [todo, setTodo] = useState('');
   const [todoList, setTodoList] = useState<string[]>([]);
-  const key = useMemo(getTodosKey, [currentDate.getDate()]);
+  const todoKey = useMemo(getTodosKey, [currentDate.getDate()]);
 
-  const handlerOnClickTodo = useCallback(
+  const handlerOnClickRemoveTodo = useCallback(
     (todo: string) => {
       const todos: ITodoList = JSON.parse(localStorage.getItem('todos')) ?? {};
-      const currentTodos = todos[key];
+      const currentTodos = todos[todoKey];
 
       const newTodoList = currentTodos.filter((todoItem) => todoItem !== todo);
-      todos[key] = newTodoList;
+      todos[todoKey] = newTodoList;
 
       localStorage.setItem('todos', JSON.stringify(todos));
       setTodoList(newTodoList);
     },
-    [currentDate.getDate()],
+    [todoKey],
   );
 
   function handlerOnChange(e: ChangeEvent<HTMLInputElement>) {
@@ -37,12 +37,12 @@ const TodosComponent: FC<IRenderData> = ({ currentDate, withTodos }) => {
   function handlerOnSubmit(e: FormEvent<HTMLFormElement>) {
     if (todo) {
       const todos: ITodoList = JSON.parse(localStorage.getItem('todos')) ?? {};
-      const currentTodos = todos[key];
+      const currentTodos = todos[todoKey];
 
-      todos[key] = currentTodos ? [...todos[key], todo] : [todo];
+      todos[todoKey] = currentTodos ? [...todos[todoKey], todo] : [todo];
       localStorage.setItem('todos', JSON.stringify(todos));
 
-      setTodoList(todos[key]);
+      setTodoList(todos[todoKey]);
       setTodo('');
     }
 
@@ -51,7 +51,7 @@ const TodosComponent: FC<IRenderData> = ({ currentDate, withTodos }) => {
 
   useEffect(() => {
     const todos = JSON.parse(localStorage.getItem('todos'));
-    const todosList = todos ? todos[key] : [];
+    const todosList = todos ? todos[todoKey] : [];
 
     setTodoList(todosList);
   }, [currentDate.getDate()]);
@@ -65,10 +65,10 @@ const TodosComponent: FC<IRenderData> = ({ currentDate, withTodos }) => {
             <TodoList data-testid='todo-list'>
               {todoList &&
                 todoList.map((todo, index) => (
-                  <TodoItemComponent
+                  <TodoItem
                     todo={todo}
                     index={index + 1}
-                    handler={handlerOnClickTodo}
+                    handler={handlerOnClickRemoveTodo}
                     key={index + todo}
                   />
                 ))}

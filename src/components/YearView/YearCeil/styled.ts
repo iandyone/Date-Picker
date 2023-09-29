@@ -5,31 +5,31 @@ export const Year = styled.li`
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: ${(props) => props.theme.borderRadius};
-  transition: ${(props) => props.theme.transition};
+  border-radius: ${({ theme }) => theme.spaces.borderRadius};
+  transition: ${({ theme }) => theme.animation.transition};
 
   &:hover {
     cursor: pointer;
-    transition: ${(props) => props.theme.transition};
-    background-color: ${(props) => props.theme.hoverColor};
+    transition: ${({ theme }) => theme.animation.transition};
+    background-color: ${({ theme }) => theme.colors.hover};
   }
 
   &:active {
-    transition: ${(props) => props.theme.transition};
-    transform: ${(props) => props.theme.transformActive};
+    transition: ${({ theme }) => theme.animation.transition};
+    transform: ${({ theme }) => theme.animation.transformActive};
   }
 `;
 
 export const CurrentYear = styled(Year)`
-background: ${(props) => props.theme.activeCollor};
-color: #fff;
+background: ${({ theme }) => theme.colors.active};
+color:  ${({ theme }) => theme.colors.textLight};
 
 &:hover {
   cursor: pointer;
-  transition: ${(props) => props.theme.transition};
-  background-color: ${(props) => props.theme.activeCollor};
+  transition: ${({ theme }) => theme.animation.transition};
+  background-color: ${({ theme }) => theme.colors.active};
 `;
 
 export const OthertMonthDay = styled(Year)`
-  color: ${(props) => props.theme.otherDateColor};
+  color: ${({ theme }) => theme.colors.otherDateColor};
 `;
