@@ -1,0 +1,50 @@
+{
+  "compilerOptions": {
+    "strict": true,
+    "outDir": "./dist/",
+    "noImplicitAny": true,
+    "module": "ESNext",
+    "target": "es6",
+    "jsx": "react-jsx",
+    "allowJs": true,
+    "sourceMap": false,
+    "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "baseUrl": ".",
+    "types": ["node", "jest"],
+    "declaration": true,
+    "strictNullChecks": false,
+    "paths": {
+      "@components/*": ["./src/components/*"],
+      "@assets/*": ["./src/assets/*"],
+      "@constants/*": ["./src/constants/*"],
+      "@styles": ["./src/styles"],
+      "@utils/*": ["./src/utils/*"],
+      "@hooks/*": ["src/hooks/*"],
+      "@store/*": ["./src/store/*"],
+      "@reducers/*": ["./src/store/reducers/*"],
+      "@pages/*": ["./src/pages/*"],
+      "@appTypes": ["./src/types"],
+      "@observers/*": ["./src/observers/*"],
+      "@decorators/*": ["./src/decorators/*"],
+      "@services/*": ["./src/services/*"],
+      "@config/*": ["./config/*"],
+
+      "@appTypes/*": ["./src/types/*"],
+      "@styles/*": ["./src/styles/*"]
+    }
+  },
+  "ts-node": {
+    "compilerOptions": {
+      "module": "CommonJS"
+    }
+  },
+  "include": [
+    "./src/**/*.ts",
+    "./src/**/*.tsx",
+    "./rollup.config.mjs",
+    "./global.d.tsx",
+    "./config/jest/jest-setup.ts"
+  ]
+}

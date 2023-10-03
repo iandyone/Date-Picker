@@ -1,0 +1,6 @@
+node_modules
+dist
+dist/*LICENSE.txt
+yarn-error.log
+.env
+storybook-static

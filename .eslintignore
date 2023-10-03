@@ -1,0 +1,13 @@
+dist
+public
+node_modules
+eslintrc.json
+constants
+types
+config
+webpack.config.ts
+cypress.config.ts
+.prettierignore
+rollup.config.mjs
+global.d.tsx
+**/types.ts
