@@ -8,7 +8,7 @@ import { IMonthComponentProps } from './types';
 const MonthCeilComponent: FC<IMonthComponentProps> = ({ date, handler }) => {
   const { month, year } = date;
   const { month: todayMonth, year: todayYear } = getDateData(new Date());
-  const View = useMemo(
+  const MonthView = useMemo(
     () => (month === todayMonth && year === todayYear ? CurrentMonth : Month),
     [month, todayMonth, year, todayYear],
   );
@@ -20,7 +20,7 @@ const MonthCeilComponent: FC<IMonthComponentProps> = ({ date, handler }) => {
     handler(newDate, 'month');
   }, [year, month]);
 
-  return <View onClick={handlerOnClick}>{monthString}</View>;
+  return <MonthView onClick={handlerOnClick}>{monthString}</MonthView>;
 };
 
 export const MonthCeil = memo(MonthCeilComponent);

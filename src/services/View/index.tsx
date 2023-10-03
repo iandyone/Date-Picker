@@ -9,7 +9,7 @@ import { MonthView } from '@components/MonthView';
 import { Todos } from '@components/Todos';
 import { YearView } from '@components/YearView';
 import { theme } from '@constants/theme';
-import { GlobalStyles, Wrapper } from '@styles/index';
+import { GlobalStyles, Wrapper } from '@styles';
 import { ThemeProvider } from 'styled-components';
 
 import { Body, Calendar, DateButton, Navigation, RangeClearButton, Title } from './styled';

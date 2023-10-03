@@ -1,4 +1,4 @@
-import { getDateData, getDateFromUserInput, getFixedValue } from '@utils/helpers/date';
+import { formatStringDate, getDateData, getDateFromUserInput, getFixedValue } from '@utils/helpers/date';
 import { ChangeEvent, FC, memo, useEffect, useState } from 'react';
 
 import { RangeInput, Wrapper } from './styled';
@@ -24,7 +24,8 @@ const DateRangeComponent: FC<IDateRangeProps> = ({
   }, [rangeEnd, rangeStart]);
 
   function handlerOnChangeRangeStart(e: ChangeEvent<HTMLInputElement>) {
-    const date = e.target.value;
+    const value = e.target.value;
+    const date = value.length < rangeStartDate.length ? value : formatStringDate(value);
     const startRangeDate = getDateFromUserInput(date, minDate, maxDate);
 
     if (date.length <= 10) {
@@ -41,10 +42,11 @@ const DateRangeComponent: FC<IDateRangeProps> = ({
   }
 
   function handlerOnChangeRangeEnd(e: ChangeEvent<HTMLInputElement>) {
-    const date = e.target.value;
+    const value = e.target.value;
+    const date = value.length < rangeEndDate.length ? value : formatStringDate(e.target.value);
     const startRangeDate = getDateFromUserInput(rangeStartDate, minDate, maxDate);
-    const endRangeDate = getDateFromUserInput(date, minDate, maxDate);
 
+    const endRangeDate = getDateFromUserInput(date, minDate, maxDate);
     const isValidValue = endRangeDate > startRangeDate;
 
     if (date.length <= 10) {

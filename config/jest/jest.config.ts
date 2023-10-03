@@ -18,7 +18,6 @@ export default {
     '^@components/(.*)': '<rootDir>src/components/$1',
     '^@assets/(.*)': '<rootDir>src/assets/$1',
     '^@constants/(.*)': '<rootDir>src/constants/$1',
-    '^@styles/(.*)': '<rootDir>src/styles/$1',
     '^@utils/(.*)': '<rootDir>src/utils/$1',
     '^@hooks/(.*)': '<rootDir>src/hooks/$1',
     '^@store/(.*)': '<rootDir>src/store/$1',
@@ -28,6 +27,7 @@ export default {
     '^@services/(.*)': '<rootDir>src/services/$1',
     '^@decorators/(.*)': '<rootDir>src/decorators/$1',
     '^@appTypes/(.*)': '<rootDir>src/types/$1',
+    '^@styles': '<rootDir>src/styles/$1',
     '^@config/(.*)': '<rootDir>config/$1',
   },
 

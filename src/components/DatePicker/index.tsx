@@ -10,11 +10,11 @@ import { weekstartDecorator } from '@decorators/weekStart';
 import { renderDataObserver } from '@observers/renderData';
 import { Controller } from '@services/Controller';
 import { View } from '@services/View';
-import { Component, memo } from 'react';
+import { memo, PureComponent } from 'react';
 
 import { IDatePickerProps, IDatePickerState } from './types';
 
-class DatePickerComponent extends Component<IDatePickerProps, IDatePickerState> {
+class DatePickerComponent extends PureComponent<IDatePickerProps, IDatePickerState> {
   private controller;
   private view;
 

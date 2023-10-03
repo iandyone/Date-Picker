@@ -57,3 +57,19 @@ export function getWeekDays({ format = 'short', start = WeekDays.MONDAY }: WeekD
 
   return days;
 }
+
+export function formatStringDate(date: string) {
+  return date.replace(/[^0-9]/g, '').replace(/(\d{2})(\d{0,2})(\d{0,4})/, (match, p1, p2, p3) => {
+    if (p3) {
+      return `${p1}/${p2}/${p3}`;
+    } else if (p1 && p2 && date.length === 5) {
+      return `${p1}/${p2}/`;
+    } else if (p2) {
+      return `${p1}/${p2}`;
+    } else if (p1.length === 2 && p1 !== '00') {
+      return `${p1}/`;
+    } else {
+      return p1;
+    }
+  });
+}
